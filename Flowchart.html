@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+        <link rel="stylesheet" href="style_files\flowchart_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\flowchart.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">MSIT Flowchart</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <p class="title_size bold">Highlight Courses With:</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key_highlight(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="higlight_course()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <button onclick="reset_highlight();" class="tab_button">Reset Filters</button>
+                <p></p>
+                <a id="print_page_button" href="" target="_blank">
+                    <button class="tab_button">Print Flowchart</button>
+                </a>
+                <p></p>
+                <a href="https://msit.kennesaw.edu/future-students/program-requirements.php" target="_blank">
+                    <button class="excel_button center_text_verticle_horizontal">
+                        MSIT Program Requirements
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="pdf_list">
+                <div class="flex_stack">
+                    <p class="title_size bold special_margin">Master of Science in Information Technology Course Flowchart (2023-2024)</p>
+                    <p>Note: 1) the course in () are the prerequisites; 2) courses without () means no prerequisites</p>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Foundation Courses (if required)</p>
+                        <div id="IT Foundation Courses" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Required Courses</p>
+                        <div id="Required Core Courses" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Program Options</p>
+                        <div class="table_base internal_row_options">
+                            <div id="IT7993">
+
+                            </div>
+                            <p>OR</p>
+                            <div id="IT7999">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_base track_columns full_width pad_table">
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Data Analytics & Intelligent Technology</p>
+                            <div id="Data Analytics and Intelligent Technology" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">IT Security</p>
+                            <div id="Information Technology Security" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Health IT</p>
+                            <div id="Health Information Technology" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Enterprise IT Management</p>
+                            <div id="Enterprise IT Management" class="flex_stack">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Free Electives</p>
+                        <div id="Common Electives" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>

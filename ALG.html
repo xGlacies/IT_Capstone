@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\alg.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+        
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">ALG Information</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <button id="order_by_course" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+                    <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
+                    View By Course
+                </button>
+                <button id="order_by_alg" onclick="group_by('alg');" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                    <img id="alg_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
+                    View By ALG Rounds
+                </button>
+                <p class="title_size bold">Search (Course #, Title, or Faculty):</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                    <label class="center_text_verticle">Prefix:</label>
+                    <select id="prefix_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Prefixes" selected>All Prefixes</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <label class="center_text_verticle">Degree:</label>
+                    <select id="degree_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Degrees" selected>All Degrees</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="MSIT">MSIT</option>
+                    </select>
+                </div>
+                <p></p>
+                <button onclick="reset_filters();" class="tab_button">Reset Filters</button>
+                <p></p>
+                <a href="https://kennesawedu.sharepoint.com/:x:/r/sites/CCSE/IT/_layouts/15/Doc.aspx?sourcedoc=%7B4BD853A9-FE1C-4A15-A600-F64102D68997%7D" target="_blank">
+                    <button class="excel_button side_by_side center_text_verticle_horizontal">
+                        <img class="excel_img" src="resources\excel_icon.png" alt="Excel">
+                        IT ALG Excel Reference
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Floating Sidebar -->
+        <div id="right_sidebar" class="floating_sidebar_right">
+            <div class="background_color background_padding">
+                <p class="list_header_margin">ALG/OER resources:</p>
+                <ul class="zero_margin">
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://www.affordablelearninggeorgia.org/grants/archive/" target="_blank">ALG Grants Database</a>
+                    </li>
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://www.affordablelearninggeorgia.org/about-us/data-dashboard" target="_blank">ALG Impacts Dashboard</a>
+                    </li>
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://alg.manifoldapp.org/" target="_blank">OpenALG (OER Repository)</a>
+                    </li>
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://oer.galileo.usg.edu/all-collections/" target="_blank">ALG Grants Collections (before 2018)</a>
+                    </li>
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://oer.kennesaw.edu/" target="_blank">KSU OER</a>
+                    </li>
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://ccse.kennesaw.edu/it/italg/index.php" target="_blank">CCSE IT ALG</a>
+                    </li>
+                </ul>
+                <p class="list_header_margin">Publication:</p>
+                <ul class="zero_margin">
+                    <li class="tall_list_margin">
+                        <a class="list_link" href="https://www.researchgate.net/publication/338317486_Transformation_at_Scale_A_Departmental_Effort_to_Adopt_and_Develop_IT_Open_Educational_Resources" target="_blank">Zheng, J., Li, Z., Li, L., & Rutherfoord, R. (2020). Transformation at Scale: A Departmental Effort to Adopt and Develop IT Open Educational Resources. In M. Khosrow-Pour D.B.A. (Ed.), Open Educational Resources (OER) Pedagogy and Practices (pp. 42-66). IGI Global.</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="main_list">
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>

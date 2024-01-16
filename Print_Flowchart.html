@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+        <link rel="stylesheet" href="style_files\flowchart_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\flowchart.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="print_pdf_list">
+                <div class="flex_stack">
+                    <button id="print_button" onclick="print_pdf();" class="tab_button">Convert To PDF / Print</button>
+                    <p class="title_size bold special_margin">Master of Science in Information Technology Course Flowchart (2023-2024)</p>
+                    <p>Note: 1) the course in () are the prerequisites; 2) courses without () means no prerequisites</p>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Foundation Courses (if required)</p>
+                        <div id="IT Foundation Courses" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Required Courses</p>
+                        <div id="Required Core Courses" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Program Options</p>
+                        <div class="table_base internal_row_options">
+                            <div id="IT7993">
+
+                            </div>
+                            <p>OR</p>
+                            <div id="IT7999">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_base track_columns full_width pad_table">
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Data Analytics & Intelligent Technology</p>
+                            <div id="Data Analytics and Intelligent Technology" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">IT Security</p>
+                            <div id="Information Technology Security" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Health IT</p>
+                            <div id="Health Information Technology" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Enterprise IT Management</p>
+                            <div id="Enterprise IT Management" class="flex_stack">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Free Electives</p>
+                        <div id="Common Electives" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

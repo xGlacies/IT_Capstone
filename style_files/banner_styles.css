@@ -1,0 +1,94 @@
+.floating_header
+{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    height: 60px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    position: sticky;
+    top: 0px;
+}
+
+.floating_title
+{
+    display: flex;
+    height: 60px;
+    width: 100%;
+    background-color: #eeeeee;
+    position: sticky;
+    border-bottom: solid;
+    border-width: 2px;
+    border-color: #bebebe;
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+    top: 60px;
+}
+
+.floating_footer
+{
+    display: flex;
+    width: 100%;
+    background-color: #eeeeee;
+    position: fixed;
+    border-top: solid;
+    border-width: 2px;
+    border-color: #bebebe;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    bottom: 0px;
+}
+
+.footer_spacer
+{
+    margin: 32px;
+}
+
+.page_image
+{
+    height: 60px;
+}
+
+.page_title
+{
+    color: white;
+    font-size: 2rem;
+    align-self: center;
+    text-align: center;
+    margin: 0px;
+}
+
+.list_pargraph_no_break
+{
+    white-space: nowrap;
+}
+
+.banner_tabs
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+}
+
+.page_button
+{
+    font-size: 0.85rem;
+    font-weight: 700;
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    height: 100%;
+    width: fit-content;
+    padding: 0px 2px;
+    color: white;
+    transition: background-color 0.25s;
+    text-decoration: none;
+    word-break: normal;
+}
+
+.page_button:hover
+{
+    background-color: rgb(70, 70, 70);
+}

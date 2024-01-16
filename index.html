@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\list.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">Course List</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <button id="no_group" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+                    <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
+                    Simple List View
+                </button>
+                <button id="track_group" onclick="group_by('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                    <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
+                    View In Groups
+                </button>
+                <p class="title_size bold">Search:</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                    <label class="center_text_verticle">Prefix:</label>
+                    <select id="prefix_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Prefixes" selected>All Prefixes</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <label class="center_text_verticle">Degree:</label>
+                    <select id="degree_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Degrees" selected>All Degrees</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="MSIT">MSIT</option>
+                    </select>
+                </div>
+                <p></p>
+                <button onclick="reset_filters();" class="tab_button">Reset Filters</button>
+                <p></p>
+                <div class="white_background_box">
+                    <p class="bold inner_list_margin">IT Class Schedule Reference</p>
+                    <div class="course_row table_base">
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202308&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202308</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202401&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202401</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202405&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202405</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202208&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202208</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202301&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202301</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202305&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202305</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202108&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202108</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202201&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202201</a>
+                        <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202205&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="inner_list_margin">202205</a>
+                    </div>
+                    <p class="inner_list_margin">For more, visit</p>
+                    <a href="https://idi.kennesaw.edu/owl/" target="_blank" class="inner_list_margin">OwlExpress Flex</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="main_list">
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>

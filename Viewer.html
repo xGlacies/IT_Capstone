@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Course Viewer
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\viewer.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">Course Profile</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <select id="course_selector" onchange="select_course()" class="course_selector">
+                </select>
+                <div id="tabs_row" class="floating_tabs">
+                    <button id="all_info" onclick="swap_tab('all_info', true);" class="tab_button tab_active">All Information</button>
+                    <button id="essential_info" onclick="swap_tab('essential_info', true);" class="tab_button">Essential Information</button>
+                    <button id="offering_info" onclick="swap_tab('offering_info', true);" class="tab_button">Offering Information</button>
+                    <button id="development_info" onclick="swap_tab('development_info', true);" class="tab_button">Development Information</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Floating Sidebar -->
+        <div id="right_sidebar" class="floating_sidebar_right">
+            <div class="background_color background_padding">
+                <div class="table_base two_row">
+                    <p class="header_row table_data">Symbol</p>
+                    <p class="header_row table_data">Meaning</p>
+                    <p class="data_row table_data">D</p>
+                    <p class="data_row table_data">Offered during the day (8am-5pm)</p>
+                    <p class="data_row table_data">E</p>
+                    <p class="data_row table_data">Offered during the evening (5pm-10pm)</p>
+                    <p class="data_row table_data">O</p>
+                    <p class="data_row table_data">Offered online</p>
+                    <p class="data_row table_data">XY</p>
+                    <p class="data_row table_data">Offered both X and Y. E.g. "EO" means course is offered both evening and online</p>
+                    <p class="data_row table_data">X/Y</p>
+                    <p class="data_row table_data">Offered either X or Y with preference for X</p>
+                    <p class="data_row table_data">+</p>
+                    <p class="data_row table_data">Offered. Mode and time undetermined</p>
+                    <p class="data_row table_data">-</p>
+                    <p class="data_row table_data">Not guaranteed to be offered</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Page -->
+        <div class="center_list">
+            <div id="course_page" class="main_list">
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>

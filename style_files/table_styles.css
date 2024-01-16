@@ -1,0 +1,108 @@
+.table_base
+{
+    display: grid;
+    column-gap: 0px;
+    row-gap: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.table_base.list_element_row
+{
+    column-gap: 5px;
+    grid-template-columns: minmax(115px, 1fr) minmax(0, 9fr);
+}
+
+.table_base.thin_list_element_row
+{
+    grid-template-columns: minmax(80px, 1fr) minmax(0, 9fr);
+}
+
+.table_base.course_row
+{
+    column-gap: 5px;
+    grid-template-columns: minmax(0, max-content) minmax(0, max-content) minmax(0, max-content);
+}
+
+.table_base.wide_list_element_row
+{
+    column-gap: 5px;
+    grid-template-columns: minmax(115px, 1fr) minmax(0, 4fr);
+}
+
+.table_base.double_buttons
+{
+    column-gap: 10px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.two_row
+{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+}
+
+.four_row
+{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+}
+
+.coord_row
+{
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.alg_row
+{
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.six_row
+{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.seven_row
+{
+    grid-template-columns: minmax(0, 4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.eight_row
+{
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 0.75fr) minmax(0, 0.75fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.table_padder_top
+{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.table_padder_bottom
+{
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.table_data
+{
+    padding: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.header_row
+{
+    background-color: #ffc629;
+    border: 1px;
+    border-style: solid;
+    border-color: #cfa121;
+}
+
+.data_row
+{
+    background-color: #ffffff;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(224, 224, 224);
+    display: inline-block;
+}

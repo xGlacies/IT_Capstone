@@ -1,0 +1,154 @@
+.center_list
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.main_list
+{
+    display: flex;
+    flex-direction: column;
+    width: 65vw;
+}
+
+.list_element
+{
+    margin: 1px;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+}
+
+.list_header
+{
+    width: 100%;
+}
+
+.list_header.contained,
+.animate_open_default.contained
+{
+    width: 100%;
+}
+
+.background_color
+{
+    background-color: #eeeeee;
+}
+
+.background_padding
+{
+    padding: 10px;
+    width: 100%;
+}
+
+.animate_open
+{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s;
+    width: 100%;
+}
+
+.animate_open > div
+{
+    overflow: hidden;
+}
+
+.animate_open_default
+{
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.5s;
+    width: 100%;
+}
+
+.animate_open_default > div
+{
+    overflow: hidden;
+}
+
+.tab_button
+{
+    background-color: #ffc629;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: #ffc629;
+    cursor: pointer;
+    height: 60px;
+    width: 100%;
+    padding: 0px 20px;
+    transition: background-color 0.25s;
+}
+
+.tab_button:hover
+{
+    background-color: #ffdc7b;
+}
+
+.tab_button.tab_active
+{
+    background-color: #c07a10;
+}
+
+.order_button
+{
+    background-color: #4e59d0;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: #4e59d0;
+    cursor: pointer;
+    height: 60px;
+    width: 100%;
+    padding: 0px 0px;
+    transition: background-color 0.25s;
+}
+
+.order_button:hover
+{
+    background-color: #6974eb;
+}
+
+.order_button.tab_active
+{
+    background-color: #313ba5;
+}
+
+.excel_button
+{
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: rgb(177, 177, 177);
+    cursor: pointer;
+    height: 60px;
+    width: 100%;
+    padding: 0px 0px;
+    transition: background-color 0.25s;
+}
+
+.excel_button:hover
+{
+    background-color: #99a1ff;
+}
+
+.list_paragraph_spacer
+{
+    padding-left: 10px;
+}
+
+.list_indent
+{
+    margin-left: 40px;
+}
+
+.list_link
+{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: block;
+}

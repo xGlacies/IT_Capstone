@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\curriculum.js" defer></script>
+        <script src="scripts\catalog_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">Curriculum Resources</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <p class="title_size bold">Search:</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key_curr(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="filter_curr_page()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <button onclick="reset_curr_filters();" class="tab_button">Reset Filters</button>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="main_list">
+                <div class="animate_open_default" id="course">
+                    <div class="list_element background_color">
+                        <div id="program_information_header" class="animate_open_default">
+                            <div>
+                                <p class="title_size bold list_header_margin animate_open_default">Program Information:</p>
+                                <ul id="program_information">
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">MSIT Program Requirements: </p>
+                                            <a class="tall_list_margin" href="https://msit.kennesaw.edu/future-students/program-requirements.php" target="_blank">https://msit.kennesaw.edu/future-students/program-requirements.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">BSIT Program Requirements: </p>
+                                            <a class="tall_list_margin" href="https://ccse.kennesaw.edu/it/programs/undergraduate/bsit.php#requirements" target="_blank">https://ccse.kennesaw.edu/it/programs/undergraduate/bsit.php#requirements</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Program Outcomes: </p>
+                                            <a class="tall_list_margin" href="https://ccse.kennesaw.edu/it/accreditation/outcomes-objectives.php" target="_blank">https://ccse.kennesaw.edu/it/accreditation/outcomes-objectives.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Courses (Reference): </p>
+                                            <a class="tall_list_margin" href="https://ccse.kennesaw.edu/it/programs/overview/courses.php" target="_blank">https://ccse.kennesaw.edu/it/programs/overview/courses.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div>
+                                            <p class="tall_list_margin">Catalogs:</p>
+                                            <div id="program_catalogs_table">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="class_schedule_header" class="animate_open_default">
+                            <div>
+                                <p class="title_size bold list_header_margin animate_open_default">Class Schedule:</p>
+                                <ul id="class_schedule">
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">IT Class Schedule Reference: </p>
+                                            <div class="course_row table_base">
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202308&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202308</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202401&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202401</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202405&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202405</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202208&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202208</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202301&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202301</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202305&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202305</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202108&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202108</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202201&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202201</a>
+                                                <a href="https://owlexpress.kennesaw.edu/prodban/bwckschd.p_get_crse_unsec?term_in=202205&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&sel_ptrm=%25&sel_attr=%25&sel_insm=%25&sel_camp=%25&sel_levl=%25&sel_instr=%25&sel_crse=&sel_title=&sel_subj=IT" target="_blank" class="tall_list_margin">202205</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">OwlExpress Flex: </p>
+                                            <a class="tall_list_margin" href="https://idi.kennesaw.edu/owl/" target="_blank">https://idi.kennesaw.edu/owl/</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">OwlExpress Class Schedule: </p>
+                                            <a class="tall_list_margin" href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_dyn_ctlg" target="_blank">https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_dyn_ctlg</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="curriculum_apps_header" class="animate_open_default">
+                            <div>
+                                <p class="title_size bold list_header_margin animate_open_default">KSU Curriculum Related Apps (Faculty Login May Be Needed):</p>
+                                <ul id="curriculum_apps">
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">OwlExpress: </p>
+                                            <a class="tall_list_margin" href="https://owlexpress.kennesaw.edu" target="_blank">https://owlexpress.kennesaw.edu</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">DegreeWorks: </p>
+                                            <a class="tall_list_margin" href="http://degreeworks.kennesaw.edu" target="_blank">http://degreeworks.kennesaw.edu</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Curriculog: </p>
+                                            <a class="tall_list_margin" href="https://kennesaw.curriculog.com/" target="_blank">https://kennesaw.curriculog.com/</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">KSU D2L Brightspace: </p>
+                                            <a class="tall_list_margin" href="https://kennesaw.view.usg.edu" target="_blank">https://kennesaw.view.usg.edu</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="course_resources_header" class="animate_open_default">
+                            <div>
+                                <p class="title_size bold list_header_margin animate_open_default">KSU Curriculum / Course Related Resources:</p>
+                                <ul id="course_resources">
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Catalog: </p>
+                                            <a class="tall_list_margin" href="https://catalog.kennesaw.edu/" target="_blank">https://catalog.kennesaw.edu/</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Curriculum Office: </p>
+                                            <a class="tall_list_margin" href="https://cia.kennesaw.edu/index.php" target="_blank">https://cia.kennesaw.edu/index.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Graduate College: </p>
+                                            <a class="tall_list_margin" href="https://www.kennesaw.edu/graduate/index.php" target="_blank">https://www.kennesaw.edu/graduate/index.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Registrar: </p>
+                                            <a class="tall_list_margin" href="https://www.kennesaw.edu/registrar/index.php " target="_blank">https://www.kennesaw.edu/registrar/index.php </a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Academic Calendar: </p>
+                                            <a class="tall_list_margin" href="https://www.kennesaw.edu/registrar/academic-calendars/index.php" target="_blank">https://www.kennesaw.edu/registrar/academic-calendars/index.php</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Area F Guidelines: </p>
+                                            <a class="tall_list_margin" href="https://www.usg.edu/curriculum/area_f_guidelines" target="_blank">https://www.usg.edu/curriculum/area_f_guidelines</a>
+                                        </div>
+                                    </li>
+                                    <li class="animate_open_default">
+                                        <div class="table_base wide_list_element_row">
+                                            <p class="tall_list_margin">Thesis And Dissertation Policies: </p>
+                                            <a class="tall_list_margin" href="https://www.kennesaw.edu/graduate/current-students/thesis-dissertations.php" target="_blank">https://www.kennesaw.edu/graduate/current-students/thesis-dissertations.php</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>

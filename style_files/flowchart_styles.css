@@ -1,0 +1,89 @@
+.pdf_list
+{
+    display: flex;
+    flex-direction: column;
+    width: 65vw;
+    max-width: 1000px;
+}
+
+.print_pdf_list
+{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 1000px;
+}
+
+.dashed_border
+{
+    border-color: #303030;
+    border-width: 2px;
+    border-style: dashed;
+    margin: 5px;
+}
+
+.dashed_border.contained
+{
+    margin: 0px;
+}
+
+.solid_border
+{
+    border-color: #303030;
+    border-width:2px;
+    border-style: solid;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex_stack
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.special_margin
+{
+    margin-bottom: -16px;
+}
+
+.full_width
+{
+    width: 100%;
+}
+
+.special_header
+{
+    display: flex;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+}
+
+.pad_table
+{
+    margin: 5px;
+    margin-left: 0px;
+}
+
+.table_base.track_columns
+{
+    column-gap: 10px;
+    grid-template-columns: minmax(0, 25%) minmax(0, 25%) minmax(0, 25%) minmax(0, 25%);
+}
+
+.table_base.internal_row
+{
+    grid-template-columns: minmax(0, 25%) minmax(0, 25%) minmax(0, 25%) minmax(0, 25%);
+}
+
+.table_base.internal_row_options
+{
+    grid-template-columns: minmax(0, 45%) minmax(0, 10%) minmax(0, 45%);
+    align-items: center;
+}

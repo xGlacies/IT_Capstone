@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\description.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+        
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">Course Description</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <p class="title_size bold">Search:</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                    <label class="center_text_verticle">Prefix:</label>
+                    <select id="prefix_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Prefixes" selected>All Prefixes</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <label class="center_text_verticle">Degree:</label>
+                    <select id="degree_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Degrees" selected>All Degrees</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="MSIT">MSIT</option>
+                    </select>
+                </div>
+                <p></p>
+                <button onclick="reset_filters();" class="tab_button">Reset Filters</button>
+                <p></p>
+                <a href="https://ccse.kennesaw.edu/it/programs/overview/courses.php" target="_blank">
+                    <button class="excel_button center_text_verticle_horizontal">
+                        Courses (Reference)
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="main_list">
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>
