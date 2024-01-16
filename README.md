@@ -1,3 +1,5 @@
+Undergraduate Senior Project Spring 2024
+
 IT 4983: IT Capstone
 
   Students work in teams to develop or implement a real-world IT solution integrating the knowledge acquired in preceding IT courses. 
