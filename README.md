@@ -11,3 +11,6 @@ Project Name: Owl Express Flex
   Owl Express Flex is a web application to provide flexible search to KSU IT class schedule with custom user interfaces.
   In this project, we will enhance this app with added functionality.
   We will build upon the basic idea and prototype, adding more features, and making the UI user friendly.
+
+
+Deployment Link: https://xglacies.github.io/IT_Capstone/ 
