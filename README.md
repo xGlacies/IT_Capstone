@@ -1,6 +1,6 @@
 Undergraduate Senior Project Spring 2024
 
-IT 4983: IT Capstone
+IT 4983: IT Capstone (Section W01)
 
   Students work in teams to develop or implement a real-world IT solution integrating the knowledge acquired in preceding IT courses. 
   Components that are emphasized include technical design, research, documentation, project management, leadership, team work, and communication skills. 
