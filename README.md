@@ -14,3 +14,6 @@ Project Name: Owl Express Flex
 
 
 Deployment Link: https://xglacies.github.io/IT_Capstone/ 
+
+
+Team Site: https://sites.google.com/view/owlexpressflexproject/home 
