@@ -27,15 +27,16 @@ var alg_sort = false;
 // Store the link extensions to the pages and syllabus repo
 var link_list =
 {
-    Syllabus_Repository: "https://cedricbd009.github.io/Capstone/Syllabus/",
+    Syllabus_Repository: "https://xglacies.github.io/Capstone/Syllabus/",
     Course_List: "./index.html",
     Course_Description: "./Description.html",
     Permanent_Schedule: "./Schedule.html",
     Course_Coordinator: "./Coordinator.html",
     ALG_Information: "./ALG.html",
     Curriculum_Resources: "./Curriculum.html",
-    MSIT_Flowchart: "./Flowchart.html",
-    MSIT_Flowchart_Printable: "./Print_Flowchart.html",
+    BSIT_Flowchart: "./BSIT_Flowchart.html",
+    MSIT_Flowchart: "./MSIT_Flowchart.html",
+    MSIT_Flowchart_Printable: "./Print_MSIT_Flowchart.html",
     Course_Information: "./Viewer.html?course=",
     About_Page: "./About.html"
 };
