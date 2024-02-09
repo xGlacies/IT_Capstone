@@ -10,14 +10,17 @@ function main()
             <a href=\"` + link_list.Course_List + `\" class=\"page_button center_text\">
                 Course<br>List
             </a>
+            <a href=\"` + link_list.Course_Description + `\" class=\"page_button center_text\">
+                Course<br>Description
+            </a>
             <a href=\"` + link_list.BSIT_Flowchart + `\" class=\"page_button center_text\">
                 BSIT<br>Flowchart
             </a>
             <a href=\"` + link_list.MSIT_Flowchart + `\" class=\"page_button center_text\">
                 MSIT<br>Flowchart
             </a>
-            <a href=\"` + link_list.Course_Description + `\" class=\"page_button center_text\">
-                Course<br>Description
+            <a href=\"` + link_list.Flex_Scheduler + `\" class=\"page_button center_text\">
+                Flex<br>Scheduler
             </a>
             <a href=\"` + link_list.Permanent_Schedule + `\" class=\"page_button center_text\">
                 Permanent<br>Schedule
