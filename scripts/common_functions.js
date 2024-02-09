@@ -35,6 +35,7 @@ var link_list =
     ALG_Information: "./ALG.html",
     Curriculum_Resources: "./Curriculum.html",
     BSIT_Flowchart: "./BSIT_Flowchart.html",
+    BSIT_Flowchart_Printable: "./Print_BSIT_Flowchart.html",
     MSIT_Flowchart: "./MSIT_Flowchart.html",
     MSIT_Flowchart_Printable: "./Print_MSIT_Flowchart.html",
     Course_Information: "./Viewer.html?course=",
