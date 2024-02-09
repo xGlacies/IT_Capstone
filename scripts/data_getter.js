@@ -4,7 +4,7 @@ async function main()
     if (sessionStorage.getItem("all_course_data") == null)
     {
         // Send a fetch request to the database courses enpoint to retrieve the course portion of the database
-        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-vbliq/endpoint/courses')
+        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/courses')
             // If the response occured, log that the data was retrieved, otherwise log that there is a server error
             .then(res => {
                 if (res.ok == true)
@@ -34,7 +34,7 @@ async function main()
     if (sessionStorage.getItem("all_grant_data") == null)
     {
         // Send a fetch request to the database grants enpoint to retrieve the grant portion of the database
-        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-vbliq/endpoint/grants')
+        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/grants')
             // If the response occured, log that the data was retrieved, otherwise log that there is a server error
             .then(res => {
                 if (res.ok == true)

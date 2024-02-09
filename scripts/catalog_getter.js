@@ -4,7 +4,7 @@ async function main()
     if (sessionStorage.getItem("all_catalog_data") == null)
     {
         // Send a fetch request to the database catalogs enpoint to retrieve the catalog portion of the database
-        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-vbliq/endpoint/catalogs')
+        await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/catalogs')
             // If the response occured, log that the data was retrieved, otherwise log that there is a server error
             .then(res => {
                 if (res.ok == true)
