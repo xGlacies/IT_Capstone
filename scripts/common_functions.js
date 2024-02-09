@@ -31,6 +31,7 @@ var link_list =
     Course_List: "./index.html",
     Course_Description: "./Description.html",
     Permanent_Schedule: "./Schedule.html",
+    Flex_Scheduler: "./FlexScheduler.html",
     Course_Coordinator: "./Coordinator.html",
     ALG_Information: "./ALG.html",
     Curriculum_Resources: "./Curriculum.html",
