@@ -1,5 +1,5 @@
 // We store the capstone number and thesis number here as they are handled differently
-var program_options = ["IT4893"]
+var program_options = ["IT4983"]
 
 // This function makes the normal version of the page contents that contains hyperlinks on the course names
 function make_pdf()
@@ -8,7 +8,6 @@ function make_pdf()
     var bsit_course_data = all_course_data.filter(function(course) {
         return course.Degree.includes("BSIT");
     });
-    console.log(bsit_course_data);
 
     // For all courses, create a body containing the prefix, number, name, and prerequisites
     for (i = 0; i < bsit_course_data.length; i++)
