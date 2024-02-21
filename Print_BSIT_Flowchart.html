@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+        <link rel="stylesheet" href="style_files\flowchart_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\bsitflowchart.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="print_pdf_list">
+                <div class="flex_stack">
+                    <button id="print_button" onclick="print_pdf();" class="tab_button">Convert To PDF / Print</button>
+                    <p class="title_size bold special_margin">Bachelor of Science in Information Technology Course Flowchart (2023-2024)</p>
+                    <p>Note: 1) the course in () are the prerequisites; 2) courses without () means no prerequisites</p>
+                    <div class="dashed_border full_width">
+                        <p class="bold">General Education Core Curriculum Requirements (Areas A-E) [42 Credit Hours]</p>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Lower Division Major Courses (Area F) [18 Credit Hours]</p>
+                        <div id="Lower Division Major Requirements" class="table_base internal_row">
+
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Upper Division Major Courses [40 Credit Hours]</p>
+                        <div id="Upper Division Major Courses" class="table_base internal_row">
+
+                        </div>
+                        <p><i>*1 Credit hour is carried over from MATH 1190 Calculus 1 – 'C' grade is required*</i></p>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Final Project Course {It is recommended to take this course during your FINAL SEMESTER by itself or with a light course load}</p>
+                        <p><i>*Credit Hours are already included in the Upper Division's Credit Total in the section above*</i></p>
+                        <div class="table_base internal_row">
+                            <div id="IT4983">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table_base track_columns full_width pad_table">
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Enterprise Systems</p>
+                            <div id="Enterprise Systems" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Data Analytics and Technology</p>
+                            <div id="Data Analytics and Technology" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Cyber Operations Security</p>
+                            <div id="Cyber Operations Security" class="flex_stack">
+
+                            </div>
+                        </div>
+                        <div class="dashed_border contained full_width">
+                            <p class="bold special_header">Technology and Innovation</p>
+                            <div id="Technology and Innovation" class="flex_stack">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashed_border full_width">
+                        <p class="bold">Free Electives [5 Credit Hours]</p>
+                        <p><i>*Any course in the university curriculum*</i></p>
+                    </div>             
+            </div>
+        </div>
+    </body>
+</html>

@@ -157,7 +157,7 @@ function load_page()
     {
         set_site_title(" - BIST Flowchart");
 
-        document.getElementById("print_page_button").href = link_list.MSIT_Flowchart_Printable;
+        document.getElementById("print_page_button").href = link_list.BSIT_Flowchart_Printable;
         make_pdf();
     }
     else
