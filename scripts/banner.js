@@ -14,10 +14,7 @@ function main()
                 Course<br>Description
             </a>
             <a href=\"` + link_list.BSIT_Flowchart + `\" class=\"page_button center_text\">
-                BSIT<br>Flowchart
-            </a>
-            <a href=\"` + link_list.MSIT_Flowchart + `\" class=\"page_button center_text\">
-                MSIT<br>Flowchart
+                Program<br>Flowcharts
             </a>
             <a href=\"` + link_list.Flex_Scheduler + `\" class=\"page_button center_text\">
                 Flex<br>Scheduler
