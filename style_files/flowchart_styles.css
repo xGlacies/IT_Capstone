@@ -87,3 +87,9 @@
     grid-template-columns: minmax(0, 45%) minmax(0, 10%) minmax(0, 45%);
     align-items: center;
 }
+
+.table_base.internal_row_project
+{
+    grid-template-columns: minmax(0, 80%) ;
+    align-items: center;
+}
