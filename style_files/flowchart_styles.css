@@ -90,6 +90,6 @@
 
 .table_base.internal_row_project
 {
-    grid-template-columns: minmax(0, 80%) ;
+    grid-template-columns: minmax(0, 100%) ;
     align-items: center;
 }
