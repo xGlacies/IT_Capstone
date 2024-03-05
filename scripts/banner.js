@@ -17,7 +17,7 @@ function main()
                 Program<br>Flowcharts
             </a>
             <a href=\"` + link_list.Flex_Scheduler + `\" class=\"page_button center_text\">
-                Flex<br>Scheduler
+                Course<br>Schedules
             </a>
             <a href=\"` + link_list.Permanent_Schedule + `\" class=\"page_button center_text\">
                 Permanent<br>Schedule
