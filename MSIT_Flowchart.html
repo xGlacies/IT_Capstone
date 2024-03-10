@@ -28,11 +28,11 @@
     </head>
     <body>
         <!-- KSU Banner -->
-        <div id="banner_container" class="floating_header"></div>
-        <div class="floating_title bold">MSIT Flowchart</div>
+        <div id="banner_container" class="floating_header print"></div>
+        <div class="floating_title bold print">MSIT Flowchart</div>
 
         <!-- Left Floating Sidebar -->
-        <div id="left_sidebar" class="floating_sidebar_left">
+        <div id="left_sidebar" class="floating_sidebar_left print">
             <div class="background_color background_padding">
                 <a href="BSIT_Flowchart.html" style="text-decoration: none;">
                     <button class="order_button title_size side_by_side center_text_verticle_horizontal">
@@ -60,7 +60,7 @@
                 <button onclick="reset_highlight();" class="tab_button">Reset Filters</button>
                 <p></p>
                 <a id="print_page_button" href="" target="_blank">
-                    <button class="tab_button">Print Flowchart</button>
+                    <button class="tab_button" onclick="print_page();">Print Flowchart</button>
                 </a>
                 <p></p>
                 <a href="https://msit.kennesaw.edu/future-students/program-requirements.php" target="_blank">
@@ -138,8 +138,8 @@
         </div>
 
         <!-- Footer -->
-        <div class="footer_spacer"></div>
-        <div id="footer_container" class="floating_footer">
+        <div class="footer_spacer print"></div>
+        <div id="footer_container" class="floating_footer print">
 
         </div>
     </body>
