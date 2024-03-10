@@ -16,7 +16,7 @@ function main()
             <a href=\"` + link_list.BSIT_Flowchart + `\" class=\"page_button center_text\">
                 Program<br>Flowcharts
             </a>
-            <a href=\"` + link_list.Flex_Scheduler + `\" class=\"page_button center_text\">
+            <a href=\"` + link_list.Class_Scheduler + `\" class=\"page_button center_text\">
                 Course<br>Schedules
             </a>
             <a href=\"` + link_list.Permanent_Schedule + `\" class=\"page_button center_text\">
