@@ -1,0 +1,12 @@
+.print
+{
+	display: none;
+}
+
+.pdf_list
+{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 1000px;
+}
