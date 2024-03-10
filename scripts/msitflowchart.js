@@ -17,7 +17,7 @@ function make_pdf()
         // If we have a prerequisite, pull and store it so it can be shown
         if (msit_course_data[i].Prerequisite.toLowerCase() != "none")
         {
-            prerequisite_element = "<p class=\"zero_margin\">(" + msit_course_data[i].Prerequisite + ")</p>"
+            prerequisite_element = "<p class=\"zero_margin print\">(" + msit_course_data[i].Prerequisite + ")</p>"
         }
 
         // Create an empty element
