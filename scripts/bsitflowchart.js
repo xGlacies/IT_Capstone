@@ -1,5 +1,6 @@
 // We store the capstone number and thesis number here as they are handled differently
 var program_options = ["IT4983"]
+var print;
 
 // This function makes the normal version of the page contents that contains hyperlinks on the course names
 function make_pdf()
@@ -17,7 +18,7 @@ function make_pdf()
         // If we have a prerequisite, pull and store it so it can be shown
         if (bsit_course_data[i].Prerequisite.toLowerCase() != "none")
         {
-            prerequisite_element = "<p class=\"zero_margin\">(" + bsit_course_data[i].Prerequisite + ")</p>"
+            prerequisite_element = "<p class=\"zero_margin print\">(" + bsit_course_data[i].Prerequisite + ")</p>"
         }
 
         // Create an empty element
@@ -145,6 +146,12 @@ function print_pdf()
     document.getElementById("print_button").style.display = "block";
 }
 
+// This function uses window.print to bring up the print prompt 
+function print_page()
+{
+	//print = true;
+	window.print();
+}
 
 // This only works if this file is loaded before the data_getter file.
 // MAKE SURE that this file is listed ABOVE the data_getter file in the script block.
@@ -157,13 +164,15 @@ function load_page()
     {
         set_site_title(" - BIST Flowchart");
 
-        document.getElementById("print_page_button").href = link_list.BSIT_Flowchart_Printable;
+        //document.getElementById("print_page_button").href = link_list.BSIT_Flowchart_Printable;
         make_pdf();
     }
-    else
+    if (print == true)
     {
         set_site_title(" - BIST Printable Flowchart");
 
         make_printable_pdf();
+		//window.print();
+		//print = false;
     }
 }

@@ -31,23 +31,27 @@ var link_list =
     Course_List: "./index.html",
     Course_Description: "./Description.html",
     Permanent_Schedule: "./Schedule.html",
-    Flex_Scheduler: "./FlexScheduler.html",
+    Class_Scheduler: "./ClassScheduler.html",
     Course_Coordinator: "./Coordinator.html",
     ALG_Information: "./ALG.html",
     Curriculum_Resources: "./Curriculum.html",
     BSIT_Flowchart: "./BSIT_Flowchart.html",
-    BSIT_Flowchart_Printable: "./Print_BSIT_Flowchart.html",
+    //BSIT_Flowchart_Printable: "./Print_BSIT_Flowchart.html",
     MSIT_Flowchart: "./MSIT_Flowchart.html",
-    MSIT_Flowchart_Printable: "./Print_MSIT_Flowchart.html",
+    //MSIT_Flowchart_Printable: "./Print_MSIT_Flowchart.html",
     Course_Information: "./Viewer.html?course=",
     About_Page: "./About.html"
 };
 
-// Store the tracks
-var tracks = 
+// Store the Tracks for MSIT
+var tracksMSIT = 
     ["IT Foundation Courses", "Required Core Courses",
     "Data Analytics and Intelligent Technology", "Enterprise IT Management", "Health Information Technology", "Information Technology Security",
     "Common Electives"];
+
+// Store the Tracks for BIST
+var tracksBSIT = 
+    ["Lower Division Major Requirements", "Upper Division Major Courses", "Enterprise Systems", "Data Analytics and Technology", "Cyber Operations Security", "Technology and Innovation"];
 
 // Store which tracks are certificates
 var tracks_certificates = 
@@ -234,7 +238,7 @@ function group_by(type)
     sort_array_by_id(all_course_data);
 
     // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
-    if (type == "track" && document.getElementById(tracks[0]) == null)
+    if (type == "track" && document.getElementById(tracksMSIT[0]) == null)
     {
         list_body.innerHTML = ""
 
@@ -263,7 +267,7 @@ function group_by(type)
         filter_results();
     }
     // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
-    else if (type == "none" && (document.getElementById(tracks[0]) != null || alg_sort == true))
+    else if (type == "none" && (document.getElementById(tracksMSIT[0]) != null || alg_sort == true))
     {
         list_body.innerHTML = "";
         alg_sort = false;
@@ -284,6 +288,126 @@ function group_by(type)
         }
 
         load_list_element();
+        filter_results();
+    }
+}
+
+function group_by_MSIT(type)
+{
+    // Reset any sorts that we currently have going on    
+    sort_array_by_id(MSIT_course_data);
+
+    // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
+    if (type == "track" && document.getElementById(tracksMSIT[0]) == null)
+    {
+        list_body.innerHTML = ""
+
+        no_group.className = no_group.className.replace(" tab_active", "");
+        track_group_img.className = track_group_img.className.replace(" hidden", "");
+        track_group.className += " tab_active";
+        no_group_img.className += " hidden";
+
+        create_groups();
+        load_list_element_MSIT();
+        filter_results();
+    }
+    // If we are grouping by alg, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
+    else if (type == "alg" && alg_sort == false)
+    {
+        list_body.innerHTML = ""
+        alg_sort = true;
+
+        order_by_course.className = order_by_course.className.replace(" tab_active", "");
+        alg_group_img.className = alg_group_img.className.replace(" hidden", "");
+        order_by_alg.className += " tab_active";
+        no_group_img.className += " hidden";
+
+        create_groups();
+        load_group_list_element();
+        filter_results();
+    }
+    // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
+    else if (type == "none" && (document.getElementById(tracksMSIT[0]) != null || alg_sort == true))
+    {
+        list_body.innerHTML = "";
+        alg_sort = false;
+
+        if (track_group != null)
+        {
+            track_group.className = track_group.className.replace(" tab_active", "");
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            no_group.className += " tab_active";
+            track_group_img.className += " hidden";
+        }
+        else if (order_by_alg != null)
+        {
+            order_by_alg.className = order_by_alg.className.replace(" tab_active", "");
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            order_by_course.className += " tab_active";
+            alg_group_img.className += " hidden";
+        }
+
+        load_list_element_MSIT();
+        filter_results();
+    }
+}
+
+function group_by_BSIT(type)
+{
+    // Reset any sorts that we currently have going on    
+    sort_array_by_id(BSIT_course_data);
+
+    // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
+    if (type == "track" && document.getElementById(tracksBSIT[0]) == null)
+    {
+        list_body.innerHTML = ""
+
+        no_group.className = no_group.className.replace(" tab_active", "");
+        track_group_img.className = track_group_img.className.replace(" hidden", "");
+        track_group.className += " tab_active";
+        no_group_img.className += " hidden";
+
+        create_groups_BSIT();
+        load_list_element_BSIT();
+        filter_results();
+    }
+    // If we are grouping by alg, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
+    else if (type == "alg" && alg_sort == false)
+    {
+        list_body.innerHTML = ""
+        alg_sort = true;
+
+        order_by_course.className = order_by_course.className.replace(" tab_active", "");
+        alg_group_img.className = alg_group_img.className.replace(" hidden", "");
+        order_by_alg.className += " tab_active";
+        no_group_img.className += " hidden";
+
+        create_groups_BSIT();
+        load_group_list_element();
+        filter_results();
+    }
+    // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
+    else if (type == "none" && (document.getElementById(tracksBSIT[0]) != null || alg_sort == true))
+    {
+        list_body.innerHTML = "";
+        alg_sort = false;
+
+        if (track_group != null)
+        {
+            track_group.className = track_group.className.replace(" tab_active", "");
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            no_group.className += " tab_active";
+            track_group_img.className += " hidden";
+        }
+        else if (order_by_alg != null)
+        {
+            order_by_alg.className = order_by_alg.className.replace(" tab_active", "");
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            order_by_course.className += " tab_active";
+            alg_group_img.className += " hidden";
+        }
+
+        load_list_element_BSIT();
         filter_results();
     }
 }
@@ -365,8 +489,8 @@ function filter_results()
         }
     }
 
-    // Check the tracks if they exist
-    if (document.getElementById(tracks[0]) != null)
+    // Check the tracksMSIT if they exist
+    if (document.getElementById(tracksMSIT[0]) != null)
     {
         hide_empty_tracks();
     }
@@ -388,19 +512,19 @@ function filter_by_faculty(name)
 }
 
 
-// This function hides tracks that have no visible courses under them
+// This function hides tracksMSIT that have no visible courses under them
 function hide_empty_tracks()
 {
-    // For all tracks, check if they should be hidden
-    for (i = 0; i < tracks.length; i++)
+    // For all tracksMSIT, check if they should be hidden
+    for (i = 0; i < tracksMSIT.length; i++)
     {
         var hide = true;
         
         // Check if all coruses under the track header are hidden
-        for (j = 0; j < document.getElementById(tracks[i]).children.length; j++)
+        for (j = 0; j < document.getElementById(tracksMSIT[i]).children.length; j++)
         {
             // If one is shown, show the track header
-            if (document.getElementById(tracks[i]).children[j].style.gridTemplateRows == "1fr")
+            if (document.getElementById(tracksMSIT[i]).children[j].style.gridTemplateRows == "1fr")
             {
                 hide = false;
             }
@@ -409,15 +533,15 @@ function hide_empty_tracks()
         // Hide the track header if it should be hidden
         if (hide == true)
         {
-            document.getElementById(tracks[i] + " top").style.gridTemplateRows = "0fr";
+            document.getElementById(tracksMSIT[i] + " top").style.gridTemplateRows = "0fr";
         }
         else
         {
-            document.getElementById(tracks[i] + " top").style.gridTemplateRows = "1fr";
+            document.getElementById(tracksMSIT[i] + " top").style.gridTemplateRows = "1fr";
         }
     }
 
-    // Check if all certificate tracks are hidden. If they are, hide the certificate header
+    // Check if all certificate tracksMSIT are hidden. If they are, hide the certificate header
     for (i = 0; i < tracks_certificates.length; i++)
     {
         var hide = true;
