@@ -10,11 +10,12 @@ function load_list_element()
                 <div class=\"table_base seven_row\">
                     <p class=\"header_row table_data\">Course</p>
                     <p class=\"header_row table_data\">Fall Odd</p>
-                    <p class=\"header_row table_data\">Summer Odd</p>
                     <p class=\"header_row table_data\">Spring Odd</p>
+                    <p class=\"header_row table_data\">Summer Odd</p>
                     <p class=\"header_row table_data\">Fall Even</p>
-                    <p class=\"header_row table_data\">Summer Even</p>
                     <p class=\"header_row table_data\">Spring Even</p>
+                    <p class=\"header_row table_data\">Summer Even</p>
+                    
                 </div>
             </div>
         </div>`;
@@ -37,11 +38,11 @@ function load_list_element()
                 <div class=\"table_base seven_row\">
                     <a class=\"data_row table_data\" href=\"` + link_list.Course_Information + all_course_data[i].Prefix + all_course_data[i].Course_Number + `\" onclick=\"store_course(` + i + `);\">` + all_course_data[i].Prefix + ` ` + all_course_data[i].Course_Number +  `: ` + all_course_data[i].Course_Name + `</a>
                     <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Fall_Odd + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Odd + `</p>
                     <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Spring_Odd + `</p>
+                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Odd + `</p>
                     <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Fall_Even + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Even + `</p>
                     <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Spring_Even + `</p>
+                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Even + `</p>           
                 </div>
             </div>
         </div>`;
