@@ -129,7 +129,7 @@ function load_list_element_BIST()
 }
 
 // This function creates the track headers when we want to view the coruses by tracksMSIT
-function create_groups()
+function create_groups_MIST()
 {
     // For all of the tracksMSIT that we have, create a header for courses to appear under
     for (i = 0; i < tracksMSIT.length; i++)

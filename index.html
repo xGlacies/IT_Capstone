@@ -32,6 +32,19 @@
         <!-- Left Floating Sidebar -->
         <div id="left_sidebar" class="floating_sidebar_left">
             <div class="background_color background_padding">
+
+                <p></p>
+                <button onclick="group_by('none');" class="tab_button">All Courses</button>
+                <p></p>
+                <p></p>
+                <button onclick="group_by_BSIT('track');" class="tab_button">BIST</button>
+                <p></p>
+                <p></p>
+                <button onclick="group_by_MSIT('track');" class="tab_button">MSIT</button>
+                <p></p>
+
+
+
                 <button id="no_group" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
                     <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
                     Simple List View
@@ -43,7 +56,10 @@
                 <button id="track_group" onclick="group_by_BSIT('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
                     <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
                     BSIT Groups
-                </button>                
+                </button>      
+                
+                
+
                 <p class="title_size bold">Search:</p>
                 <div class="filter_table table_base">
                     <label class="center_text_verticle">Keywords:</label>
