@@ -247,7 +247,7 @@ function group_by(type)
         track_group.className += " tab_active";
         no_group_img.className += " hidden";
 
-        create_groups_MIST();
+        create_groups();
         load_list_element();
         filter_results();
     }
@@ -262,7 +262,7 @@ function group_by(type)
         order_by_alg.className += " tab_active";
         no_group_img.className += " hidden";
 
-        create_groups_MIST();
+        create_groups();
         load_group_list_element();
         filter_results();
     }
@@ -307,7 +307,7 @@ function group_by_MSIT(type)
         track_group.className += " tab_active";
         no_group_img.className += " hidden";
 
-        create_groups_MIST();
+        create_groups();
         load_list_element_MSIT();
         filter_results();
     }
@@ -322,7 +322,7 @@ function group_by_MSIT(type)
         order_by_alg.className += " tab_active";
         no_group_img.className += " hidden";
 
-        create_groups_MIST();
+        create_groups();
         load_group_list_element();
         filter_results();
     }

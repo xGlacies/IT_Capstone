@@ -102,6 +102,8 @@ function generate_latest_round(i)
     // If we have a latest round, format the round infomration, else return None
     if (all_course_data[i].Latest_ALG_Round != "None")
     {
+
+        
         // Split the round information into round and grant
         var round = all_course_data[i].Latest_ALG_Round.split("-")[0].replace("R", "");
         var grant = all_course_data[i].Latest_ALG_Round.split("-")[1];
@@ -175,40 +177,43 @@ function load_group_list_element()
 }
 
 
-// This function pushes a the grant information into the grant headers for one round
-function push_grant_information(grant, html_obj)
-{
-    // If there is a grant, we push the element to the proper grant header
-    if (grant != "None")
-    {
-        // If the round is a combination of round and grant, we append the object to the specific grant header, else we append it to a general header under the round
-        if (grant.includes("-"))
-        {
-            document.getElementById(grant).appendChild(html_obj.cloneNode(true));
-        }
-        else
-        {
-            // If the general grant header already exits, append the element to it, else we create the general header and append the element to it
-            if (document.getElementById(grant + "no_grant_specified") != null)
-            {
-                document.getElementById(grant + "no_grant_specified").appendChild(html_obj.cloneNode(true));
+function push_grant_information(grant, html_obj) {
+    if (grant != "None") {
+        if (grant.includes("-")) {
+            var element = document.getElementById(grant);
+            if (element) {
+                element.appendChild(html_obj.cloneNode(true));
+            } else {
+                //console.error("Element with ID '" + grant + "' not found.");
             }
-            else
-            {
-                empty_grant = document.createElement('div');
+        } else {
+            var no_grant_specified_element = document.getElementById(grant + "no_grant_specified");
+            if (no_grant_specified_element) {
+                no_grant_specified_element.appendChild(html_obj.cloneNode(true));
+            } else {
+                var empty_grant = document.createElement('div');
                 empty_grant.classList.add("animate_open_default");
-                
                 empty_grant.innerHTML = `
-                <div>
-                    <p id=\"` + grant + `no_grant_specified\" class=\"bold\">Grant # Not Specified:</p>
-                </div>`;
-
-                document.getElementById(grant + "_grant_list").appendChild(empty_grant);
-                document.getElementById(grant + "no_grant_specified").appendChild(html_obj.cloneNode(true));
+                    <div>
+                        <p id=\"${grant}no_grant_specified\" class=\"bold\">Grant # Not Specified:</p>
+                    </div>`;
+                var grant_list_element = document.getElementById(grant + "_grant_list");
+                if (grant_list_element) {
+                    grant_list_element.appendChild(empty_grant);
+                    var no_grant_specified_element = document.getElementById(grant + "no_grant_specified");
+                    if (no_grant_specified_element) {
+                        no_grant_specified_element.appendChild(html_obj.cloneNode(true));
+                    } else {
+                        console.error("Element with ID '" + grant + "no_grant_specified' not found after creation.");
+                    }
+                } else {
+                    console.error("Element with ID '" + grant + "_grant_list' not found.");
+                }
             }
         }
     }
 }
+
 
 
 // This function pushes a the grant information into the grant headers for an array of rounds
