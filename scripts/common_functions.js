@@ -19,6 +19,10 @@ var coord_group_img = document.getElementById("coord_group_img");
 var program_catalogs_table = document.getElementById("program_catalogs_table");
 var sort_course_arrow = document.getElementById("sort_course_arrow");
 var sort_round_arrow = document.getElementById("sort_round_arrow");
+//front page buttons
+var bsitButton = document.getElementById("BSITButton");
+var msitButton = document.getElementById("MSITButton");
+var allButton = document.getElementById("AllButton");
 
 // Store the site title
 var site_title = "KSU IT Curriculum Portal";
@@ -292,125 +296,59 @@ function group_by(type)
     }
 }
 
-function group_by_MSIT(type)
-{
+function group_by_flex(type, course_data, tracks) {
     // Reset any sorts that we currently have going on    
-    sort_array_by_id(MSIT_course_data);
+    sort_array_by_id(course_data);
+
+    // Determine the appropriate tracks array based on the course_data provided
+    var trackIds;
+    if (course_data === MSIT_course_data) {
+        trackIds = tracksMSIT;
+    } else if (course_data === BSIT_course_data) {
+        trackIds = tracksBSIT;
+    } else {
+        course_data = all_course_data;
+        trackIds = [];
+    }
 
     // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
-    if (type == "track" && document.getElementById(tracksMSIT[0]) == null)
-    {
+    if (type == "track" && document.getElementById(trackIds[0]) == null) {
         list_body.innerHTML = ""
 
-        no_group.className = no_group.className.replace(" tab_active", "");
-        track_group_img.className = track_group_img.className.replace(" hidden", "");
-        track_group.className += " tab_active";
-        no_group_img.className += " hidden";
 
-        create_groups_MIST();
-        load_list_element_MSIT();
+        if (course_data === MSIT_course_data) {
+            create_groups_MIST();
+            load_list_element_MSIT();
+            bsitButton.innerHTML = "BSIT";
+            msitButton.innerHTML = "*MSIT";
+            allButton.innerHTML = "All Courses"
+        } else if (course_data === BSIT_course_data) {
+            create_groups_BSIT();
+            load_list_element_BSIT();
+            bsitButton.innerHTML = "*BSIT";
+            msitButton.innerHTML = "MSIT";
+            allButton.innerHTML = "All Courses";
+        } else {
+            create_groups();
+            load_list_element();
+        }
         filter_results();
     }
-    // If we are grouping by alg, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
-    else if (type == "alg" && alg_sort == false)
-    {
-        list_body.innerHTML = ""
-        alg_sort = true;
 
-        order_by_course.className = order_by_course.className.replace(" tab_active", "");
-        alg_group_img.className = alg_group_img.className.replace(" hidden", "");
-        order_by_alg.className += " tab_active";
-        no_group_img.className += " hidden";
-
-        create_groups();
-        load_group_list_element();
-        filter_results();
-    }
     // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
-    else if (type == "none" && (document.getElementById(tracksMSIT[0]) != null || alg_sort == true))
-    {
+    else if (type == "none") {
         list_body.innerHTML = "";
         alg_sort = false;
 
-        if (track_group != null)
-        {
-            track_group.className = track_group.className.replace(" tab_active", "");
-            no_group_img.className = no_group_img.className.replace(" hidden", "");
-            no_group.className += " tab_active";
-            track_group_img.className += " hidden";
-        }
-        else if (order_by_alg != null)
-        {
-            order_by_alg.className = order_by_alg.className.replace(" tab_active", "");
-            no_group_img.className = no_group_img.className.replace(" hidden", "");
-            order_by_course.className += " tab_active";
-            alg_group_img.className += " hidden";
-        }
+        bsitButton.innerHTML = "BSIT";
+        msitButton.innerHTML = "MSIT";
+        allButton.innerHTML = "*All Courses";
 
-        load_list_element_MSIT();
+        load_list_element();
         filter_results();
     }
 }
 
-function group_by_BSIT(type)
-{
-    // Reset any sorts that we currently have going on    
-    sort_array_by_id(BSIT_course_data);
-
-    // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
-    if (type == "track" && document.getElementById(tracksBSIT[0]) == null)
-    {
-        list_body.innerHTML = ""
-
-        no_group.className = no_group.className.replace(" tab_active", "");
-        track_group_img.className = track_group_img.className.replace(" hidden", "");
-        track_group.className += " tab_active";
-        no_group_img.className += " hidden";
-
-        create_groups_BSIT();
-        load_list_element_BSIT();
-        filter_results();
-    }
-    // If we are grouping by alg, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
-    else if (type == "alg" && alg_sort == false)
-    {
-        list_body.innerHTML = ""
-        alg_sort = true;
-
-        order_by_course.className = order_by_course.className.replace(" tab_active", "");
-        alg_group_img.className = alg_group_img.className.replace(" hidden", "");
-        order_by_alg.className += " tab_active";
-        no_group_img.className += " hidden";
-
-        create_groups_BSIT();
-        load_group_list_element();
-        filter_results();
-    }
-    // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
-    else if (type == "none" && (document.getElementById(tracksBSIT[0]) != null || alg_sort == true))
-    {
-        list_body.innerHTML = "";
-        alg_sort = false;
-
-        if (track_group != null)
-        {
-            track_group.className = track_group.className.replace(" tab_active", "");
-            no_group_img.className = no_group_img.className.replace(" hidden", "");
-            no_group.className += " tab_active";
-            track_group_img.className += " hidden";
-        }
-        else if (order_by_alg != null)
-        {
-            order_by_alg.className = order_by_alg.className.replace(" tab_active", "");
-            no_group_img.className = no_group_img.className.replace(" hidden", "");
-            order_by_course.className += " tab_active";
-            alg_group_img.className += " hidden";
-        }
-
-        load_list_element_BSIT();
-        filter_results();
-    }
-}
 
 
 // This function is used to quickly reset all filters when the user decides to
