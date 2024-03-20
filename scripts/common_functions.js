@@ -375,6 +375,9 @@ function group_by_flex(type, course_data) {
         no_group_img.className = "checkbox_img";
         track_group_img.className = "checkbox_img hidden";
 
+        track_group.setAttribute("onclick", "group_by_flex('track', all_course_data);");
+        no_group.setAttribute("onclick", "group_by_flex('none', all_course_data);");
+
 
         if (course_data === MSIT_course_data) {
             load_list_element_MSIT();
