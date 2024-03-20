@@ -20,6 +20,7 @@
         <script src="scripts\banner.js" defer></script>
         <script src="scripts\course_schedules.js" defer></script> <!-- We need to change this script to display the web page flex scheduler -->
         <script src="scripts\data_getter.js" defer></script>
+        <script src="scripts\history_getter.js" defer></script>
 
         <!-- Fav Icon -->
         <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
@@ -29,20 +30,20 @@
         <div id="banner_container" class="floating_header"></div>
         <div class="floating_title bold">Course Schedules</div>
 
-        <!-- Left Floating Sidebar -->
-        <div id="left_sidebar" class="floating_sidebar_left">
-            <div class="background_color background_padding">
-                <button id="no_group" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
-                    <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
-                    Simple List View
-                </button>
-                <button id="track_group" onclick="group_by_MSIT('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
-                    <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-                    MSIT Groups
-                </button>
-                <button id="track_group" onclick="group_by_BSIT('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
-                    <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-                    BSIT Groups
+<!-- Left Floating Sidebar -->
+<div id="left_sidebar" class="floating_sidebar_left">
+    <div class="background_color background_padding">
+        <button id="no_group" onclick="simpleListView();" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+            <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
+            Simple List View
+        </button>
+        <button id="track_group" onclick="group_by_MSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
+            <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
+            MSIT Groups
+        </button>
+        <button id="track_group" onclick="group_by_BSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
+            <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
+            BSIT Groups
                 </button>                
 				<p class="title_size bold">Search:</p>
                 <div class="filter_table table_base">
@@ -75,7 +76,7 @@
                     </select>
                 </div>
 				<p></p>
-                <button onclick="reset_filters();" class="tab_button">Reset Filters</button>
+                <button onclick="resetFilters();" class="tab_button">Reset Filters</button>
                 <p></p>
                 <div class="white_background_box">
                     <p class="inner_list_margin">For the example page provided by Dr. Jack Zheng, click here:</p>
