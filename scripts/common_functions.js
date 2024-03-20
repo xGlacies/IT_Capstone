@@ -24,6 +24,7 @@ var bsitButton = document.getElementById("BSITButton");
 var msitButton = document.getElementById("MSITButton");
 var allButton = document.getElementById("AllButton");
 
+
 // Store the site title
 var site_title = "KSU IT Curriculum Portal";
 var alg_sort = false;
@@ -296,7 +297,7 @@ function group_by(type)
     }
 }
 
-function group_by_flex(type, course_data, tracks) {
+function group_by_flex(type, course_data) {
     // Reset any sorts that we currently have going on    
     sort_array_by_id(course_data);
 
@@ -322,12 +323,38 @@ function group_by_flex(type, course_data, tracks) {
             bsitButton.innerHTML = "BSIT";
             msitButton.innerHTML = "*MSIT";
             allButton.innerHTML = "All Courses"
+
+            no_group.className = no_group.className.replace(" tab_active", "");
+            track_group_img.className = track_group_img.className.replace(" hidden", "");
+            track_group.className += " tab_active";
+            no_group_img.className += " hidden";
+
+
         } else if (course_data === BSIT_course_data) {
             create_groups_BSIT();
             load_list_element_BSIT();
             bsitButton.innerHTML = "*BSIT";
             msitButton.innerHTML = "MSIT";
             allButton.innerHTML = "All Courses";
+
+            no_group.className = no_group.className.replace(" tab_active", "");
+            track_group_img.className = track_group_img.className.replace(" hidden", "");
+            track_group.className += " tab_active";
+            no_group_img.className += " hidden";
+        } 
+        else if (course_data === all_course_data) {
+
+            create_groups_All();
+            load_list_element();
+            bsitButton.innerHTML = "BSIT";
+            msitButton.innerHTML = "MSIT";
+            allButton.innerHTML = "*All Courses";
+
+            no_group.className = no_group.className.replace(" tab_active", "");
+            track_group_img.className = track_group_img.className.replace(" hidden", "");
+            track_group.className += " tab_active";
+            no_group_img.className += " hidden";
+
         } else {
             create_groups();
             load_list_element();
@@ -344,8 +371,40 @@ function group_by_flex(type, course_data, tracks) {
         msitButton.innerHTML = "MSIT";
         allButton.innerHTML = "*All Courses";
 
-        load_list_element();
-        filter_results();
+        
+        no_group_img.className = "checkbox_img";
+        track_group_img.className = "checkbox_img hidden";
+
+
+        if (course_data === MSIT_course_data) {
+            load_list_element_MSIT();
+            bsitButton.innerHTML = "BSIT";
+            msitButton.innerHTML = "*MSIT";
+            allButton.innerHTML = "All Courses"
+            
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            track_group_img.className = "checkbox_img hidden";
+
+            track_group.setAttribute("onclick", "group_by_flex('track', MSIT_course_data);");
+            no_group.setAttribute("onclick", "group_by_flex('none', MSIT_course_data);");
+            
+
+        } else if (course_data === BSIT_course_data) {
+            load_list_element_BSIT();
+            bsitButton.innerHTML = "*BSIT";
+            msitButton.innerHTML = "MSIT";
+            allButton.innerHTML = "All Courses";
+
+            no_group_img.className = no_group_img.className.replace(" hidden", "");
+            track_group_img.className = "checkbox_img hidden";
+
+            track_group.setAttribute("onclick", "group_by_flex('track', BSIT_course_data);");
+            no_group.setAttribute("onclick", "group_by_flex('none', BSIT_course_data);");
+       
+            
+        } else {
+            load_list_element();
+        }
     }
 }
 
