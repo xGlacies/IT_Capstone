@@ -222,35 +222,35 @@ function push_array_grant_information(grants, html_obj)
     // If there is a grant, we push the element to the proper grant header
     if (grants != undefined)
     {
-        // For each grant, we check to see where it should go
+           // For each grant, we check to see where it should go
         for (j = 0; j < grants.length; j++)
         {
             // If the round is a combination of round and grant, we append the object to the specific grant header, else we append it to a general header under the round
-            if (grants[j].Round.includes("-"))
-            {
-                document.getElementById(grants[j].Round).appendChild(html_obj.cloneNode(true));
-            }
-            else
-            {
-                // If the general grant header already exits, append the element to it, else we create the general header and append the element to it
-                if (document.getElementById(grants[j].Round + "no_grant_specified") != null)
-                {
-                    document.getElementById(grants[j].Round + "no_grant_specified").appendChild(html_obj.cloneNode(true));
-                }
-                else
-                {
-                    empty_grant = document.createElement('div');
-                    empty_grant.classList.add("animate_open_default");
-                    
-                    empty_grant.innerHTML = `
-                    <div>
-                        <p id=\"` + grants[j].Round + `no_grant_specified\" class=\"bold\">Grant # Not Specified:</p>
-                    </div>`;
-
-                    document.getElementById(grants[j].Round + "_grant_list").appendChild(empty_grant);
-                    document.getElementById(grants[j].Round + "no_grant_specified").appendChild(html_obj.cloneNode(true));
+            try {
+                if(grants[j].Round != undefined){
+                if (grants[j].Round.includes("-")) {
+                    document.getElementById(grants[j].Round).appendChild(html_obj.cloneNode(true));
+                } else {
+                    if (document.getElementById(grants[j].Round + "no_grant_specified") != null) {
+                        document.getElementById(grants[j].Round + "no_grant_specified").appendChild(html_obj.cloneNode(true));
+                    } else {
+                        empty_grant = document.createElement('div');
+                        empty_grant.classList.add("animate_open_default");
+                        
+                        empty_grant.innerHTML = `
+                            <div>
+                                <p id=\"` + grants[j].Round + `no_grant_specified\" class=\"bold\">Grant # Not Specified:</p>
+                            </div>`;
+                            
+                        document.getElementById(grants[j].Round + "_grant_list").appendChild(empty_grant);
+                        document.getElementById(grants[j].Round + "no_grant_specified").appendChild(html_obj.cloneNode(true));
+                    }
                 }
             }
+            } catch (error) {
+                console.error("An error occurred while processing grants:", error);
+            }
+            
         }
     }
 }
