@@ -34,32 +34,23 @@
             <div class="background_color background_padding">
 
                 <p></p>
-                <button id="AllButton" onclick="group_by_flex('none', all_course_data, tracksMSIT);" class="tab_button">*All Courses</button>
+                <button id="AllButton" onclick="group_by_flex('none', all_course_data);" class="tab_button">*All Courses</button>
+                <button id="BSITButton" onclick="group_by_flex('none', BSIT_course_data);" class="tab_button">BIST</button>
+                <button id="MSITButton" onclick="group_by_flex('none', MSIT_course_data,);" class="tab_button">MSIT</button>
                 <p></p>
-                <p></p>
-                <button id="BSITButton" onclick="group_by_flex('track', BSIT_course_data, tracksBSIT);" class="tab_button">BIST</button>
-                <p></p>
-                <p></p>
-                <button id="MSITButton" onclick="group_by_flex('track', MSIT_course_data, tracksMSIT);" class="tab_button">MSIT</button>
-                <p></p>
-                
 
-                <!-- Working on makeing a way to sort list and group views -->
 
-                <!-- <button id="no_group" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+
+                <button id="no_group" onclick="group_by_flex('none', all_course_data);" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
                     <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
-                    Simple List View
+                    List View
                 </button>
-                <button id="track_group" onclick="group_by_MSIT('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                <button id="track_group" onclick="group_by_flex('track', all_course_data);" class="order_button title_size side_by_side center_text_verticle_horizontal">
                     <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-                    MSIT Groups
+                    View Groups
                 </button>
-                <button id="track_group" onclick="group_by_BSIT('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
-                    <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-                    BSIT Groups
-                </button>       -->
-                
-                
+
+
 
                 <p class="title_size bold">Search:</p>
                 <div class="filter_table table_base">
