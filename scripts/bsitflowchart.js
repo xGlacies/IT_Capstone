@@ -30,7 +30,7 @@ function make_pdf()
         // Populate the element with the prefix, course number, name, and prerequisite
         html_obj.innerHTML = `
         <div class=\"solid_border flex_stack\">
-            <a href=\"` + link_list.Course_Information + bsit_course_data[i].Prefix + bsit_course_data[i].Course_Number + `\" onclick=\"store_course(` + i + `);\">` + bsit_course_data[i].Prefix + ` ` + bsit_course_data[i].Course_Number + `: ` + bsit_course_data[i].Course_Name + `</a>
+            <a class=\"bsit\" href=\"` + link_list.Course_Information + bsit_course_data[i].Prefix + bsit_course_data[i].Course_Number + `\" onclick=\"store_course(` + i + `);\">` + bsit_course_data[i].Prefix + ` ` + bsit_course_data[i].Course_Number + `: ` + bsit_course_data[i].Course_Name + `</a>
             ` + prerequisite_element + `
         </div>`;
 
