@@ -80,7 +80,7 @@ function renderCourses(courses) {
         htmlObj.classList.add("course-item", "animate_open_default");
         htmlObj.innerHTML = `
             <div class="list_element"> 
-                <a class="title_size space_before" href="${course.Syllabus_Link}" target="_blank">${course.Prefix} ${course.Course_Number}: ${course.Course_Name}</a>
+                <a class="title_size space_before" href="${course.OwlExpress_Link}" target="_blank">${course.Prefix} ${course.Course_Number}: ${course.Course_Name}</a>
                 <p>Faculty: ${course.Coordinator_Name} / ${course.Co_Coordinator_Name}</p>
                 <p>Degree: ${course.Degree}</p>
                 <p>Track: ${course.Track}</p>
