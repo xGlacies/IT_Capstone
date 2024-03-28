@@ -35,7 +35,7 @@ var link_list =
     Syllabus_Repository: "https://xglacies.github.io/Capstone/Syllabus/",
     Course_List: "./index.html",
     Course_Description: "./Description.html",
-    Permanent_Schedule: "./Schedule.html",
+    Permanent_Schedule: "./Schedule_BSIT.html",
     Class_Scheduler: "./ClassScheduler.html",
     Course_Coordinator: "./Coordinator.html",
     ALG_Information: "./ALG.html",
@@ -237,11 +237,12 @@ function order_by(order_style)
 
 
 // This function is used to control the logic for putting the page contents into groups
-function group_by(type)
+function group_by(type, course_level)
 {
     // Reset any sorts that we currently have going on    
     sort_array_by_id(all_course_data);
-
+    console.log(type);
+    console.log(course_level);
     // If we are grouping by track, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
     if (type == "track" && document.getElementById(tracksMSIT[0]) == null)
     {
@@ -252,8 +253,15 @@ function group_by(type)
         track_group.className += " tab_active";
         no_group_img.className += " hidden";
 
-        create_groups();
-        load_list_element();
+        if(course_level == "MSIT_course_data"){
+            create_groups(tracksMSIT);
+            load_list_element(MSIT_course_data);
+        }
+        if(course_level == "BSIT_course_data"){
+            create_groups(tracksBSIT);
+            load_list_element(BSIT_course_data);
+        }
+
         filter_results();
     }
     // If we are grouping by alg, clear the list, highlight the proper buttons, and run the appropriate groups function before recreating the list
@@ -274,6 +282,7 @@ function group_by(type)
     // If we are not grouping the content, clear the list and highlight the proper buttons before recreating the list
     else if (type == "none" && (document.getElementById(tracksMSIT[0]) != null || alg_sort == true))
     {
+        console.log("Here");
         list_body.innerHTML = "";
         alg_sort = false;
 
@@ -295,6 +304,31 @@ function group_by(type)
         load_list_element();
         filter_results();
     }
+        // Grouping for Permanent Schdule
+        else if (type == "none")
+        {
+            console.log("Here");
+            list_body.innerHTML = "";
+            alg_sort = false;
+    
+            if (track_group != null)
+            {
+                track_group.className = track_group.className.replace(" tab_active", "");
+                no_group_img.className = no_group_img.className.replace(" hidden", "");
+                no_group.className += " tab_active";
+                track_group_img.className += " hidden";
+            }
+            else if (order_by_alg != null)
+            {
+                order_by_alg.className = order_by_alg.className.replace(" tab_active", "");
+                no_group_img.className = no_group_img.className.replace(" hidden", "");
+                order_by_course.className += " tab_active";
+                alg_group_img.className += " hidden";
+            }
+    
+            load_list_element();
+            filter_results();
+        }
 }
 
 function group_by_flex(type, course_data) {

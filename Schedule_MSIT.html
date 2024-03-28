@@ -18,7 +18,7 @@
         <!-- Scripts -->
         <script src="scripts\common_functions.js" defer></script>
         <script src="scripts\banner.js" defer></script>
-        <script src="scripts\schedule.js" defer></script>
+        <script src="scripts\schedule_msit.js" defer></script>
         <script src="scripts\data_getter.js" defer></script>
         
         <!-- Fav Icon -->
@@ -27,16 +27,19 @@
     <body>
         <!-- KSU Banner -->
         <div id="banner_container" class="floating_header"></div>
-        <div class="floating_title bold">Permanent Schedule</div>
+        <div class="floating_title bold">MSIT - Permanent Schedule</div>
 
         <!-- Left Floating Sidebar -->
         <div id="left_sidebar" class="floating_sidebar_left">
             <div class="background_color background_padding">
-                <button id="no_group" onclick="group_by('none');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+                <a href="Schedule_BSIT.html"><button class="tab_button">BSIT</button></a>
+                <a href="Schedule_MSIT.html"><button class="tab_button">MSIT</button></a>
+                <p></p>
+                <button id="no_group" onclick="group_by('none', 'MSIT_course_data');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
                     <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
                     Simple List View
                 </button>
-                <button id="track_group" onclick="group_by('track');" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                <button id="track_group" onclick="group_by('track', 'MSIT_course_data');" class="order_button title_size side_by_side center_text_verticle_horizontal">
                     <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
                     View In Groups
                 </button>

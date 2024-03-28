@@ -1,8 +1,11 @@
 // This function creates the main list for the page
-function load_list_element()
+function load_list_element(course_level)
 {
+    if(course_level == null){
+        course_level = MSIT_course_data;
+    }
     // If we are not showing the contents by track, create a singular table header
-    if (document.getElementById(all_course_data[0].Track) == null)
+    if (document.getElementById(course_level[0].Track) == null)
     {    
         list_body.innerHTML = `
         <div id=\"schedule_header\" class=\"list_header contained\">
@@ -22,7 +25,7 @@ function load_list_element()
     }
 
     // For all courses in the course list, create a new table row showing all of the schedule information and append it to the list
-    for (i = 0; i < all_course_data.length; i++)
+    for (i = 0; i < course_level.length; i++)
     {
         // Create an empty element
         var html_obj = document.createElement('div');
@@ -36,21 +39,21 @@ function load_list_element()
         <div>
             <div id=\"schedule` + i + `\">
                 <div class=\"table_base seven_row\">
-                    <a class=\"data_row table_data\" href=\"` + link_list.Course_Information + all_course_data[i].Prefix + all_course_data[i].Course_Number + `\" onclick=\"store_course(` + i + `);\">` + all_course_data[i].Prefix + ` ` + all_course_data[i].Course_Number +  `: ` + all_course_data[i].Course_Name + `</a>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Fall_Odd + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Spring_Odd + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Odd + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Fall_Even + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Spring_Even + `</p>
-                    <p class=\"data_row table_data\">` + all_course_data[i].Course_Schedule.Summer_Even + `</p>           
+                    <a class=\"data_row table_data\" href=\"` + link_list.Course_Information + course_level[i].Prefix + course_level[i].Course_Number + `\" onclick=\"store_course(` + i + `);\">` + course_level[i].Prefix + ` ` + course_level[i].Course_Number +  `: ` + course_level[i].Course_Name + `</a>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Fall_Odd + `</p>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Spring_Odd + `</p>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Summer_Odd + `</p>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Fall_Even + `</p>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Spring_Even + `</p>
+                    <p class=\"data_row table_data\">` + course_level[i].Course_Schedule.Summer_Even + `</p>           
                 </div>
             </div>
         </div>`;
 
         // If we are showing by track, append the row to the proper track table, else append it to the main list body
-        if (document.getElementById(all_course_data[0].Track) != null)
+        if (document.getElementById(course_level[0].Track) != null)
         {    
-            document.getElementById(all_course_data[i].Track).appendChild(html_obj);
+            document.getElementById(course_level[i].Track).appendChild(html_obj);
         }
         else
         {
@@ -61,7 +64,7 @@ function load_list_element()
 
 
 // This function will create the track headers when we are viewing the content by track
-function create_groups()
+function create_groups(tracks)
 {
     // For all tracks, create a track element and append it to the main list body
     for (i = 0; i < tracks.length; i++)
@@ -143,7 +146,7 @@ function load_page()
 {
     set_site_title(" - Permanent Schedule");
 
-    sort_array_by_id(all_course_data);
+    sort_array_by_id(MSIT_course_data);
 
     load_list_element();
 }

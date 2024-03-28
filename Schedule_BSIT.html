@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Coursefinder Webapp
+        </title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style_files\general_styles.css">
+        <link rel="stylesheet" href="style_files\banner_styles.css">
+        <link rel="stylesheet" href="style_files\body_styles.css">
+        <link rel="stylesheet" href="style_files\searchbar_styles.css">
+        <link rel="stylesheet" href="style_files\table_styles.css">
+
+        <!-- Scripts -->
+        <script src="scripts\common_functions.js" defer></script>
+        <script src="scripts\banner.js" defer></script>
+        <script src="scripts\schedule_bsit.js" defer></script>
+        <script src="scripts\data_getter.js" defer></script>
+        
+        <!-- Fav Icon -->
+        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- KSU Banner -->
+        <div id="banner_container" class="floating_header"></div>
+        <div class="floating_title bold">BSIT - Permanent Schedule</div>
+
+        <!-- Left Floating Sidebar -->
+        <div id="left_sidebar" class="floating_sidebar_left">
+            <div class="background_color background_padding">
+                <a href="Schedule_BSIT.html"><button class="tab_button">BSIT</button></a>
+                <a href="Schedule_MSIT.html"><button class="tab_button">MSIT</button></a>
+                <p></p>
+                <button id="no_group" onclick="group_by('none', 'BSIT_course_data');" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
+                    <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
+                    Simple List View
+                </button>
+                <button id="track_group" onclick="group_by('track', 'BSIT_course_data');" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                    <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
+                    View In Groups
+                </button>
+                <p class="title_size bold">Search:</p>
+                <div class="filter_table table_base">
+                    <label class="center_text_verticle">Keywords:</label>
+                    <div class="side_by_side">
+                        <input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                        <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+                            <div class="picture_button_bg"></div>
+                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                        </div>
+                    </div>
+                    <label class="center_text_verticle">Prefix:</label>
+                    <select id="prefix_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Prefixes" selected>All Prefixes</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    <label class="center_text_verticle">Degree:</label>
+                    <select id="degree_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Degrees" selected>All Degrees</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="MSIT">MSIT</option>
+                    </select>
+                    <label class="center_text_verticle">Offered:</label>
+                    <select id="offered_selector" onchange="filter_results()" class="searchbar_height">
+                        <option value="All Semesters" selected>All Semesters</option>
+                        <option value="Fall_Odd">Fall Odd</option>
+                        <option value="Summer_Odd">Summer Odd</option>
+                        <option value="Spring_Odd">Spring Odd</option>
+                        <option value="Fall_Even">Fall Even</option>
+                        <option value="Summer_Even">Summer Even</option>
+                        <option value="Spring_Even">Spring Even</option>
+                    </select>
+                </div>
+                <p></p>
+                <button onclick="reset_filters();" class="tab_button">Reset Filters</button>
+                <p></p>
+                <a href="https://ccse.kennesaw.edu/advising/resources/permanent-schedules/" target="_blank">
+                    <button class="excel_button center_text_verticle_horizontal">
+                        CCSE permanent schedules
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Floating Sidebar -->
+        <div id="right_sidebar" class="floating_sidebar_right">
+            <div class="background_color background_padding">
+                <div class="table_base two_row">
+                    <p class="header_row table_data">Symbol</p>
+                    <p class="header_row table_data">Meaning</p>
+                    <p class="data_row table_data">D</p>
+                    <p class="data_row table_data">Offered during the day (8am-5pm)</p>
+                    <p class="data_row table_data">E</p>
+                    <p class="data_row table_data">Offered during the evening (5pm-10pm)</p>
+                    <p class="data_row table_data">O</p>
+                    <p class="data_row table_data">Offered online</p>
+                    <p class="data_row table_data">XY</p>
+                    <p class="data_row table_data">Offered both X and Y. E.g. "EO" means course is offered both evening and online</p>
+                    <p class="data_row table_data">X/Y</p>
+                    <p class="data_row table_data">Offered either X or Y with preference for X</p>
+                    <p class="data_row table_data">+</p>
+                    <p class="data_row table_data">Offered. Mode and time undetermined</p>
+                    <p class="data_row table_data">-</p>
+                    <p class="data_row table_data">Not guaranteed to be offered</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main List -->
+        <div class="center_list">
+            <div id="list_body" class="main_list">
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+
+        </div>
+    </body>
+</html>
