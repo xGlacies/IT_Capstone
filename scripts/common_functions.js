@@ -32,7 +32,7 @@ var alg_sort = false;
 // Store the link extensions to the pages and syllabus repo
 var link_list =
 {
-    Syllabus_Repository: "https://xglacies.github.io/Capstone/Syllabus/",
+    Syllabus_Repository: "https://xglacies.github.io/IT_Capstone/Syllabus/",
     Course_List: "./index.html",
     Course_Description: "./Description.html",
     Permanent_Schedule: "./Schedule_BSIT.html",
