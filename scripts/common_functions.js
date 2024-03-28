@@ -318,7 +318,7 @@ function group_by_flex(type, course_data) {
 
 
         if (course_data === MSIT_course_data) {
-            create_groups_MIST();
+            create_groups_MSIT();
             load_list_element_MSIT();
             bsitButton.innerHTML = "BSIT";
             msitButton.innerHTML = "*MSIT";
