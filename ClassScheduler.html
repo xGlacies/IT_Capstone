@@ -1,50 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-            Coursefinder Webapp
-        </title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coursefinder Webapp</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style_files/general_styles.css">
+    <link rel="stylesheet" href="style_files/banner_styles.css">
+    <link rel="stylesheet" href="style_files/body_styles.css">
+    <link rel="stylesheet" href="style_files/searchbar_styles.css">
+    <link rel="stylesheet" href="style_files/table_styles.css">
+    <link rel="stylesheet" href="style_files/course_table_styles.css">
+    <!-- Scripts -->
+    <script src="scripts/common_functions.js" defer></script>
+    <script src="scripts/banner.js" defer></script>
+    <script src="scripts/course_schedules.js" defer></script>
+    <script src="scripts/data_getter.js" defer></script>
+    <script src="scripts/history_getter.js" defer></script>
+    <!-- Fav Icon -->
+    <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- KSU Banner -->
+    <div id="banner_container" class="floating_header"></div>
+    <div class="floating_title bold">Course Schedules</div>
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="style_files\general_styles.css">
-        <link rel="stylesheet" href="style_files\banner_styles.css">
-        <link rel="stylesheet" href="style_files\body_styles.css">
-        <link rel="stylesheet" href="style_files\searchbar_styles.css">
-        <link rel="stylesheet" href="style_files\table_styles.css">
-
-        <!-- Scripts -->
-        <script src="scripts\common_functions.js" defer></script>
-        <script src="scripts\banner.js" defer></script>
-        <script src="scripts\course_schedules.js" defer></script> <!-- We need to change this script to display the web page flex scheduler -->
-        <script src="scripts\data_getter.js" defer></script>
-        <script src="scripts\history_getter.js" defer></script>
-
-        <!-- Fav Icon -->
-        <link rel="icon" href="resources\favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <!-- KSU Banner -->
-        <div id="banner_container" class="floating_header"></div>
-        <div class="floating_title bold">Course Schedules</div>
-
-<!-- Left Floating Sidebar -->
-<div id="left_sidebar" class="floating_sidebar_left">
-    <div class="background_color background_padding">
-        <button id="no_group" onclick="simpleListView();" class="order_button title_size side_by_side center_text_verticle_horizontal tab_active">
-            <img id="no_group_img" class="checkbox_img" src="resources\checkbox.png" alt="*">
-            Simple List View
-        </button>
-        <button id="track_group" onclick="group_by_MSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
-            <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-            MSIT Groups
-        </button>
-        <button id="track_group" onclick="group_by_BSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
-            <img id="track_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="*">
-            BSIT Groups
-                </button>                
+    <!-- Left Floating Sidebar -->
+    <div id="left_sidebar" class="floating_sidebar_left">
+        <div class="background_color background_padding">
+            <!-- Simple List View Button -->
+            <button id="simple_list_btn" onclick="simpleListView();" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                <img id="simple_list_img" class="checkbox_img" src="resources\checkbox.png" alt="Simple List View">
+                Simple List View
+            </button>
+            <!-- MSIT Groups Button -->
+            <button id="msit_group_btn" onclick="group_by_MSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                <img id="msit_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="MSIT Groups">
+                MSIT Groups
+            </button>
+            <!-- BSIT Groups Button -->
+            <button id="bsit_group_btn" onclick="group_by_BSIT();" class="order_button title_size side_by_side center_text_verticle_horizontal">
+                <img id="bsit_group_img" class="checkbox_img hidden" src="resources\checkbox.png" alt="BSIT Groups">
+                BSIT Groups
+            </button>              
 				<p class="title_size bold">Search:</p>
                 <div class="filter_table table_base">
                     <label class="center_text_verticle">Keywords:</label>
@@ -59,6 +58,18 @@
                     <select id="semester_selector" onchange="filter_results()" class="searchbar_height">
                         <option value="All Semesters" selected>All Semesters</option>
                         <option value="Spring 2024">Spring 2024</option>
+                        <option value="Summer 2024">Summer 2024</option>
+                        <option value="Fall 2024">Fall 2024</option>
+                        <option value="Spring 2023">Spring 2023</option>
+                        <option value="Summer 2023">Summer 2023</option>
+                        <option value="Fall 2023">Fall 2023</option>
+                        <option value="Spring 2022">Spring 2022</option>
+                        <option value="Summer 2022">Summer 2022</option>
+                        <option value="Fall 2022">Fall 2022</option>
+                        <option value="Spring 2021">Spring 2021</option>
+                        <option value="Summer 2021">Summer 2021</option>
+                        <option value="Fall 2021">Fall 2021</option>
+                        
                     </select>
                     <label class="center_text_verticle">Subject:</label>
                     <select id="subject_selector" onchange="filter_results()" class="searchbar_height">
@@ -79,23 +90,36 @@
                 <button onclick="resetFilters();" class="tab_button">Reset Filters</button>
                 <p></p>
                 <div class="white_background_box">
-                    <p class="inner_list_margin">For the example page provided by Dr. Jack Zheng, click here:</p>
                     <a href="owlExpressFlex.html" target="_blank" class="inner_list_margin">OwlExpress Flex</a>
                 </div>
             </div>
         </div>
 
-        <!-- Main List -->
-        <div class="center_list">
-            <div id="list_body" class="main_list">
-                
+            <!-- Main List -->
+    <div class="center_list">
+        <div id="list_body" class="main_list">
+            <!-- Table Header -->
+            <div id="table_header" class="list_header contained">
+                <div class="table_base header_row">
+                    <p class="header_row table_data">Prefix</p>
+                    <p class="header_row table_data">Course</p>
+                    <p class="header_row table_data">Degree</p>
+                    <p class="header_row table_data">Track</p>
+                    <p class="header_row table_data">Semester</p>
+                    <p class="header_row table_data">Year</p>
+                    <p class="header_row table_data">Section #</p>
+                    <p class="header_row table_data">Enrollment</p>
+                </div>
+            </div>
+            <!-- Table Body -->
+            <div id="table_body" class="list_element">
             </div>
         </div>
+    </div>
 
-        <!-- Footer -->
+    <!-- Footer -->
         <div class="footer_spacer"></div>
         <div id="footer_container" class="floating_footer">
-
         </div>
     </body>
 </html>
