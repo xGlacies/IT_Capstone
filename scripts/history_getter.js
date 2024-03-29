@@ -1,5 +1,5 @@
 async function fetchCourseHistoryData() {
-    const url = 'https://us-east-2.aws.data.mongodb-api.com/app/data-qcuav/endpoint/GetCourseHistory';
+    const url = 'https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/coursehistory';
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();

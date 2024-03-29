@@ -430,7 +430,7 @@ function load_page_element()
                 <div id=\"syllabus_link\" class=\"hide_overflow\">
                     <div class=\"table_base list_element_row\">
                         <p class=\"bold\">Syllabus Link: </p>
-                        <a class=\"list_link\" href=\"` + course.Syllabus_Link + `-Syllabus.pdf\" target=\"_blank\">` + course.Prefix + course.Course_Number + `-Syllabus.pdf</a>
+                        <a class=\"list_link\" href=\"` + link_list.Syllabus_Repository + course.Prefix + course.Course_Number + `-Syllabus.pdf\" target=\"_blank\">` + course.Prefix + course.Course_Number + `-Syllabus.pdf</a>
                     </div>
                 </div>
                 <div id=\"catalog_link\" class=\"hide_overflow\">
