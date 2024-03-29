@@ -1,30 +1,19 @@
-// Ensures that the page is fully loaded before executing the load_page function
-document.addEventListener('DOMContentLoaded', function() {
-    load_page();
-});
-
-// Fetches course data from the server and populates it into sessionStorage
 async function fetchCourseData() {
     if (!sessionStorage.getItem("all_course_data")) {
         const response = await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/courses');
         if (response.ok) {
             let courseData = await response.json();
-            // Fetch course history data
             const historyData = await fetchCourseHistoryData();
-            // Combine course data with course history
             courseData.forEach(course => {
-                // Find matching course history entry
                 const historyEntry = historyData.find(entry => {
                     return entry.PREFIX === course.Prefix && entry.NUMBER === course.Course_Number && entry.SECTION === course.Section;
                 });
-                // Merge history data into course object
                 if (historyEntry) {
-                    course.SEMESTER = historyEntry.SEMESTER;
+                    course.SEMESTER = historyEntry.SEMESTER; 
                     course.YEAR = historyEntry.YEAR;
                     course.Enrollment = historyEntry.Enrollment;
                 }
             });
-            // Store combined data in sessionStorage
             sessionStorage.setItem("all_course_data", JSON.stringify(courseData));
         } else {
             console.error("Failed to fetch course data: Server responded with status", response.status);
@@ -33,175 +22,186 @@ async function fetchCourseData() {
     window.all_course_data = JSON.parse(sessionStorage.getItem("all_course_data") || "[]");
 }
 
-// Fetches course history data from the server
-async function fetchCourseHistoryData() {
-    const url = 'https://us-east-2.aws.data.mongodb-api.com/app/data-qcuav/endpoint/GetCourseHistory';
-    const response = await fetch(url);
-    if (response.ok) {
-        return response.json();
-    } else {
-        console.error("Failed to fetch course history data: Server responded with status", response.status);
-        return [];
-    }
-}
-
-
-// Loads the list of courses based on selected filters such as semester, subject, instructor, and search query
 async function load_list_element() {
-    await fetchCourseData(); // Ensures course data is ready from sessionStorage
-
-    // Extracts selected filters from the webpage
+    await fetchCourseData();
     const selectedSemester = document.getElementById('semester_selector').value;
     const selectedSubject = document.getElementById('subject_selector').value;
     const selectedInstructor = document.getElementById('faculty_selector').value;
     const searchQuery = document.getElementById('search_bar').value.trim().toLowerCase();
-
-    // Filters the courses based on the selected filters
     let filteredCourses = all_course_data.filter(course => {
-        const semesterMatch = selectedSemester === 'All Semesters' || course.SEMESTER.toLowerCase().includes(selectedSemester.toLowerCase());
+        const offeredTerms = course.Offering_History ? Object.keys(course.Offering_History) : [];
+        const [selectedSem, selectedYear] = selectedSemester.split(' ');
+        const semesterMatch = selectedSemester === 'All Semesters' || offeredTerms.some(term => {
+            const [offeredSemester, offeredYear] = term.split('_');
+            if (selectedYear) {
+                return offeredSemester.toLowerCase() === selectedSem.toLowerCase() && offeredYear === selectedYear;
+            } else {
+                return offeredSemester.toLowerCase() === selectedSem.toLowerCase();
+            }
+        });
         const subjectMatch = selectedSubject === 'All Subjects' || course.Prefix.toLowerCase() === selectedSubject.toLowerCase();
         const instructorMatch = selectedInstructor === 'All Faculty' || course.Coordinator_Name.toLowerCase().includes(selectedInstructor.toLowerCase()) || course.Co_Coordinator_Name.toLowerCase().includes(selectedInstructor.toLowerCase());
-        const keywordMatch = !searchQuery || course.Course_Name.toLowerCase().includes(searchQuery) || course.Description.toLowerCase().includes(searchQuery);
-
+        const keywordMatch = !searchQuery || (
+            course.Prefix.toLowerCase().includes(searchQuery) ||
+            course.Course_Number.toString().toLowerCase().includes(searchQuery) ||
+            course.Degree.toLowerCase().includes(searchQuery) ||
+            course.Track.toLowerCase().includes(searchQuery) ||
+            course.Coordinator_Name.toLowerCase().includes(searchQuery) ||
+            course.Co_Coordinator_Name.toLowerCase().includes(searchQuery) ||
+            (course.Description && course.Description.toLowerCase().includes(searchQuery)) ||
+            offeredTerms.join(' ').toLowerCase().includes(searchQuery) ||
+            (course.Section && course.Section.toString().toLowerCase().includes(searchQuery)) ||
+            (course.Enrollment && course.Enrollment.toString().toLowerCase().includes(searchQuery))
+        );
         return semesterMatch && subjectMatch && instructorMatch && keywordMatch;
     });
-
-    // Renders the filtered courses onto the webpage
     renderCourses(filteredCourses);
 }
 
-// Renders the list of courses onto the webpage based on the provided course data
 function renderCourses(courses) {
     const listBody = document.getElementById('list_body');
-    listBody.innerHTML = ''; // Clear current list
-
+    listBody.innerHTML = '';
+    const tableHeader = document.createElement('div');
+    tableHeader.className = 'table_header header_row';
+    tableHeader.innerHTML = `
+        <p class="table_data">Prefix</p>
+        <p class="table_data">Course</p>
+        <p class="table_data">Degree</p>
+        <p class="table_data">Track</p>
+        <p class="table_data">Coordinator</p>
+        <p class="table_data">Co-Coordinator</p>
+        <p class="table_data">Semesters Offered</p> 
+        <p class="table_data">Years Offered</p>
+        <p class="table_data">Section #</p>
+        <p class="table_data">Enrollment</p>
+    `;
+    const tableContainer = document.createElement('div');
+    tableContainer.className = 'table_container';
+    tableContainer.appendChild(tableHeader);
     courses.forEach(course => {
-        const htmlObj = document.createElement('div');
-        htmlObj.classList.add("course-item", "animate_open_default");
-        htmlObj.innerHTML = `
-            <div class="list_element"> 
-                <a class="title_size space_before" href="${course.OwlExpress_Link}" target="_blank">${course.Prefix} ${course.Course_Number}: ${course.Course_Name}</a>
-                <p>Faculty: ${course.Coordinator_Name} / ${course.Co_Coordinator_Name}</p>
-                <p>Degree: ${course.Degree}</p>
-                <p>Track: ${course.Track}</p>
-                <p>Semester: ${course.SEMESTER}</p>
-                <p>Year: ${course.YEAR}</p>
-                <p>Section #: ${course.Section}</p>
-                <p>Number of Students: ${course.Enrollment}</p>
-            </div>`;
-        listBody.appendChild(htmlObj);
+        let semestersOffered = [];
+        let yearsOffered = new Set();
+        for (let term in course.Offering_History) {
+            let [semester, year] = term.split('_');
+            semestersOffered.push(semester);
+            yearsOffered.add(year);
+        }
+        semestersOffered = Array.from(new Set(semestersOffered)).sort().join(', ');
+        yearsOffered = Array.from(yearsOffered).sort((a, b) => b - a).join(', ');
+        const tableRow = document.createElement('div');
+        tableRow.className = 'table_row';
+        tableRow.innerHTML = `
+            <p class="table_data">${course.Prefix}</p>
+            <p class="table_data">${course.Course_Number}</p>
+            <p class="table_data">${course.Degree}</p>
+            <p class="table_data">${course.Track}</p>
+            <p class="table_data">${course.Coordinator_Name || 'N/A'}</p>
+            <p class="table_data">${course.Co_Coordinator_Name || 'N/A'}</p>
+            <p class="table_data">${semestersOffered}</p>
+            <p class="table_data">${yearsOffered}</p>
+            <p class="table_data">${course.Section || 'N/A'}</p>
+            <p class="table_data">${course.Enrollment || 'N/A'}</p>
+        `;
+        tableContainer.appendChild(tableRow);
     });
+    listBody.appendChild(tableContainer); 
 }
 
-// Filters the list of courses based on the selected degree (BSIT or MSIT)
 function filterByDegree(degree) {
-    const filteredCourses = window.all_course_data.filter(course => {
-        return course.Degree === degree;
-    });
-
-    // Renders the filtered courses onto the webpage
+    const filteredCourses = window.all_course_data.filter(course => course.Degree === degree);
     renderCourses(filteredCourses);
+    updateButtonVisualState(degree === 'BSIT' ? 'bsit' : 'msit');
 }
 
-// Function for Simple List View
 function simpleListView() {
-    // Update checkmark images
-    document.getElementById('no_group_img').classList.remove('hidden');
-    document.getElementById('track_group_img').classList.add('hidden');
-
-    // Renders all courses onto the webpage
     renderCourses(window.all_course_data);
+    updateButtonVisualState('simple_list_btn');
 }
 
-// Function to group courses by MSIT
+function updateButtonVisualState(activeButtonId) {
+    const buttonsInfo = {
+        'simple_list_btn': 'simple_list_img',
+        'msit_group_btn': 'msit_group_img',
+        'bsit_group_btn': 'bsit_group_img'
+    };
+    Object.entries(buttonsInfo).forEach(([buttonId, imgId]) => {
+        const imgElement = document.getElementById(imgId);
+        if (buttonId === activeButtonId) {
+            imgElement.classList.remove('hidden');
+        } else {
+            imgElement.classList.add('hidden');
+        }
+    });
+}
+
 function group_by_MSIT() {
-    // Update checkmark images
-    document.getElementById('no_group_img').classList.add('hidden');
-    document.getElementById('track_group_img').classList.remove('hidden');
-
-    const filteredCourses = window.all_course_data.filter(course => {
-        return course.Degree === 'MSIT';
-    });
-
-    // Renders the filtered MSIT courses onto the webpage 
-    renderCourses(filteredCourses);
+    filterByDegree('MSIT');
+    updateButtonVisualState('msit_group_btn');
 }
 
-// Function to group courses by BSIT
 function group_by_BSIT() {
-    // Update checkmark images
-    document.getElementById('no_group_img').classList.add('hidden');
-    document.getElementById('track_group_img').classList.remove('hidden');
-
-    const filteredCourses = window.all_course_data.filter(course => {
-        return course.Degree === 'BSIT';
-    });
-
-    // Renders the filtered BSIT courses onto the webpage
-    renderCourses(filteredCourses);
+    filterByDegree('BSIT');
+    updateButtonVisualState('bsit_group_btn');
 }
 
-// Resets all filters to default values
 function resetFilters() {
-    // Clearing input values
     document.getElementById('semester_selector').value = 'All Semesters';
     document.getElementById('subject_selector').value = 'All Subjects';
     document.getElementById('faculty_selector').value = 'All Faculty';
     document.getElementById('search_bar').value = '';
-
-    // Load both MSIT and BSIT courses by default
-    filterByDegree('MSIT');
-    filterByDegree('BSIT');
-
-    // Switch to Simple List View
-    switchToSimpleListView();
+    load_list_element();
+    updateButtonVisualState('simple_list_btn'); 
 }
 
-// Attaches event listeners to various elements on the webpage
-function attachEventListeners() { 
-    const search_bar = document.getElementById('search_bar');
+function attachEventListeners() {
+    const searchIcon = document.querySelector('.picture_button');
     const semester_selector = document.getElementById('semester_selector');
     const subject_selector = document.getElementById('subject_selector');
     const faculty_selector = document.getElementById('faculty_selector');
-    const bsitButton = document.getElementById('bsit');
-    const msitButton = document.getElementById('msit');
+    const simpleListViewButton = document.getElementById('simple_list_btn');
+    const msitButton = document.getElementById('msit_group_btn');
+    const bsitButton = document.getElementById('bsit_group_btn');
     const resetButton = document.getElementById('reset_filters');
-
-    // Add event listeners for input changes and clicks
-    if (search_bar && semester_selector && subject_selector && faculty_selector) {
-        search_bar.addEventListener('input', load_list_element);
-        semester_selector.addEventListener('change', load_list_element);
-        subject_selector.addEventListener('change', load_list_element);
-        faculty_selector.addEventListener('change', load_list_element);
-    }
-
-    // Add event listeners for BSIT, MSIT buttons, and reset button
-    if (bsitButton && msitButton && resetButton) {
-        bsitButton.addEventListener('click', () => {
-            filterByDegree('BSIT');
-            switchToSimpleListView();
-        });
-        msitButton.addEventListener('click', () => {
-            filterByDegree('MSIT');
-            switchToSimpleListView();
-        });
-        resetButton.addEventListener('click', resetFilters);
-    }
+    searchIcon.addEventListener('click', function() {
+        filter_results();
+    });
+    semester_selector.addEventListener('change', load_list_element);
+    subject_selector.addEventListener('change', load_list_element);
+    faculty_selector.addEventListener('change', load_list_element);
+    simpleListViewButton.addEventListener('click', simpleListView);
+    msitButton.addEventListener('click', group_by_MSIT);
+    bsitButton.addEventListener('click', group_by_BSIT);
+    resetButton.addEventListener('click', resetFilters);
 }
 
-// Function to switch to Simple List View
-function switchToSimpleListView() {
-    // Update checkmark images
-    document.getElementById('no_group_img').classList.remove('hidden');
-    document.getElementById('track_group_img').classList.add('hidden');
+function filter_results() {
+    const searchQuery = document.getElementById('search_bar').value.trim().toLowerCase();
+    load_list_element();
 }
 
-// Populate the instructor filter dropdown with all available instructors
+function populateSemesterSelector() {
+    const semesterSelector = document.getElementById('semester_selector');
+    const semesters = ['Spring', 'Summer', 'Fall'];
+    const startYear = 2021;
+    const endYear = 2024;
+    while (semesterSelector.options.length > 1) {
+        semesterSelector.remove(1);
+    }
+    for (let year = endYear; year >= startYear; year--) {
+        semesters.forEach(semester => {
+            if (year === endYear && semester === 'Fall') return;
+            const optionText = `${semester} ${year}`;
+            const option = document.createElement('option');
+            option.value = optionText;
+            option.textContent = optionText;
+            semesterSelector.appendChild(option);
+        });
+    } 
+}
+
 function populateInstructorFilter() {
     const instructorSelector = document.getElementById('faculty_selector');
     const instructors = new Set();
-
-    // Collect unique instructors from all course data
     all_course_data.forEach(course => {
         if (course.Coordinator_Name) {
             instructors.add(course.Coordinator_Name);
@@ -210,17 +210,11 @@ function populateInstructorFilter() {
             instructors.add(course.Co_Coordinator_Name);
         }
     });
-
-    // Clear existing options
     instructorSelector.innerHTML = ''; 
-
-    // Add "All Faculty" option
     const allOption = document.createElement('option');
     allOption.value = 'All Faculty';
     allOption.textContent = 'All Faculty';
     instructorSelector.appendChild(allOption);
-
-    // Add each instructor as an option
     instructors.forEach(instructor => {
         const option = document.createElement('option');
         option.value = instructor;
@@ -229,13 +223,15 @@ function populateInstructorFilter() {
     });
 }
 
-// This only works if this file is loaded before the data_getter file.
-// MAKE SURE that this file is listed ABOVE the data_getter file in the script block.
-// The data_getter file has to have the SAME or lower load priority than this file. If this file is DEFER, data_getter MUST be DEFER.
 function load_page() {
-    set_site_title(" - Course Schedules"); // set_site_title needs to be defined in your script
+    set_site_title(" - Course Schedules"); 
     load_list_element();
     populateInstructorFilter();
     attachEventListeners();
+    populateSemesterSelector();
+    updateButtonVisualState('simple_list_btn') 
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    load_page();
+});
