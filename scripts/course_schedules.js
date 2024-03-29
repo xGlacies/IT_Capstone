@@ -89,18 +89,18 @@ function renderCourses(courses) {
         semestersOffered = Array.from(new Set(semestersOffered)).sort().join(', ');
         yearsOffered = Array.from(yearsOffered).sort((a, b) => b - a).join(', ');
         const tableRow = document.createElement('div');
-        tableRow.className = 'table_row';
+        tableRow.className = 'table_row'; 
         tableRow.innerHTML = `
             <p class="table_data">${course.Prefix}</p>
             <p class="table_data">${course.Course_Number}</p>
             <p class="table_data">${course.Degree}</p>
             <p class="table_data">${course.Track}</p>
-            <p class="table_data">${course.Coordinator_Name || 'N/A'}</p>
-            <p class="table_data">${course.Co_Coordinator_Name || 'N/A'}</p>
+            <p class="table_data">${course.Coordinator_Name || '-'}</p>
+            <p class="table_data">${course.Co_Coordinator_Name || '-'}</p>
             <p class="table_data">${semestersOffered}</p>
             <p class="table_data">${yearsOffered}</p>
-            <p class="table_data">${course.Section || 'N/A'}</p>
-            <p class="table_data">${course.Enrollment || 'N/A'}</p>
+            <p class="table_data">${course.Section || '-'}</p>
+            <p class="table_data">${course.Enrollment || '-'}</p>
         `;
         tableContainer.appendChild(tableRow);
     });
