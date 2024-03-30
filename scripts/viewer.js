@@ -146,41 +146,33 @@ async function swap_tab(switch_tab, animate)
 }
 
 
+
 // Create the offering history for the specified year
-function build_offering_history(year)
-{
-    var offering_history_fall
-    var offering_history_summer
-    var offering_history_spring
+// This function creates the offering history for the specified year
+function build_offering_history(year) {
+    var offering_history_fall;
+    var offering_history_summer;
+    var offering_history_spring;
 
     // If fall does not have history, show simple text that says not offered, otherwise create a link that says fall + the year and links to the owl express for that semester
-    if (course.Offering_History["Fall_" + year].toLowerCase() == "not offered")
-    {
+    if (course.Offering_History["Fall_" + year].toLowerCase() == "not offered") {
         offering_history_fall = `<p class=\"list_paragraph_spacer\">` + course.Offering_History["Fall_" + year] + `</p>`;
-    }
-    else
-    {
+    } else {
         offering_history_fall = `<a class=\"list_paragraph_spacer list_link\" href=\"` + course.Offering_History["Fall_" + year] + `\" target=\"_blank\">Fall ` + year + `</a>`;
     }
 
     // If summer does not have history, show simple text that says not offered, otherwise create a link that says summer + the year and links to the owl express for that semester
-    if (course.Offering_History["Summer_" + year].toLowerCase() == "not offered")
-    {
-        offering_history_summer = `<p class=\"list_paragraph_spacer\">` + course.Offering_History["Summer_" + year] + `,</p>`;
-    }
-    else
-    {
-        offering_history_summer = `<a class=\"list_paragraph_spacer list_link\" href=\"` + course.Offering_History["Summer_" + year] + `\" target=\"_blank\">Summer ` + year + `,</a>`;
+    if (course.Offering_History["Summer_" + year].toLowerCase() == "not offered") {
+        offering_history_summer = `<p class=\"list_paragraph_spacer\">` + course.Offering_History["Summer_" + year] + `</p>`;
+    } else {
+        offering_history_summer = `<a class=\"list_paragraph_spacer list_link\" href=\"` + course.Offering_History["Summer_" + year] + `\" target=\"_blank\">Summer ` + year + `</a>`;
     }
 
     // If spring does not have history, show simple text that says not offered, otherwise create a link that says spring + the year and links to the owl express for that semester
-    if (course.Offering_History["Spring_" + year].toLowerCase() == "not offered")
-    {
-        offering_history_spring = `<p class=\"list_paragraph_spacer\">` + course.Offering_History["Spring_" + year] + `,</p>`;
-    }
-    else
-    {
-        offering_history_spring = `<a class=\"list_paragraph_spacer list_link\" href=\"` + course.Offering_History["Spring_" + year] + `\" target=\"_blank\">Spring ` + year + `,</a>`;
+    if (course.Offering_History["Spring_" + year].toLowerCase() == "not offered") {
+        offering_history_spring = `<p class=\"list_paragraph_spacer\">` + course.Offering_History["Spring_" + year] + `</p>`;
+    } else {
+        offering_history_spring = `<a class=\"list_paragraph_spacer list_link\" href=\"` + course.Offering_History["Spring_" + year] + `\" target=\"_blank\">Spring ` + year + `</a>`;
     }
 
     // Return a formatted list of the semesters
@@ -192,7 +184,6 @@ function build_offering_history(year)
         ` + offering_history_fall + `
     </div>`;
 }
-
 
 // This function generates the latest round information for the latest ALG round
 function generate_latest_round_info()
