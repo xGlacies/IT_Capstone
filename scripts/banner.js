@@ -31,6 +31,9 @@ function main()
             <a href=\"` + link_list.Curriculum_Resources + `\" class=\"page_button center_text\">
                 Curriculum<br>Resources
             </a>
+            <a href=\"` + link_list.Instructors + `\" class=\"page_button center_text\">
+                Instructors
+            </a>
         </div>`;
     }
 

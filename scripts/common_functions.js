@@ -3,6 +3,7 @@ var prefix_selector = document.getElementById("prefix_selector");
 var offered_selector = document.getElementById("offered_selector");
 var search_bar = document.getElementById("search_bar");
 var degree_selector = document.getElementById("degree_selector");
+var status_selector = document.getElementById("status_selector");
 var order_by_course = document.getElementById("order_by_course");
 var order_by_coordinator = document.getElementById("order_by_coordinator");
 var order_by_alg = document.getElementById("order_by_alg");
@@ -45,6 +46,7 @@ var link_list =
     MSIT_Flowchart: "./MSIT_Flowchart.html",
     //MSIT_Flowchart_Printable: "./Print_MSIT_Flowchart.html",
     Course_Information: "./Viewer.html?course=",
+    Instructors: "./Instructors.html",
     About_Page: "./About.html"
 };
 
@@ -90,6 +92,14 @@ function check_key(event)
     if (event.key == "Enter")
     {
         filter_results();
+    }
+}
+// This function checks to see if enter is clicked in the searchbar as onchange is unreliable
+function check_key_Instructor(event)
+{
+    if (event.key == "Enter")
+    {
+        filter_instructors();
     }
 }
 
@@ -535,6 +545,57 @@ function filter_results()
         hide_empty_rounds_and_grants();
     }
 }
+
+// This function filters the items in the page list based off of criteria
+function filter_instructors()
+{
+    // For all courses, check if they meet the criteria. If they do not, hide their respective element on the page
+    for (i = 0; i < all_instructor_data.length; i++)
+    {
+
+        // Check if the course meets the criteria, this can change from page to page. Else, hide the element on the page.
+        if (
+            (search_bar == null || search_bar.value == "" ||
+            all_instructor_data[i].Last_name.toLowerCase().includes(search_bar.value.toLowerCase()) ||
+            all_instructor_data[i].First_name.toLowerCase().includes(search_bar.value.toLowerCase())||
+            all_instructor_data[i].NetID.toLowerCase().includes(search_bar.value.toLowerCase()))
+            &&
+            (status_selector == null || status_selector.value == "All" ||
+            all_instructor_data[i].Employee_status.toLowerCase().includes(status_selector.value.toLowerCase()))
+        ){
+            // If it meets the criteria, show it on the page
+            if (document.getElementById("course" + i) != null)
+            {
+                document.getElementById("course" + i).style.gridTemplateRows = "1fr";
+            }
+            // If the course is marked by the class name (when multiple of the same course appear on one page), and it fails the criteria, hide it
+            else if (document.getElementsByClassName("course" + i).length > 0)
+            {
+                for (j = 0; j < document.getElementsByClassName("course" + i).length; j++)
+                {
+                    document.getElementsByClassName("course" + i)[j].style.gridTemplateRows = "1fr";
+                }
+            }
+        }
+        else
+        {
+            // If it meets the criteria, show it on the page
+            if (document.getElementById("course" + i) != null)
+            {
+                document.getElementById("course" + i).style.gridTemplateRows = "0fr";
+            }
+            // If the course is marked by the class name (when multiple of the same course appear on one page), and it fails the criteria, hide it
+            else if (document.getElementsByClassName("course" + i).length > 0)
+            {
+                for (j = 0; j < document.getElementsByClassName("course" + i).length; j++)
+                {
+                    document.getElementsByClassName("course" + i)[j].style.gridTemplateRows = "0fr";
+                }
+            }
+        }
+    }
+}
+
 
 
 // This function sets the searchbar contents to the provided name. This is used for quick searching by clicking on faculty names
