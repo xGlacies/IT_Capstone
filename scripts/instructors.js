@@ -3,7 +3,7 @@
 // This function creates the main list body for the page
 function load_list_element()
 {
-    // For all courses, create the table row and append it to the main list body
+    // For all instructors, create the table row and append it to the main list body
     for (i = 0; i < all_instructor_data.length; i++)
     {
         // Create an empty element
@@ -12,7 +12,7 @@ function load_list_element()
         html_obj.classList.add("animate_open_default");
         html_obj.id = "course" + i;
 
-        // Populte the elemement with course name information, coordinator information, and D2L link information
+        // Populte the elemement with name, netid and status
         html_obj.innerHTML = `
         <div>
             <div id=\"instructor_table` + i + `\">
