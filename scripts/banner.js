@@ -32,7 +32,7 @@ function main()
                 Curriculum<br>Resources
             </a>
             <a href=\"` + link_list.Instructors + `\" class=\"page_button center_text\">
-                Instructors
+                Instructor Directory
             </a>
         </div>`;
     }
