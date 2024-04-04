@@ -40,10 +40,10 @@ async function main()
         return course.Degree.includes("BSIT");
     });
 
-    // Store the filtered MSIT course data in sessionStorage
+    // Store the filtered BSIT course data in sessionStorage
     sessionStorage.setItem('bsit_course_data', JSON.stringify(bsit_course_data));
 
-    // Retrieve the MSIT course data from sessionStorage
+    // Retrieve the BSIT course data from sessionStorage
     window.BSIT_course_data = JSON.parse(sessionStorage.getItem('bsit_course_data'));
 
 
@@ -74,41 +74,70 @@ async function main()
             .catch(error => console.log(error));
     }
     
-    // Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
+    // Read the session storage for the grant information, convert it to a JSON format, and put it into a global variable
     window.all_grant_data = JSON.parse(sessionStorage.getItem("all_grant_data"))
 
 
-        // If the session storage for grants is not filled, retrieve it from the database
-        if (sessionStorage.getItem("all_instructor_data") == null)
-        {
-            // Send a fetch request to the database grants enpoint to retrieve the grant portion of the database
-            await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/instructors')
-                // If the response occured, log that the data was retrieved, otherwise log that there is a server error
-                .then(res => {
-                    if (res.ok == true)
-                    {
-                        console.log("We got the grant data from the data server.");
-                    }
-                    else
-                    {
-                        console.log("There was a data server error.");
-                    }
-                    return res
-                })
-                // Grab the json from the response and store it in the session storage as a string. This storage will be used instead of continuously calling the database
-                .then(res => res.json())
-                .then(data => 
-                    {
-                        sessionStorage.setItem("all_instructor_data", JSON.stringify(data))
-                    })
-                // Catch any errors that occur
-                .catch(error => console.log(error));
-        }
+	// If the session storage for instructors is not filled, retrieve it from the database
+	if (sessionStorage.getItem("all_instructor_data") == null)
+	{
+		// Send a fetch request to the database grants enpoint to retrieve the instructor portion of the database
+		await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/instructors')
+			// If the response occured, log that the data was retrieved, otherwise log that there is a server error
+			.then(res => {
+				if (res.ok == true)
+				{
+					console.log("We got the instructor data from the data server.");
+				}
+				else
+				{
+					console.log("There was a data server error.");
+				}
+				return res
+			})
+			// Grab the json from the response and store it in the session storage as a string. This storage will be used instead of continuously calling the database
+			.then(res => res.json())
+			.then(data => 
+				{
+					sessionStorage.setItem("all_instructor_data", JSON.stringify(data))
+				})
+			// Catch any errors that occur
+			.catch(error => console.log(error));
+	}
         
-        // Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
-        window.all_instructor_data = JSON.parse(sessionStorage.getItem("all_instructor_data"))
-    
-    
+	// Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
+	window.all_instructor_data = JSON.parse(sessionStorage.getItem("all_instructor_data"))
+
+
+	// If the session storage for instructors is not filled, retrieve it from the database
+	if (sessionStorage.getItem("all_history_data") == null)
+	{
+		// Send a fetch request to the database grants enpoint to retrieve the instructor portion of the database
+		await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/history')
+			// If the response occured, log that the data was retrieved, otherwise log that there is a server error
+			.then(res => {
+				if (res.ok == true)
+				{
+					console.log("We got the history data from the data server.");
+				}
+				else
+				{
+					console.log("There was a data server error.");
+				}
+				return res
+			})
+			// Grab the json from the response and store it in the session storage as a string. This storage will be used instead of continuously calling the database
+			.then(res => res.json())
+			.then(data => 
+				{
+					sessionStorage.setItem("all_history_data", JSON.stringify(data))
+				})
+			// Catch any errors that occur
+			.catch(error => console.log(error));
+	}
+        
+	// Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
+	window.all_instructor_data = JSON.parse(sessionStorage.getItem("all_history_data"))
 
     load_page ();
 }
