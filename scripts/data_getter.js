@@ -137,7 +137,7 @@ async function main()
 	}
         
 	// Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
-	window.all_instructor_data = JSON.parse(sessionStorage.getItem("all_history_data"))
+	window.all_history_data = JSON.parse(sessionStorage.getItem("all_history_data"))
 
     load_page ();
 }
