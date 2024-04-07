@@ -107,6 +107,51 @@ function renderCourses(courses) {
     listBody.appendChild(tableContainer); 
 }
 
+function renderHistory(courses) {
+    const listBody = document.getElementById('list_body');
+    listBody.innerHTML = '';
+    const tableHeader = document.createElement('div');
+    tableHeader.className = 'table_header header_row';
+    tableHeader.innerHTML = `
+        <p class="table_data">CRN</p>
+        <p class="table_data">Subject</p>
+        <p class="table_data">Course</p>
+        <p class="table_data">Section</p>
+        <p class="table_data">Instructor</p>
+        <p class="table_data">Enrollment</p>
+        <p class="table_data">Semester</p> 
+        <p class="table_data">Year</p>
+    `;
+    const tableContainer = document.createElement('div');
+    tableContainer.className = 'table_container';
+    tableContainer.appendChild(tableHeader);
+    courses.forEach(course => {
+        let semestersOffered = [];
+        let yearsOffered = new Set();
+        for (let term in course.Offering_History) {
+            let [semester, year] = term.split('_');
+            semestersOffered.push(semester);
+            yearsOffered.add(year);
+        }
+        semestersOffered = Array.from(new Set(semestersOffered)).sort().join(', ');
+        yearsOffered = Array.from(yearsOffered).sort((a, b) => b - a).join(', ');
+        const tableRow = document.createElement('div');
+        tableRow.className = 'table_row'; 
+        tableRow.innerHTML = `
+            <p class="table_data">${course.CRN}</p>
+            <p class="table_data">${course.PREFIX}</p>
+            <p class="table_data">${course.NUMBER}</p>
+            <p class="table_data">${course.SECTION}</p>
+            <p class="table_data">${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</p>
+            <p class="table_data">${course.Enrollment}</p>
+			<p class="table_data">${course.SEMESTER}</p>
+			<p class="table_data">${course.YEAR}</p>
+        `;
+        tableContainer.appendChild(tableRow);
+    });
+    listBody.appendChild(tableContainer); 
+}
+
 function filterByDegree(degree) {
     const filteredCourses = window.all_course_data.filter(course => course.Degree === degree);
     renderCourses(filteredCourses);
