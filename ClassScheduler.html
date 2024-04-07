@@ -17,7 +17,6 @@
     <script src="scripts/banner.js" defer></script>
     <script src="scripts/course_schedules.js" defer></script>
     <script src="scripts/data_getter.js" defer></script>
-    <script src="scripts/history_getter.js" defer></script>
     <!-- Fav Icon -->
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 </head>
@@ -55,35 +54,13 @@
                         </div>
                     </div>
                     <label class="center_text_verticle">Semester:</label>
-                    <select id="semester_selector" onchange="filter_results()" class="searchbar_height">
-                        <option value="All Semesters" selected>All Semesters</option>
-                        <option value="Spring 2024">Spring 2024</option>
-                        <option value="Summer 2024">Summer 2024</option>
-                        <option value="Fall 2024">Fall 2024</option>
-                        <option value="Spring 2023">Spring 2023</option>
-                        <option value="Summer 2023">Summer 2023</option>
-                        <option value="Fall 2023">Fall 2023</option>
-                        <option value="Spring 2022">Spring 2022</option>
-                        <option value="Summer 2022">Summer 2022</option>
-                        <option value="Fall 2022">Fall 2022</option>
-                        <option value="Spring 2021">Spring 2021</option>
-                        <option value="Summer 2021">Summer 2021</option>
-                        <option value="Fall 2021">Fall 2021</option>
-                        
+                    <select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
                     </select>
                     <label class="center_text_verticle">Subject:</label>
                     <select id="subject_selector" onchange="filter_results()" class="searchbar_height">
-                        <option value="All Subjects" selected>All Subjects</option>
-                        <option value="CSE">CSE</option>
-                        <option value="IT">IT</option>
-                        <option value="MATH">MATH</option>
-                        <option value="STAT">STAT</option>
-                        <option value="TCOM">TCOM</option>
                     </select>
 					<label class="center_text_verticle">Instructor:</label>
                     <select id="faculty_selector" onchange="filter_results()" class="searchbar_height">
-                        <option value="All Faculty" selected>All Faculty</option>
-                        <option value="Jack Zheng">Jack Zheng</option>
                     </select>
                 </div>
 				<p></p>
@@ -100,15 +77,16 @@
         <div id="list_body" class="main_list">
             <!-- Table Header -->
             <div id="table_header" class="list_header contained">
-                <div class="table_base header_row">
-                    <p class="header_row table_data">Prefix</p>
-                    <p class="header_row table_data">Course</p>
-                    <p class="header_row table_data">Degree</p>
-                    <p class="header_row table_data">Track</p>
-                    <p class="header_row table_data">Semester</p>
-                    <p class="header_row table_data">Year</p>
-                    <p class="header_row table_data">Section #</p>
-                    <p class="header_row table_data">Enrollment</p>
+                <div class="table_header header_row">
+                    <p class="table_data">CRN</p>
+                    <p class="table_data">Semester</p>
+                    <p class="table_data">Year</p>
+                    <p class="table_data">Prefix</p>
+                    <p class="table_data">Number</p>
+                    <p class="table_data">Section</p>
+                    <p class="table_data">Instructor NetID</p>
+                    <p class="table_data">Instructor Name</p> <!-- Combined First and Last Name -->
+                    <p class="table_data">Enrollment</p>
                 </div>
             </div>
             <!-- Table Body -->
