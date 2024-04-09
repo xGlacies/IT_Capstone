@@ -5,13 +5,13 @@
 
 .table_header, .table_row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Adjusted to evenly distribute columns */
+    grid-template-columns: .5fr 2fr .3fr 1fr .4fr; /* Second column is twice the size of the rest */
 }
 
 .table_header { 
     background-color: #ffc629;
     color: #000;
-    text-align: center;
+    text-align: left;
 }
 
 .table_row {
@@ -21,13 +21,12 @@
 .table_data {
     padding: 4px;
     border: 1px solid #ccc;
-    min-height: 50px;
     overflow: hidden;
     white-space: normal;
     word-break: break-word;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .table_row:hover {
@@ -36,6 +35,6 @@
 
 @media (max-width: 768px) {
     .table_header, .table_row {
-        grid-template-columns: repeat(5, minmax(0, 1fr)); /* Adjusted to use available space */
+        grid-template-columns: minmax(0, .5fr) minmax(0, 2fr) minmax(0, .3fr) minmax(0, 1fr) minmax(0, .4fr); /* Adjusted to use available space */
     }
 }
