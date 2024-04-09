@@ -193,7 +193,7 @@ function build_offering_history(year) {
 		
 	}
 	//An example of the string and variables to add into the function above to create a link.
-	offer = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + semester_code (ex. 202308 for Fall 2023) + "&subj_in=" + prefix (ex. CSE) + "&crse_in=" + course number (ex. 1321L) + "&schd_in=A"
+	//offer = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + semester_code (ex. 202308 for Fall 2023) + "&subj_in=" + prefix (ex. CSE) + "&crse_in=" + course number (ex. 1321L) + "&schd_in=A"
 }
 
 // This function generates the latest round information for the latest ALG round
