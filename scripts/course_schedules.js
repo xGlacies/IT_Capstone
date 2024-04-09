@@ -4,13 +4,13 @@ async function fetchCourseData() {
         if (response.ok) {
             let historyData = await response.json();
             sessionStorage.setItem("all_history_data", JSON.stringify(historyData));
-            window.all_course_data = JSON.parse(sessionStorage.getItem("all_history_data"));
+            window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
         } else {
             console.error("Failed to fetch history data:", response.status);
-            window.all_course_data = [];
+            window.all_course_data_history = [];
         }
     } else {
-        window.all_course_data = JSON.parse(sessionStorage.getItem("all_history_data"));
+        window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
     }
 }
 
@@ -20,7 +20,7 @@ function populateSemesterSelector() {
     semesterSelector.innerHTML = '<option value="">All Semesters</option>';
     const uniqueSemesters = new Set();
 
-    window.all_course_data.forEach(course => {
+    window.all_course_data_history.forEach(course => {
         uniqueSemesters.add(`${course.SEMESTER} ${course.YEAR}`);
     });
 
@@ -37,7 +37,7 @@ function populateSubjectSelector() {
     subjectSelector.innerHTML = '<option value="">All Subjects</option>';
     const uniqueSubjects = new Set();
 
-    window.all_course_data.forEach(course => {
+    window.all_course_data_history.forEach(course => {
         uniqueSubjects.add(course.PREFIX);
     });
 
@@ -54,7 +54,7 @@ function populateInstructorFilter() {
     instructorSelector.innerHTML = '<option value="">All Instructors</option>';
     const uniqueInstructors = new Set();
 
-    window.all_course_data.forEach(course => {
+    window.all_course_data_history.forEach(course => {
         const fullName = `${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`;
         uniqueInstructors.add(fullName.trim());
     });
@@ -79,8 +79,8 @@ function updateButtonVisualState(activeButtonId) {
 
 function simpleListView() {
    
-    if (window.all_course_data && window.all_course_data.length > 0) {
-        renderHistory(window.all_course_data); 
+    if (window.all_course_data_history && window.all_course_data_history.length > 0) {
+        renderHistory(window.all_course_data_history); 
     } else {
         console.error("No data available to render.");
     }
@@ -88,7 +88,7 @@ function simpleListView() {
 }
 
 function filterByDegree(degree) {
-    let filteredCourses = window.all_course_data.filter(course => {
+    let filteredCourses = window.all_course_data_history.filter(course => {
         if (course.PREFIX === 'IT') {
             return (degree === 'BSIT' && course.NUMBER >= 1000 && course.NUMBER <= 5000) ||
                    (degree === 'MSIT' && course.NUMBER >= 6000 && course.NUMBER <= 7000);
@@ -120,7 +120,7 @@ function filter_results() {
 async function load_list_element(searchQuery = '', selectedSemester = '', selectedSubject = '', selectedInstructor = '') {
     await fetchCourseData(); 
 
-    let filteredData = window.all_course_data.filter(course => {
+    let filteredData = window.all_course_data_history.filter(course => {
 
         const courseCRN = course.CRN.toString();
 
@@ -156,14 +156,10 @@ function renderHistory(historyData) {
 
 
     const tableHeaderHTML = `
-    <p class="table_data">CRN</p>
-    <p class="table_data">Semester</p> 
-    <p class="table_data">Year</p>
-    <p class="table_data">Prefix</p>
-    <p class="table_data">Number</p>
+    <p class="table_data">Course Code</p>
+    <p class="table_data">Title</p>
     <p class="table_data">Section</p>
-    <p class="table_data">Instructor NetID</p>
-    <p class="table_data">Instructor Name</p> <!-- Combined First Name and Last Name -->
+    <p class="table_data">Instructor Name</p> <!-- Combined First and Last Name -->
     <p class="table_data">Enrollment</p>
     `;
 
@@ -171,24 +167,37 @@ function renderHistory(historyData) {
     tableHeader.className = 'table_header header_row';
     tableHeader.innerHTML = tableHeaderHTML;
     listBody.appendChild(tableHeader);
-
     historyData.forEach(data => {
         const row = document.createElement('div');
         row.className = 'table_row';
-        row.innerHTML = ` 
-            <p class="table_data">${data.CRN}</p>
-            <p class="table_data">${data.SEMESTER}</p>
-            <p class="table_data">${data.YEAR}</p>
-            <p class="table_data">${data.PREFIX}</p>
-            <p class="table_data">${data.NUMBER}</p>
+    
+        row.innerHTML = `
+            <p class="table_data">${data.PREFIX} ${data.NUMBER}</p>
+            <p class="table_data">${findCourseNameByNumber(data.NUMBER)}</p>
             <p class="table_data">${data.SECTION}</p>
-            <p class="table_data">${data.INSTRUCTOR_NETID}</p>
             <p class="table_data">${data.INSTRUCTOR_FIRST_NAME} ${data.INSTRUCTOR_LAST_NAME}</p>
             <p class="table_data">${data.Enrollment}</p>
         `;
         listBody.appendChild(row);
     });
+    
+    
 }
+
+function findCourseNameByNumber(courseNumber) {
+    // Iterate over each course in the courseData array
+
+    for (let i = 0; i < all_course_data.length; i++) {
+
+        if (all_course_data[i].Course_Number === courseNumber.toString()) {
+            // Return the Course_Name if a match is found
+            return all_course_data[i].Course_Name;
+        }
+      }
+    // Return null if the courseNumber is not found
+    return "N/A";
+}
+
 
 function attachEventListeners() {
     const semesterSelector = document.getElementById('semester_selector');
@@ -231,7 +240,7 @@ async function load_page() {
     populateSubjectSelector(); 
     populateInstructorFilter(); 
     attachEventListeners(); 
-    renderHistory(window.all_course_data);
+    renderHistory(window.all_course_data_history);
     updateButtonVisualState('simple_list_btn');
 }
 

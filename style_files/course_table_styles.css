@@ -1,13 +1,11 @@
 .table_container {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     overflow-x: auto;
 }
 
 .table_header, .table_row {
     display: grid;
-    grid-template-columns: repeat(9, minmax(120px, 1fr)); 
+    grid-template-columns: repeat(5, 1fr); /* Adjusted to evenly distribute columns */
 }
 
 .table_header { 
@@ -23,14 +21,13 @@
 .table_data {
     padding: 4px;
     border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 50px;
     overflow: hidden;
     white-space: normal;
     word-break: break-word;
-    max-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .table_row:hover {
@@ -39,6 +36,6 @@
 
 @media (max-width: 768px) {
     .table_header, .table_row {
-        grid-template-columns: repeat(4, minmax(120px, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr)); /* Adjusted to use available space */
     }
 }
