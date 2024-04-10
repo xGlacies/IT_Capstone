@@ -3,6 +3,20 @@ async function fetchCourseData() {
         const response = await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/history');
         if (response.ok) {
             let historyData = await response.json();
+
+            historyData.sort((a, b) => {
+                // Compare years first
+                if (b.YEAR !== a.YEAR) {
+                    return b.YEAR - a.YEAR; // Sort years in descending order
+                } else {
+                    // If years are the same, compare semesters
+                    const semesterOrder = { "Fall": 3, "Summer": 2, "Spring": 1 }; // Define order of semesters
+            
+                    // Compare semesters based on their order
+                    return semesterOrder[b.SEMESTER] - semesterOrder[a.SEMESTER];
+                }
+            });
+            
             sessionStorage.setItem("all_history_data", JSON.stringify(historyData));
             window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
         } else {
@@ -145,7 +159,7 @@ async function load_list_element(searchQuery = '', selectedSemester = '', select
 }
 
 
-function renderHistory(historyData) {
+function renderHistory(currentHistoryData) {
     const listBody = document.getElementById('list_body');
     if (!listBody) {
         console.error("The element where the list should be rendered was not found.");
@@ -167,7 +181,10 @@ function renderHistory(historyData) {
     tableHeader.className = 'table_header header_row';
     tableHeader.innerHTML = tableHeaderHTML;
     listBody.appendChild(tableHeader);
-    historyData.forEach(data => {
+
+    
+
+    currentHistoryData.forEach(data => {
         const row = document.createElement('div');
         row.className = 'table_row';
     
@@ -237,11 +254,16 @@ function attachEventListeners() {
 async function load_page() {
     await fetchCourseData(); 
     populateSemesterSelector(); 
-    populateSubjectSelector(); 
+    populateSubjectSelector();
     populateInstructorFilter(); 
     attachEventListeners(); 
     renderHistory(window.all_course_data_history);
     updateButtonVisualState('simple_list_btn');
+
+    // Set the default value of the subject selector to "IT"
+    const subjectSelector = document.getElementById('subject_selector');
+    subjectSelector.value = "IT";
+    filter_results();
 }
 
  
