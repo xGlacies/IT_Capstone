@@ -15,8 +15,12 @@ async function fetchCourseData() {
                     // Compare semesters based on their order
                     return semesterOrder[b.SEMESTER] - semesterOrder[a.SEMESTER];
                 }
+            }).sort((a, b) => {
+                // After sorting by year and semester, sort by section
+                return a.NUMBER.toString().localeCompare(b.NUMBER.toString());
             });
             
+
             sessionStorage.setItem("all_history_data", JSON.stringify(historyData));
             window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
         } else {
