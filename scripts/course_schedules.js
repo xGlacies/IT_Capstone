@@ -81,46 +81,15 @@ function populateInstructorFilter() {
     });
 }
 
-function updateButtonVisualState(activeButtonId) {
-    const buttonIds = ['simple_list_btn', 'msit_group_btn', 'bsit_group_btn'];
-    buttonIds.forEach(buttonId => {
-        const imgElement = document.getElementById(buttonId).querySelector('img');
-        if (imgElement) { 
-            imgElement.style.display = buttonId === activeButtonId ? 'inline' : 'none';
-        }
-    });
-} 
 
-function simpleListView() {
-   
-    if (window.all_course_data_history && window.all_course_data_history.length > 0) {
-        renderHistory(window.all_course_data_history); 
-    } else {
-        console.error("No data available to render.");
-    }
-    updateButtonVisualState('simple_list_btn'); 
-}
 
-function filterByDegree(degree) {
-    let filteredCourses = window.all_course_data_history.filter(course => {
-        if (course.PREFIX === 'IT') {
-            return (degree === 'BSIT' && course.NUMBER >= 1000 && course.NUMBER <= 5000) ||
-                   (degree === 'MSIT' && course.NUMBER >= 6000 && course.NUMBER <= 7000);
-        }
-        return false;
-    });
-    renderHistory(filteredCourses);
-    const buttonId = degree === 'BSIT' ? 'bsit_group_btn' : 'msit_group_btn';
-    updateButtonVisualState(buttonId);
-}
 
 function resetFilters() {
     document.getElementById('semester_selector').value = '';
     document.getElementById('subject_selector').value = '';
     document.getElementById('faculty_selector').value = '';
     document.getElementById('search_bar').value = ''; 
-    simpleListView(); 
-    updateButtonVisualState('simple_list_btn'); 
+    filter_results();
 }
 
 function filter_results() {
@@ -221,9 +190,6 @@ function attachEventListeners() {
     const subjectSelector = document.getElementById('subject_selector');
     const facultySelector = document.getElementById('faculty_selector');
     const pictureButton = document.querySelector('.picture_button');
-    const simpleListBtn = document.getElementById('simple_list_btn');
-    const msitGroupBtn = document.getElementById('msit_group_btn');
-    const bsitGroupBtn = document.getElementById('bsit_group_btn');
     const resetFiltersBtn = document.getElementById('reset_filters');
 
     if (semesterSelector) semesterSelector.addEventListener('change', filter_results);
@@ -238,17 +204,7 @@ function attachEventListeners() {
     if (pictureButton) pictureButton.addEventListener('click', filter_results);
     else console.error('.picture_button not found.');
 
-    if (simpleListBtn) simpleListBtn.addEventListener('click', simpleListView);
-    else console.error('simple_list_btn not found.');
-
-    if (msitGroupBtn) msitGroupBtn.addEventListener('click', () => filterByDegree('MSIT'));
-    else console.error('msit_group_btn not found.');
-
-    if (bsitGroupBtn) bsitGroupBtn.addEventListener('click', () => filterByDegree('BSIT'));
-    else console.error('bsit_group_btn not found.');
-
     if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetFilters);
-    else console.error('reset_filters not found.');
 }
 
 async function load_page() {
@@ -258,7 +214,6 @@ async function load_page() {
     populateInstructorFilter(); 
     attachEventListeners(); 
     renderHistory(window.all_course_data_history);
-    updateButtonVisualState('simple_list_btn');
 
     // Set the default value of the subject selector to "IT"
     const subjectSelector = document.getElementById('subject_selector');
