@@ -17,8 +17,14 @@ async function fetchCourseData() {
                 }
             }).sort((a, b) => {
                 // After sorting by year and semester, sort by section
+                const sectionA = typeof a.SECTION === 'string' ? a.SECTION : '';
+                const sectionB = typeof b.SECTION === 'string' ? b.SECTION : '';
+                return sectionA.localeCompare(sectionB);
+            }).sort((a, b) => {
+                // After sorting by year and semester, sort by section
                 return a.NUMBER.toString().localeCompare(b.NUMBER.toString());
             });
+            
             
 
             sessionStorage.setItem("all_history_data", JSON.stringify(historyData));
