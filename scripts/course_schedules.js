@@ -5,6 +5,11 @@ async function fetchCourseData() {
             let historyData = await response.json();
 
             historyData.sort((a, b) => {
+                // After sorting by year and semester, sort by section
+                const sectionA = typeof a.SECTION === 'string' ? a.SECTION : '';
+                const sectionB = typeof b.SECTION === 'string' ? b.SECTION : '';
+                return sectionA.localeCompare(sectionB);
+            }).sort((a, b) => {
                 // Compare years first
                 if (b.YEAR !== a.YEAR) {
                     return b.YEAR - a.YEAR; // Sort years in descending order
@@ -15,11 +20,6 @@ async function fetchCourseData() {
                     // Compare semesters based on their order
                     return semesterOrder[b.SEMESTER] - semesterOrder[a.SEMESTER];
                 }
-            }).sort((a, b) => {
-                // After sorting by year and semester, sort by section
-                const sectionA = typeof a.SECTION === 'string' ? a.SECTION : '';
-                const sectionB = typeof b.SECTION === 'string' ? b.SECTION : '';
-                return sectionA.localeCompare(sectionB);
             }).sort((a, b) => {
                 // After sorting by year and semester, sort by section
                 return a.NUMBER.toString().localeCompare(b.NUMBER.toString());
