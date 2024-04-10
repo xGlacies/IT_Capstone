@@ -28,7 +28,6 @@ async function fetchCourseData() {
     }
 }
 
-
 function populateSemesterSelector() {
     const semesterSelector = document.getElementById('semester_selector');
     semesterSelector.innerHTML = '<option value="">All Semesters</option>';
@@ -44,6 +43,19 @@ function populateSemesterSelector() {
         option.textContent = semester;
         semesterSelector.appendChild(option);
     });
+
+    var semesterDiv = document.getElementById("semester_options");
+    let buttonsHTML = ""; // Initialize an empty string to store button HTML    
+    window.all_course_data_history.forEach(semester => {
+        const semesterValue = `${semester.SEMESTER} ${semester.YEAR}`;
+        uniqueSemesters.add(semesterValue); // Add each semester to the Set
+    });
+    
+    uniqueSemesters.forEach(semesterValue => {
+        buttonsHTML += `<a href="#" onclick="setSemesterValue('${semesterValue}')">${semesterValue}</a> `;
+    });
+       
+    semesterDiv.innerHTML = buttonsHTML; 
 }
 
 function populateSubjectSelector() {
@@ -83,6 +95,12 @@ function populateInstructorFilter() {
 
 
 
+function setSemesterValue(selectedSemester) {
+    // Set the value of the hidden input field to the selected semester
+    document.getElementById('semester_selector').value = selectedSemester;
+    // Trigger the filter_results() function
+    filter_results();
+}
 
 function resetFilters() {
     document.getElementById('semester_selector').value = '';
@@ -96,8 +114,10 @@ function filter_results() {
     const selectedSubject = document.getElementById('subject_selector').value;
     const selectedSemester = document.getElementById('semester_selector').value;
     const selectedInstructor = document.getElementById('faculty_selector').value;
+    const semester_options = document.getElementById('semester_options').value;
+    console.log(semester_options);
     const searchQuery = document.getElementById('search_bar').value.trim().toLowerCase();
-    load_list_element(searchQuery, selectedSemester, selectedSubject, selectedInstructor);
+    load_list_element(searchQuery, selectedSemester, selectedSubject, selectedInstructor, semester_options);
 }
 
 async function load_list_element(searchQuery = '', selectedSemester = '', selectedSubject = '', selectedInstructor = '') {
