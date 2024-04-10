@@ -121,6 +121,7 @@ function resetFilters() {
 }
 
 function filter_results() {
+
     const selectedSubject = document.getElementById('subject_selector').value;
     const selectedSemester = document.getElementById('semester_selector').value;
     const selectedInstructor = document.getElementById('faculty_selector').value;
@@ -128,6 +129,9 @@ function filter_results() {
     console.log(semester_options);
     const searchQuery = document.getElementById('search_bar').value.trim().toLowerCase();
     load_list_element(searchQuery, selectedSemester, selectedSubject, selectedInstructor, semester_options);
+
+    const title_changer = document.getElementById('title_changer');
+    title_changer.innerHTML = `Course Schedule - ${selectedSemester}`;
 }
 
 async function load_list_element(searchQuery = '', selectedSemester = '', selectedSubject = '', selectedInstructor = '') {
@@ -246,8 +250,12 @@ async function load_page() {
     renderHistory(window.all_course_data_history);
 
     // Set the default value of the subject selector to "IT"
+    const semester_selector = document.getElementById('semester_selector');
+    semester_selector.value = "Fall 2022";
+
     const subjectSelector = document.getElementById('subject_selector');
     subjectSelector.value = "IT";
+
     filter_results();
 }
 
