@@ -107,7 +107,44 @@ async function main()
         
 	// Read the session storage for the grant infomration, convert it to a JSON format, and put it into a global variable
 	window.all_instructor_data = JSON.parse(sessionStorage.getItem("all_instructor_data"))
-
+        if (!sessionStorage.getItem("all_history_data")) {
+            const response = await fetch('https://us-east-1.aws.data.mongodb-api.com/app/database_requester-yyqup/endpoint/history');
+            if (response.ok) {
+                let historyData = await response.json();
+    
+                historyData.sort((a, b) => {
+                    // After sorting by year and semester, sort by section
+                    const sectionA = typeof a.SECTION === 'string' ? a.SECTION : '';
+                    const sectionB = typeof b.SECTION === 'string' ? b.SECTION : '';
+                    return sectionA.localeCompare(sectionB);
+                }).sort((a, b) => {
+                    // Compare years first
+                    if (b.YEAR !== a.YEAR) {
+                        return b.YEAR - a.YEAR; // Sort years in descending order
+                    } else {
+                        // If years are the same, compare semesters
+                        const semesterOrder = { "Fall": 3, "Summer": 2, "Spring": 1 }; // Define order of semesters
+                
+                        // Compare semesters based on their order
+                        return semesterOrder[b.SEMESTER] - semesterOrder[a.SEMESTER];
+                    }
+                }).sort((a, b) => {
+                    // After sorting by year and semester, sort by section
+                    return a.NUMBER.toString().localeCompare(b.NUMBER.toString());
+                });
+                
+                
+    
+                sessionStorage.setItem("all_history_data", JSON.stringify(historyData));
+                window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
+            } else {
+                console.error("Failed to fetch history data:", response.status);
+                window.all_course_data_history = [];
+            }
+        } else {
+            window.all_course_data_history = JSON.parse(sessionStorage.getItem("all_history_data"));
+        }
+    
     load_page ();
 }
 
