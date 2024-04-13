@@ -364,9 +364,9 @@ function group_by_flex(type, course_data) {
         if (course_data === MSIT_course_data) {
             create_groups_MSIT();
             load_list_element_MSIT();
-            bsitButton.innerHTML = "BSIT";
-            msitButton.innerHTML = "*MSIT";
-            allButton.innerHTML = "All Courses"
+			bsitButton.setAttribute("style", "font-weight: normal;");
+			msitButton.setAttribute("style", "font-weight: bold;");
+			allButton.setAttribute("style", "font-weight: normal;");
 
             no_group.className = no_group.className.replace(" tab_active", "");
             track_group_img.className = track_group_img.className.replace(" hidden", "");
@@ -377,9 +377,9 @@ function group_by_flex(type, course_data) {
         } else if (course_data === BSIT_course_data) {
             create_groups_BSIT();
             load_list_element_BSIT();
-            bsitButton.innerHTML = "*BSIT";
-            msitButton.innerHTML = "MSIT";
-            allButton.innerHTML = "All Courses";
+			bsitButton.setAttribute("style", "font-weight: bold;");
+			bsitButton.setAttribute("style", "font-weight: normal;");
+			allButton.setAttribute("style", "font-weight: normal;");
 
             no_group.className = no_group.className.replace(" tab_active", "");
             track_group_img.className = track_group_img.className.replace(" hidden", "");
@@ -390,9 +390,9 @@ function group_by_flex(type, course_data) {
 
             create_groups_All();
             load_list_element();
-            bsitButton.innerHTML = "BSIT";
-            msitButton.innerHTML = "MSIT";
-            allButton.innerHTML = "*All Courses";
+			bsitButton.setAttribute("style", "font-weight: normal;");
+			msitButton.setAttribute("style", "font-weight: normal;");
+			allButton.setAttribute("style", "font-weight: bold;");
 
             no_group.className = no_group.className.replace(" tab_active", "");
             track_group_img.className = track_group_img.className.replace(" hidden", "");
@@ -411,10 +411,9 @@ function group_by_flex(type, course_data) {
         list_body.innerHTML = "";
         alg_sort = false;
 
-        bsitButton.innerHTML = "BSIT";
-        msitButton.innerHTML = "MSIT";
-        allButton.innerHTML = "*All Courses";
-
+		bsitButton.setAttribute("style", "font-weight: normal;");
+		msitButton.setAttribute("style", "font-weight: normal;");
+		allButton.setAttribute("style", "font-weight: bold;");
         
         no_group_img.className = "checkbox_img";
         track_group_img.className = "checkbox_img hidden";
@@ -425,9 +424,9 @@ function group_by_flex(type, course_data) {
 
         if (course_data === MSIT_course_data) {
             load_list_element_MSIT();
-            bsitButton.innerHTML = "BSIT";
-            msitButton.innerHTML = "*MSIT";
-            allButton.innerHTML = "All Courses"
+			bsitButton.setAttribute("style", "font-weight: normal;");
+			msitButton.setAttribute("style", "font-weight: bold;");
+			allButton.setAttribute("style", "font-weight: normal;");
             
             no_group_img.className = no_group_img.className.replace(" hidden", "");
             track_group_img.className = "checkbox_img hidden";
@@ -438,9 +437,9 @@ function group_by_flex(type, course_data) {
 
         } else if (course_data === BSIT_course_data) {
             load_list_element_BSIT();
-            bsitButton.innerHTML = "*BSIT";
-            msitButton.innerHTML = "MSIT";
-            allButton.innerHTML = "All Courses";
+			bsitButton.setAttribute("style", "font-weight: bold;");
+			msitButton.setAttribute("style", "font-weight: normal;");
+			allButton.setAttribute("style", "font-weight: normal;");
 
             no_group_img.className = no_group_img.className.replace(" hidden", "");
             track_group_img.className = "checkbox_img hidden";
