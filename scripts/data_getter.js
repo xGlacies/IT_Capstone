@@ -149,4 +149,26 @@ async function main()
     load_page ();
 }
 
+//sessionStorage.clear(); //uncomment this line and run the code to clear the session storage
 main()
+
+const year = new Date().getFullYear().toString(); //get current year
+const month = new Date().getMonth()+1; //get current month
+let currentSemester = ""; //declared current semester as none to prepare for if statements
+let nextSemester = ""; //declared next semester as none to prepare for if statements
+
+if(month <= 4) {
+	currentSemester = year + "01";
+	nextSemester = year + "05";
+}
+if(month >= 5 && month <= 7) {
+	currentSemester = year + "05";
+	nextSemester = year + "08";
+}
+if(month >= 8) {
+	currentSemester = year + "08";
+	nextSemester = year + "01";
+}
+
+sessionStorage.setItem("current_semester", currentSemester)
+sessionStorage.setItem("next_semester", nextSemester)

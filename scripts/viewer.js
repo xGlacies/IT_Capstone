@@ -6,6 +6,7 @@ var course = ""
 var course_page = document.getElementById("course_page");
 var tabs = document.getElementById("tabs_row").children;
 var course_selector = document.getElementById("course_selector");
+const current_semester = sessionStorage.getItem("current_semester");
 
 // These arrays are used to determine which elements should show under which tabs
 var essential_info_enum = 
