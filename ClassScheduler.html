@@ -28,38 +28,40 @@
     <!-- Left Floating Sidebar -->
     <div id="left_sidebar" class="floating_sidebar_left">
         <div class="background_color background_padding">  
-            
-            <h3>Quick Access - IT Class Schedule by Semester</h3>
-            <div id="semester_options">
+            <!-- Why did we add this? vvv The dropdown menu already does the same thing and the links look tacky.-->
+            <h3 hidden>Quick Access - IT Class Schedule by Semester</h3> 
+            <div id="semester_options" hidden>
+			<!-- ^^^ I made them hidden, so that they wouldn't show up for now. -->
             </div>
-
-				<p class="title_size bold">Search:</p>
-                <div class="filter_table table_base">
-                    <label class="center_text_verticle">Keywords:</label>
-                    <div class="side_by_side">
-                        <input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
-                        <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
-                            <div class="picture_button_bg"></div>
-                            <img class="picture_button_img" src="resources\search.webp" alt="Search">
-                        </div>
-                    </div>
-                    <label class="center_text_verticle">Semester:</label>
-                    <select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
-                    </select>
-                    <label class="center_text_verticle">Subject:</label>
-                    <select id="subject_selector" onchange="filter_results()" class="searchbar_height">
-                    </select>
-					<label class="center_text_verticle">Instructor:</label>
-                    <select id="faculty_selector" onchange="filter_results()" class="searchbar_height">
-                    </select>
-                </div>
-				<p></p>
-                <button onclick="resetFilters();" class="tab_button">Reset Filters</button>
-                <p></p>
-                <div class="white_background_box">
-                    <a href="owlExpressFlex.html" t arget="_blank" class="inner_list_margin">OwlExpress Flex</a>
-                </div>
-            </div>
+			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
+            <a href="CurrentScheduleView.html"><button class="tab_button">Current & Next Semester's Courses</button></a>
+			<p class="title_size bold">Search:</p>
+			<div class="filter_table table_base">
+				<label class="center_text_verticle">Keywords:</label>
+				<div class="side_by_side">
+					<input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+					<div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+						<div class="picture_button_bg"></div>
+						<img class="picture_button_img" src="resources\search.webp" alt="Search">
+					</div>
+				</div>
+				<label class="center_text_verticle">Semester:</label>
+				<select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
+				</select>
+				<label class="center_text_verticle">Subject:</label>
+				<select id="subject_selector" onchange="filter_results()" class="searchbar_height">
+				</select>
+				<label class="center_text_verticle">Instructor:</label>
+				<select id="faculty_selector" onchange="filter_results()" class="searchbar_height">
+				</select>
+			</div>
+			<p></p>
+			<button onclick="resetFilters();" class="tab_button">Reset Filters</button>
+			<p></p>
+			<div class="white_background_box">
+				<a href="owlExpressFlex.html" t arget="_blank" class="inner_list_margin">OwlExpress Flex</a>
+			</div>
+		</div>
         </div>
 
             <!-- Main List -->

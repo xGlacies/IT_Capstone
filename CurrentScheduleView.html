@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coursefinder Webapp</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style_files/general_styles.css">
+    <link rel="stylesheet" href="style_files/banner_styles.css">
+    <link rel="stylesheet" href="style_files/body_styles.css">
+    <link rel="stylesheet" href="style_files/searchbar_styles.css">
+    <link rel="stylesheet" href="style_files/table_styles.css">
+    <link rel="stylesheet" href="style_files/course_table_styles.css">
+    <!-- Scripts -->
+    <script src="scripts/common_functions.js" defer></script>
+    <script src="scripts/banner.js" defer></script>
+    <script src="scripts/data_getter.js" defer></script>
+    <!-- Fav Icon -->
+    <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- KSU Banner -->
+    <div id="banner_container" class="floating_header"></div>
+    <div class="floating_title bold">Course Schedules</div>
+
+    <!-- Left Floating Sidebar -->
+    <div id="left_sidebar" class="floating_sidebar_left">
+        <div class="background_color background_padding">
+			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
+            <a href="CurrentScheduleView.html"><button class="tab_button">Current & Next Semester's Courses</button></a>
+			<div class="white_background_box">
+				<a href="owlExpressFlex.html" target="_blank" class="inner_list_margin">OwlExpress Flex</a>
+			</div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="center_frame">
+        <iframe name="iframe_results" id="iframe_results" width="100%" height="1000px" src="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202308&subj_in=CSE&crse_in=1321L&schd_in=A">Results here</iframe>
+    </div>
+
+    <!-- Footer -->
+        <div class="footer_spacer"></div>
+        <div id="footer_container" class="floating_footer">
+        </div>
+    </body>
+</html>

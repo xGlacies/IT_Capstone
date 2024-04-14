@@ -222,3 +222,8 @@ body
 {
     list-style-type: none;
 }
+
+.center_frame {
+	float: right;
+	width: 84vw;
+}
