@@ -1,16 +1,22 @@
 #semester_options {
     display: grid;
-    grid-template-columns: repeat(3, .2fr); /* creates three columns */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    padding: 10px; 
 }
+
 .grid-item a {
     display: block;
     text-align: center;
-    padding: 3px;
-    border-radius: 5px;
+    padding: 3px; 
+    border-radius: 8px; 
     color: black;
-    white-space: nowrap;
-    border: 2px solid yellow; /* Yellow border around each link */
+    white-space: wrap;
+    border: 2px solid yellow; 
+    background-color: #f9f9f9; 
 }
-.floating_sidebar_left{
-    width: 277px;
+.inactive-button {
+    color: #ccc; 
+    cursor: not-allowed; 
+    pointer-events: none; 
 }

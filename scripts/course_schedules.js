@@ -131,9 +131,32 @@ function populateSemesterSelector() {
 
     var semesterDiv = document.getElementById("semester_options");
     let buttonsHTML = "";
-    sortedSemesters.forEach(semesterValue => {
-        buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('${semesterValue}')">${semesterValue}</a></div>`;
-    });
+    //Not using dynamic filling
+/*     sortedSemesters.forEach(semesterValue => {
+
+    const parts = semesterValue.split(' ');
+    const semester = parts[0];
+    const year = parseInt(parts[1], 10);
+
+        buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('${semesterValue}')">${semester}<br>${year}</a></div>`;
+    }); */
+
+
+    
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2022')">Fall 2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2023')">Spring 2023</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2023')">Summer 2023</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2021')">Fall 2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2022')">Spring 2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2022')">Summer 2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2020')">Fall 2020</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2021')">Spring 2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2021')">Summer 2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2020')">Spring 2020</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2020')">Summer 2020</a></div>`;
+
+    
     semesterDiv.innerHTML = buttonsHTML;
 }
 
