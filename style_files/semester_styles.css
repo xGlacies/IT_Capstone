@@ -1,0 +1,13 @@
+#semester_options {
+    display: grid;
+    grid-template-columns: repeat(3, .2fr); /* creates three columns */
+}
+.grid-item a {
+    display: block;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    color: black;
+    white-space: nowrap;
+    border: 2px solid yellow; /* Yellow border around each link */
+}

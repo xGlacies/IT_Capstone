@@ -132,7 +132,7 @@ function populateSemesterSelector() {
     var semesterDiv = document.getElementById("semester_options");
     let buttonsHTML = "";
     sortedSemesters.forEach(semesterValue => {
-        buttonsHTML += `<a href="#" onclick="setSemesterValue('${semesterValue}')">${semesterValue}</a> `;
+        buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('${semesterValue}')">${semesterValue}</a></div>`;
     });
     semesterDiv.innerHTML = buttonsHTML;
 }
