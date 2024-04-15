@@ -581,22 +581,26 @@ function attachEventListeners() {
 }
 
 async function load_page() {
-    populateSemesterSelector();
-    populateSubjectSelector();
-    populateInstructorFilter();
-    attachEventListeners();
-
-
+    populateSemesterSelector(); 
+    populateSubjectSelector();  
+    populateInstructorFilter(); 
+    attachEventListeners();     
     const semesterSelector = document.getElementById('semester_selector');
-    semesterSelector.value = "";  
-
-    renderHistoryForAllSemesters();  
-
-
     const subjectSelector = document.getElementById('subject_selector');
-    subjectSelector.value = "IT";  
+
+    if (semesterSelector) {
+        semesterSelector.value = "Fall 2022";
+        filter_results(); 
+    }
+
+    if (subjectSelector) {
+        subjectSelector.value = "IT";
+        filter_results(); 
+    } else {
+        console.error("Subject selector not found or 'IT' not available as an option.");
+    }
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    await load_page(); 
+    await load_page();
 });
