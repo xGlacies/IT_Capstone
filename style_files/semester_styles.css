@@ -11,3 +11,6 @@
     white-space: nowrap;
     border: 2px solid yellow; /* Yellow border around each link */
 }
+.floating_sidebar_left{
+    width: 277px;
+}
