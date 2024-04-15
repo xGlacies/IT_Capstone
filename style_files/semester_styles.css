@@ -1,0 +1,22 @@
+#semester_options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+    padding: 10px; 
+}
+
+.grid-item a {
+    display: block;
+    text-align: center;
+    padding: 3px; 
+    border-radius: 8px; 
+    color: black;
+    white-space: wrap;
+    border: 2px solid yellow; 
+    background-color: #f9f9f9; 
+}
+.inactive-button {
+    color: #ccc; 
+    cursor: not-allowed; 
+    pointer-events: none; 
+}
