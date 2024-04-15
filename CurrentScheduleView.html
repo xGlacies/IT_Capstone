@@ -16,19 +16,30 @@
     <script src="scripts/common_functions.js" defer></script>
     <script src="scripts/banner.js" defer></script>
     <script src="scripts/data_getter.js" defer></script>
+	<script>
+		const current_semester = sessionStorage.getItem("current_semester");
+		const next_semester = sessionStorage.getItem("next_semester");
+		let current_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + current_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
+		let next_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + next_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
+		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
+		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date
+	</script>
     <!-- Fav Icon -->
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <!-- KSU Banner -->
     <div id="banner_container" class="floating_header"></div>
-    <div class="floating_title bold">Course Schedules</div>
+    <div class="floating_title bold">Course Schedule Viewer</div>
 
     <!-- Left Floating Sidebar -->
     <div id="left_sidebar" class="floating_sidebar_left">
         <div class="background_color background_padding">
 			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
             <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Current & Next Semester's Courses</button></a>
+			<br><br>
+			<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202401&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Current Semester</button></a>
+            <a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202405&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Next Semester</button></a>
 			<div class="white_background_box">
 				<a href="owlExpressFlex.html" target="_blank" class="inner_list_margin">OwlExpress Flex Example</a>
 			</div>
@@ -37,7 +48,7 @@
 
     <!-- Main Section -->
     <div class="center_frame">
-        <iframe name="iframe_results" id="iframe_results" width="100%" height="1000px" src="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202308&subj_in=CSE&crse_in=1321L&schd_in=A">Results here</iframe>
+        <iframe name="iframe_results" id="iframe_results" width="100%" height="1000px" src="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date">Results here</iframe>
     </div>
 
     <!-- Footer -->

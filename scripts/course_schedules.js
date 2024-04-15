@@ -6,10 +6,10 @@ function parseSemester(semesterString) {
 
     switch (semester) {
         case 'Spring':
-            semesterValue = 1;
+            semesterValue = 2;
             break;
         case 'Summer':
-            semesterValue = 2;
+            semesterValue = 1;
             break;
         case 'Fall':
             semesterValue = 3; 
