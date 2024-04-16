@@ -153,18 +153,18 @@ function populateSemesterSelector() {
         buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('${semesterValue}')">${semester}<br>${year}</a></div>`;
     }); */
 
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2022')">Fall 2022</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2023')">Spring 2023</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2023')">Summer 2023</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2021')">Fall 2021</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2022')">Spring 2022</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2022')">Summer 2022</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2020')">Fall 2020</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2021')">Spring 2021</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2021')">Summer 2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2022')">Fall <br>2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2023')">Spring <br>2023</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2023')">Summer <br>2023</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2021')">Fall <br>2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2022')">Spring <br>2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2022')">Summer <br>2022</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2020')">Fall <br>2020</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2021')">Spring <br>2021</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2021')">Summer <br>2021</a></div>`;
     buttonsHTML += `<div class="grid-item"></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2020')">Spring 2020</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2020')">Summer 2020</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2020')">Spring <br>2020</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2020')">Summer <br>2020</a></div>`;
 
     
     semesterDiv.innerHTML = buttonsHTML;
