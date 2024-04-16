@@ -559,7 +559,8 @@ function load_page_element()
 }
 
 function semesterSorter(a, b) {
-    const semesterOrder = { 'Fall': 1, 'Spring': 2, 'Summer': 3 }; 
+    //const semesterOrder = { 'Fall': 1, 'Spring': 2, 'Summer': 3 }; 
+    const semesterOrder = { 'Fall': 3, 'Spring': 2, 'Summer': 1 };
     const partsA = a.split(' ');
     const partsB = b.split(' ');
     const semesterA = partsA[0];
@@ -590,23 +591,23 @@ function renderHistoryByCourse() {
     }, {});
 
     const semesters = Object.keys(semesterGroups).sort(semesterSorter);
-    
+
 let htmlOutput = '';
 
-semesters.forEach(semester => {
-    // Start a new div container for each semester
-    let semesterHTML = `<div class="semester_container"><strong>${semester}</strong> - `;
-
-    const courses = semesterGroups[semester];
-    courses.forEach((course, index) => {
-        // Append course information to the semester div
-        semesterHTML += `${index > 0 ? ', ' : ''}${course.SECTION} (${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}) - ${course.Enrollment}`;
+    semesters.forEach(semester => {
+        // Start a new div for each semester
+        htmlOutput += `<div class="semester_container">`;
+    
+        const courses = semesterGroups[semester];
+        courses.forEach(course => {
+            // Construct the inner HTML for each course
+            htmlOutput += `
+                <div>${semester} - ${course.SECTION} (${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}) - ${course.Enrollment}</div>`;
+        });
+    
+        // End of the semester container div
+        htmlOutput += `<br></div>`;
     });
-
-    // Close the div for the semester
-    semesterHTML += `</div><br>`;
-    htmlOutput += semesterHTML; 
-});
 
 
     return htmlOutput;
