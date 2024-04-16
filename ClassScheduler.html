@@ -40,13 +40,14 @@
 			<p class="title_size bold">Search:</p>
 			<div class="filter_table table_base">
 				<label class="center_text_verticle">Keywords:</label>
-				<div class="side_by_side">
-					<input id="search_bar" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
-					<div onclick="filter_results()" class="picture_button search_button_size" title="Search">
-						<div class="picture_button_bg"></div>
-						<img class="picture_button_img" src="resources\search.webp" alt="Search">
-					</div>
-				</div>
+                <div class="side_by_side">
+                    <input id="search_bar" oninput="showSuggestions(this.value)" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords" autocomplete="off">
+                    <div id="autocomplete_list" class="autocomplete-items"></div>
+                    <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
+                        <div class="picture_button_bg"></div>
+                        <img class="picture_button_img" src="resources/search.webp" alt="Search">
+                    </div>
+                </div>                
 				<label class="center_text_verticle">Semester:</label>
 				<select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
 				</select>
