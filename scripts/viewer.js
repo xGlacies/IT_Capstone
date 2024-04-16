@@ -506,6 +506,9 @@ function load_page_element()
                         <p>` + course.Coordinator_Name + `, ` + course.Co_Coordinator_Name +`</p>
                         <p class=\"bold\">D2L Master Shell:</p>
                         <a class=\"list_link\" href=\"` + course.D2L_Master_Link + `\" target=\"_blank\">` + course.D2L_Master_Link + `</a>
+                        <p class=\"bold\">Last Major Revision:</p>
+                        <!-- <a class="list_link" href="m" target="_blank"></a> -->
+
                 </div>
                 <div id=\"curriculog_link\" class=\"hide_overflow\">             
                     <div class=\"table_base list_element_row\">
