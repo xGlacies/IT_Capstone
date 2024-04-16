@@ -264,19 +264,6 @@ function filter_results() {
     updateTitle(selectedSemester, selectedInstructor, searchQuery);
 }
 
-function renderHistoryByCourse(searchQuery, selectedSemester, selectedInstructor) {
-    let filteredData = window.all_course_data_history.filter(course => {
-        const coursePrefixNumber = `${course.PREFIX} ${course.NUMBER}`.toLowerCase();
-        const matchesSearch = coursePrefixNumber.includes(searchQuery.toLowerCase());
-        const matchesSemester = !selectedSemester || `${course.SEMESTER} ${course.YEAR}` === selectedSemester;
-        const matchesInstructor = !selectedInstructor || 
-            (`${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`.toLowerCase() === selectedInstructor.toLowerCase());
-        return matchesSearch && matchesSemester && matchesInstructor;
-    });
-
-    renderFilteredCourses(filteredData);
-}
-
 function renderFilteredCourses(filteredData) {
     const listBody = document.getElementById('list_body');
     listBody.innerHTML = '';
@@ -323,7 +310,7 @@ async function load_list_element(searchQuery = '', selectedSemester = '', select
 
 function renderHistoryByCourse(searchQuery) {
     const selectedSemester = document.getElementById('semester_selector').value;
-    const selectedInstructor = document.getElementById('faculty_selector').value;  // Retrieve the selected instructor if any
+    const selectedInstructor = document.getElementById('faculty_selector').value;  
 
     let filteredData = window.all_course_data_history.filter(course => {
         const coursePrefixNumber = `${course.PREFIX} ${course.NUMBER}`.toLowerCase();
@@ -395,6 +382,32 @@ function renderHistoryByCourse(searchQuery) {
     });
 }
 
+function showSuggestions(input) {
+    let divContainer = document.getElementById('autocomplete_list');
+    divContainer.innerHTML = ''; 
+    if (!input.trim()) {
+        divContainer.style.display = 'none';
+        return;
+    }
+    
+    divContainer.style.display = 'block'; 
+    const inputLower = input.toLowerCase();
+    const filteredCourses = window.all_course_data.filter(course =>
+        (`${course.Prefix} ${course.Course_Number} ${course.Course_Name}`).toLowerCase().includes(inputLower)
+    );
+
+    filteredCourses.forEach(course => {
+        let div = document.createElement('div');
+        div.textContent = `${course.Prefix} ${course.Course_Number} - ${course.Course_Name}`;
+        div.onclick = function () {
+            document.getElementById('search_bar').value = `${course.Prefix} ${course.Course_Number}`; 
+            divContainer.style.display = 'none'; 
+            renderHistoryByCourse(`${course.Prefix} ${course.Course_Number}`);
+        };
+        divContainer.appendChild(div);
+    });
+}
+
 function renderHistoryBySemester(selectedSemester) {
     const selectedSubject = document.getElementById('subject_selector').value.toLowerCase(); 
     let filteredData = window.all_course_data_history.filter(course => {
@@ -447,7 +460,6 @@ function renderHistoryBySemester(selectedSemester) {
         table.appendChild(row);
     });
 }
-
 
 function renderHistoryForAllSemesters() {
     const selectedSubject = document.getElementById('subject_selector').value.toLowerCase(); 
@@ -519,48 +531,6 @@ function renderHistoryForAllSemesters() {
 function findCourseNameByNumber(courseNumber) {
     const course = window.all_course_data.find(course => course.Course_Number === courseNumber.toString());
     return course ? course.Course_Name : "N/A";
-}
-
-function renderHistory(filteredData) {
-    const listBody = document.getElementById('list_body');
-    listBody.innerHTML = ''; 
-
-    if (filteredData.length === 0) {
-        listBody.innerHTML = '<p>No courses found with the selected filters.</p>';
-        return;
-    }
-
-    const table = document.createElement('table');
-    table.className = 'course_table'; 
-    const headerRow = document.createElement('tr');
-    ["Course Code", "Title", "Section", "Instructor Name", "Enrollment"].forEach(headerText => {
-        const headerCell = document.createElement('th');
-        headerCell.textContent = headerText;
-        headerRow.appendChild(headerCell);
-    });
-    table.appendChild(headerRow);
-    filteredData.forEach(course => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${course.PREFIX} ${course.NUMBER}</td>
-            <td>${findCourseNameByNumber(course.NUMBER)}</td>
-            <td>${course.SECTION}</td>
-            <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-            <td>${course.Enrollment}</td>
-        `;
-        table.appendChild(row);
-    });
-
-    listBody.appendChild(table);
-}
-
-function updateTitle(selectedSemester) {
-    const title_changer = document.getElementById('title_changer');
-    if (selectedSemester && selectedSemester !== "All Semesters") {
-        title_changer.innerHTML = `Course Schedule - ${selectedSemester}`;
-    } else {
-        title_changer.innerHTML = "Course Schedule - All Semesters";
-    }
 }
 
 function findCourseNameByNumber(courseNumber) {
