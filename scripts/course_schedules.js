@@ -301,27 +301,14 @@ async function load_list_element(searchQuery = '', selectedSemester = '', select
 }
 
 function renderHistoryByCourse(searchQuery) {
-    const selectedSemester = document.getElementById('semester_selector').value;
     const selectedInstructor = document.getElementById('faculty_selector').value;  
 
     let filteredData = window.all_course_data_history.filter(course => {
         const coursePrefixNumber = `${course.PREFIX} ${course.NUMBER}`.toLowerCase();
-        const isCorrectSemester = !selectedSemester || `${course.SEMESTER} ${course.YEAR}` === selectedSemester;
         const isCorrectInstructor = !selectedInstructor || 
                                     (`${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`.toLowerCase() === selectedInstructor.toLowerCase());
-        return coursePrefixNumber.includes(searchQuery.toLowerCase()) && isCorrectSemester && isCorrectInstructor;
+        return coursePrefixNumber.includes(searchQuery.toLowerCase()) && isCorrectInstructor;
     });
-
-    const semesterGroups = filteredData.reduce((acc, course) => {
-        const semesterKey = `${course.SEMESTER} ${course.YEAR}`;
-        if (!acc[semesterKey]) {
-            acc[semesterKey] = [];
-        }
-        acc[semesterKey].push(course);
-        return acc;
-    }, {});
-
-    const semesters = Object.keys(semesterGroups).sort(semesterSorter);
 
     const listBody = document.getElementById('list_body');
     if (!listBody) {
@@ -330,49 +317,38 @@ function renderHistoryByCourse(searchQuery) {
     }
     listBody.innerHTML = '';
 
-    semesters.forEach(semester => {
-        const courses = semesterGroups[semester];
+    if (filteredData.length === 0) {
+        listBody.innerHTML = '<p>No courses found with the selected filters.</p>';
+        return;
+    }
 
-        if (!selectedSemester || semester === selectedSemester) {
-            const semesterHeader = document.createElement('h3');
-            semesterHeader.textContent = `Semester: ${semester}`;
-            listBody.appendChild(semesterHeader);
+    const table = document.createElement('table');
+    table.className = 'course_history_table'; 
+    listBody.appendChild(table);
 
-            const table = document.createElement('table');
-            table.className = 'course_history_table'; 
-            listBody.appendChild(table);
+    const headerRow = document.createElement('tr');
+    headerRow.className = 'course_history_header';
+    headerRow.innerHTML = `
+        <th>Section</th>
+        <th>Course Number</th>
+        <th>Instructor Name</th>
+        <th>Enrollment</th>
+    `;
+    table.appendChild(headerRow);
 
-            const headerRow = document.createElement('tr');
-            headerRow.className = 'course_history_header';
-            headerRow.innerHTML = `
-                <th>Section</th>
-                <th>Course Number</th>
-                <th>Instructor Name</th>
-                <th>Enrollment</th>
-            `;
-            table.appendChild(headerRow);
-
-            courses.forEach(course => {
-                const row = document.createElement('tr');
-                row.className = 'course_history_row';
-                row.innerHTML = `
-                    <td>${course.SECTION}</td>
-                    <td>${course.PREFIX} ${course.NUMBER}</td>
-                    <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-                    <td>${course.Enrollment}</td>
-                `;
-                table.appendChild(row);
-            });
-
-            if (courses.length === 0) {
-                const noDataDiv = document.createElement('tr');
-                noDataDiv.className = 'course_history_row';
-                noDataDiv.innerHTML = '<td colspan="4">No courses found for this semester.</td>';
-                table.appendChild(noDataDiv);
-            }
-        }
+    filteredData.forEach(course => {
+        const row = document.createElement('tr');
+        row.className = 'course_history_row';
+        row.innerHTML = `
+            <td>${course.SECTION}</td>
+            <td>${course.PREFIX} ${course.NUMBER}</td>
+            <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
+            <td>${course.Enrollment}</td>
+        `;
+        table.appendChild(row);
     });
 }
+
 
 function showSuggestions(input) {
     let divContainer = document.getElementById('autocomplete_list');
