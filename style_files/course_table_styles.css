@@ -206,4 +206,8 @@
     margin-left: -40px;
 }
 
+#semester_selector, #subject_selector {
+    display: none;
+}
+
 

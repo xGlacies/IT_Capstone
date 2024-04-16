@@ -43,7 +43,7 @@ function findCourseNameByNumber(courseNumber) {
             return all_course_data[i].Course_Name;
         }
     }
-    return "N/A"; 
+    return "-"; 
 }
 
 function renderHistoryByInstructor(instructorFullName) {
@@ -371,7 +371,7 @@ function showSuggestions(input) {
     } else {
         filteredCourses.forEach(course => {
             let div = document.createElement('div');
-            let courseName = course.Course_Name || 'N/A';
+            let courseName = course.Course_Name || '-';
             div.textContent = `${course.Prefix} ${course.Course_Number} - ${courseName}`;
             div.onclick = function () {
                 document.getElementById('search_bar').value = `${course.Prefix} ${course.Course_Number}`;
@@ -491,7 +491,7 @@ function renderHistoryForAllSemesters() {
 
 function findCourseNameByNumber(courseNumber) {
     const course = window.all_course_data.find(course => course.Course_Number === courseNumber.toString());
-    return course ? course.Course_Name : "N/A";
+    return course ? course.Course_Name : "-";
 }
 
 function findCourseNameByNumber(courseNumber) {
@@ -500,7 +500,7 @@ function findCourseNameByNumber(courseNumber) {
             return all_course_data[i].Course_Name; 
         }
     }
-    return "N/A";
+    return "-";
 }
 
 function attachEventListeners() {

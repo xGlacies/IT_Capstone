@@ -37,9 +37,9 @@
             <div id="semester_options">
             </div>
 			<br><hr>
-			<p class="title_size bold">Search:</p>
+			<p class="title_size bold">Search By:</p>
 			<div class="filter_table table_base">
-				<label class="center_text_verticle">Keywords:</label>
+				<label class="center_text_verticle">Course:</label>
                 <div class="side_by_side">
                     <input id="search_bar" oninput="showSuggestions(this.value)" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords" autocomplete="off">
                     <div id="autocomplete_list" class="autocomplete-items"></div>
@@ -48,13 +48,13 @@
                         <img class="picture_button_img" src="resources/search.webp" alt="Search">
                     </div>
                 </div>                
-				<label class="center_text_verticle">Semester:</label>
+				<label class="center_text_verticle"></label>
 				<select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
 				</select>
-				<label class="center_text_verticle">Subject:</label>
+				<label class="center_text_verticle"></label>
 				<select id="subject_selector" onchange="filter_results()" class="searchbar_height">
 				</select>
-				<label class="center_text_verticle">Instructor:</label>
+				<label class="center_text_verticle">Faculty:</label>
 				<select id="faculty_selector" onchange="filter_results()" class="searchbar_height">
 				</select>
 			</div>
