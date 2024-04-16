@@ -486,6 +486,7 @@ function load_page_element()
                     <div class=\"table_padder_bottom\">
                     </div>
                 </div>
+                
                 <div id=\"offering_history\" class=\"hide_overflow\">
                     <div class=\"table_base list_element_row\">
                         <p class=\"bold\">Offering History: </p>
@@ -495,8 +496,11 @@ function load_page_element()
                     </div>
                 </div>
 
+                
 
-                <div id=\"schedule\" class=\"hide_overflow\">
+                
+
+                <div id=\"history\" class=\"hide_overflow\">
                     <div>
 
                     </div>
@@ -587,45 +591,23 @@ function renderHistoryByCourse() {
 
     const semesters = Object.keys(semesterGroups).sort(semesterSorter);
     
-    let htmlOutput = '';
+let htmlOutput = '';
 
+semesters.forEach(semester => {
+    // Start a new div container for each semester
+    let semesterHTML = `<div class="semester_container"><strong>${semester}</strong> - `;
 
-    semesters.forEach(semester => {
-        const courses = semesterGroups[semester];
-        
-        // Start of the table for each semester
-        htmlOutput += `
-
-        <th colspan="3" class="full-width"><b>Semester: ${semester}</b></th>
-        <div class="list_header">
-        <div>
-            <div class="table_base three_row">
-                <p class="header_row table_data">Section</p>
-                <p class="header_row table_data">Instructor</p>
-                <p class="header_row table_data">Enrollment</p> 
-            </div>
-        </div>
-    </div>
-        `;
-    
-        courses.forEach(course => {
-            htmlOutput += `
-
-            <div>
-            <div>
-                <div class=\"table_base three_row\">
-                    <p class=\"data_row table_data\">` + course.SECTION + `</p>
-                    <p class=\"data_row table_data\">` + course.INSTRUCTOR_FIRST_NAME + ` ` + course.INSTRUCTOR_LAST_NAME + `</p>
-                    <p class=\"data_row table_data\">` + course.Enrollment + `</p>
-                </div>
-            </div>
-        </div>`
-        });
-    
-        // End of the table
-        htmlOutput += `<br>`;
+    const courses = semesterGroups[semester];
+    courses.forEach((course, index) => {
+        // Append course information to the semester div
+        semesterHTML += `${index > 0 ? ', ' : ''}${course.SECTION} (${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}) - ${course.Enrollment}`;
     });
-    
+
+    // Close the div for the semester
+    semesterHTML += `</div><br>`;
+    htmlOutput += semesterHTML; 
+});
+
 
     return htmlOutput;
 }
