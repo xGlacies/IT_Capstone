@@ -21,6 +21,8 @@
 		const next_semester = sessionStorage.getItem("next_semester");
 		let current_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + current_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
 		let next_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + next_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
+		let frame = document.getElementById("iframe_results"); 
+		frame.setAttribute("src", current_link);
 		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
 		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date
 	</script>
@@ -40,8 +42,15 @@
 			<br><br>
 			<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202401&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Current Semester</button></a>
             <a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202405&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Next Semester</button></a>
+			<br>
 			<div class="white_background_box">
+				<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results">Manual Search</a>
+				<p></p>
 				<a href="owlExpressFlex.html" target="_blank" class="inner_list_margin">OwlExpress Flex Example</a>
+			</div>
+			<hr>
+			<div id="search_links">
+			
 			</div>
         </div>
     </div>
