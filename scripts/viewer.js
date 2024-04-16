@@ -1,4 +1,4 @@
-// Essential variables such as the URL query and elements on the page that will be reffered to in the code
+// Essential variables such as the URL query and elements on the page that will be referred to in the code
 var query = new URLSearchParams(window.location.search);
 var query_prefix = ""
 var query_course = ""
@@ -188,7 +188,7 @@ function build_offering_history(year) {
     </div>`;
 }
 
-// This is a new function to replace the above method that creates the offering historys for the previous years
+// This is a new function to replace the above method that creates the offering historys for the current year and 2 previous years based on today's current date
 function generate_offering_history(year) {
 	currentSemester = year + "01";
 	nextSemester = year + "05";
