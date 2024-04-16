@@ -494,6 +494,19 @@ function load_page_element()
                         </div>
                     </div>
                 </div>
+
+
+                <div id=\"schedule\" class=\"hide_overflow\">
+                    <div>
+
+                    </div>
+                    <div>
+                    ` + renderHistoryByCourse() + `
+                    </div>
+                </div>
+
+
+
                 <div id=\"owlexpress_link\" class=\"hide_overflow\">
                     <div class=\"table_base list_element_row\">
                         <p class=\"bold\">OwlExpress Link: </p>
@@ -539,6 +552,82 @@ function load_page_element()
 
     // Append the element to the main body
     course_page.appendChild(html_obj);
+}
+
+function semesterSorter(a, b) {
+    const semesterOrder = { 'Fall': 1, 'Spring': 2, 'Summer': 3 }; 
+    const partsA = a.split(' ');
+    const partsB = b.split(' ');
+    const semesterA = partsA[0];
+    const semesterB = partsB[0];
+    const yearA = parseInt(partsA[1], 10);
+    const yearB = parseInt(partsB[1], 10);
+
+    if (yearA !== yearB) {
+        return yearB - yearA;
+    }
+    return semesterOrder[semesterA] - semesterOrder[semesterB];
+}
+
+function renderHistoryByCourse() {
+    const searchQuery = course.Course_Number;
+    let filteredData = window.all_course_data_history.filter(course => {
+        const coursePrefixNumber = `${course.PREFIX} ${course.NUMBER}`.toLowerCase();
+        return coursePrefixNumber.includes(searchQuery.toLowerCase());
+    });
+
+    const semesterGroups = filteredData.reduce((acc, course) => {
+        const semesterKey = `${course.SEMESTER} ${course.YEAR}`; 
+        if (!acc[semesterKey]) {
+            acc[semesterKey] = [];
+        }
+        acc[semesterKey].push(course);
+        return acc;
+    }, {});
+
+    const semesters = Object.keys(semesterGroups).sort(semesterSorter);
+    
+    let htmlOutput = '';
+
+
+    semesters.forEach(semester => {
+        const courses = semesterGroups[semester];
+        
+        // Start of the table for each semester
+        htmlOutput += `
+
+        <th colspan="3" class="full-width"><b>Semester: ${semester}</b></th>
+        <div class="list_header">
+        <div>
+            <div class="table_base three_row">
+                <p class="header_row table_data">Section</p>
+                <p class="header_row table_data">Instructor</p>
+                <p class="header_row table_data">Enrollment</p> 
+            </div>
+        </div>
+    </div>
+        `;
+    
+        courses.forEach(course => {
+            htmlOutput += `
+
+            <div>
+            <div>
+                <div class=\"table_base three_row\">
+                    <p class=\"data_row table_data\">` + course.SECTION + `</p>
+                    <p class=\"data_row table_data\">` + course.INSTRUCTOR_FIRST_NAME + ` ` + course.INSTRUCTOR_LAST_NAME + `</p>
+                    <p class=\"data_row table_data\">` + course.Enrollment + `</p>
+                </div>
+            </div>
+        </div>`
+        });
+    
+        // End of the table
+        htmlOutput += `<br>`;
+    });
+    
+
+    return htmlOutput;
 }
 
 
