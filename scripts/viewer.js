@@ -570,7 +570,7 @@ function semesterSorter(a, b) {
 }
 
 function renderHistoryByCourse() {
-    const searchQuery = course.Course_Number;
+    const searchQuery = course.Prefix + " " + course.Course_Number;
     let filteredData = window.all_course_data_history.filter(course => {
         const coursePrefixNumber = `${course.PREFIX} ${course.NUMBER}`.toLowerCase();
         return coursePrefixNumber.includes(searchQuery.toLowerCase());
