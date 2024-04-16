@@ -240,7 +240,7 @@ function resetFilters() {
 }
 
 function filter_results() {
-    const selectedSubject = document.getElementById('subject_selector').value;
+    const selectedSubject = document.getElementById('subject_selector').value.toLowerCase();
     const selectedSemester = document.getElementById('semester_selector').value;
     const selectedInstructor = document.getElementById('faculty_selector').value;
     const searchQuery = document.getElementById('search_bar').value.trim().toLowerCase();
@@ -251,19 +251,15 @@ function filter_results() {
         return;
     }
     listBody.innerHTML = '';
+    
     if (searchQuery) {
         renderHistoryByCourse(searchQuery, selectedSemester, selectedInstructor);
     } else if (selectedInstructor) {
-
         renderHistoryByInstructor(selectedInstructor, selectedSemester);
     } else if (selectedSemester && selectedSemester !== "All Semesters") {
-
         renderHistoryBySemester(selectedSemester);
-    } else if (selectedSubject) {
- 
-        renderHistoryBySubject(selectedSubject);
     } else {
-                renderHistoryForAllSemesters();
+        renderHistoryForAllSemesters();
     }
     updateTitle(selectedSemester, selectedInstructor, searchQuery);
 }
@@ -399,13 +395,14 @@ function renderHistoryByCourse(searchQuery) {
     });
 }
 
-
-
-
 function renderHistoryBySemester(selectedSemester) {
-    let filteredData = window.all_course_data_history.filter(course => 
-        `${course.SEMESTER} ${course.YEAR}` === selectedSemester
-    );
+    const selectedSubject = document.getElementById('subject_selector').value.toLowerCase(); 
+    let filteredData = window.all_course_data_history.filter(course => {
+        const isCorrectSemester = `${course.SEMESTER} ${course.YEAR}` === selectedSemester;
+        const isCorrectSubject = !selectedSubject || course.PREFIX.toLowerCase() === selectedSubject; 
+
+        return isCorrectSemester && isCorrectSubject; 
+    });
 
     const listBody = document.getElementById('list_body');
     if (!listBody) {
@@ -433,27 +430,28 @@ function renderHistoryBySemester(selectedSemester) {
     if (filteredData.length === 0) {
         const noDataDiv = document.createElement('tr');
         noDataDiv.className = 'course_table_row'; 
-        noDataDiv.innerHTML = '<td colspan="5">No courses found for this semester.</td>';
+        noDataDiv.innerHTML = '<td colspan="5">No courses found for this semester with the selected subject.</td>';
         table.appendChild(noDataDiv);
-    } else {
-        filteredData.forEach(course => {
-            const row = document.createElement('tr');
-            row.className = 'course_table_row'; 
-            row.innerHTML = `
-                <td>${course.PREFIX} ${course.NUMBER}</td>
-                <td>${findCourseNameByNumber(course.NUMBER)}</td>
-                <td>${course.SECTION}</td>
-                <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-                <td>${course.Enrollment}</td>
-            `;
-            table.appendChild(row);
-        });
+        return; 
     }
+    filteredData.forEach(course => {
+        const row = document.createElement('tr');
+        row.className = 'course_table_row'; 
+        row.innerHTML = `
+            <td>${course.PREFIX} ${course.NUMBER}</td>
+            <td>${findCourseNameByNumber(course.NUMBER)}</td>
+            <td>${course.SECTION}</td>
+            <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
+            <td>${course.Enrollment}</td>
+        `;
+        table.appendChild(row);
+    });
 }
 
+
 function renderHistoryForAllSemesters() {
-    const semesters = [...new Set(window.all_course_data_history.map(course => `${course.SEMESTER} ${course.YEAR}`))];
-    semesters.sort(semesterSorter);
+    const selectedSubject = document.getElementById('subject_selector').value.toLowerCase(); 
+    const selectedSemester = document.getElementById('semester_selector').value;
 
     const listBody = document.getElementById('list_body');
     if (!listBody) {
@@ -462,40 +460,47 @@ function renderHistoryForAllSemesters() {
     }
     listBody.innerHTML = '';
 
-    semesters.forEach(semester => {
-        renderSemesterCourses(semester, listBody);
+    let filteredData = window.all_course_data_history.filter(course => {
+        const subjectMatch = selectedSubject ? course.PREFIX.toLowerCase() === selectedSubject : true; 
+        const semesterMatch = selectedSemester ? `${course.SEMESTER} ${course.YEAR}` === selectedSemester : true; 
+        return subjectMatch && semesterMatch;
     });
-}
-
-function renderSemesterCourses(semester, listBody) {
-    let filteredData = window.all_course_data_history.filter(course => `${course.SEMESTER} ${course.YEAR}` === semester);
-
-    const semesterHeader = document.createElement('h3');
-    semesterHeader.textContent = `Semester: ${semester}`;
-    listBody.appendChild(semesterHeader);
-
-    const table = document.createElement('table');
-    table.className = 'course_table';
-    listBody.appendChild(table);
-
-    const headerRow = document.createElement('tr');
-    headerRow.className = 'course_table_header';
-    headerRow.innerHTML = `
-        <th>Course Code</th>
-        <th>Title</th>
-        <th>Section</th>
-        <th>Instructor Name</th>
-        <th>Enrollment</th>
-    `;
-    table.appendChild(headerRow);
 
     if (filteredData.length === 0) {
-        const noDataDiv = document.createElement('tr');
-        noDataDiv.className = 'course_table_row';
-        noDataDiv.innerHTML = '<td colspan="5">No courses found for this semester.</td>';
-        table.appendChild(noDataDiv);
-    } else {
-        filteredData.forEach(course => {
+        listBody.innerHTML = '<p>No courses found with the selected filters.</p>';
+        return;
+    }
+
+    const semesterGroups = filteredData.reduce((acc, course) => {
+        const semesterKey = `${course.SEMESTER} ${course.YEAR}`;
+        acc[semesterKey] = acc[semesterKey] || [];
+        acc[semesterKey].push(course);
+        return acc;
+    }, {});
+
+    const semesters = Object.keys(semesterGroups).sort(semesterSorter);
+    semesters.forEach(semester => {
+        const courses = semesterGroups[semester];
+        const semesterHeader = document.createElement('h3');
+        semesterHeader.textContent = `Semester: ${semester}`;
+        listBody.appendChild(semesterHeader);
+
+        const table = document.createElement('table');
+        table.className = 'course_table';
+        listBody.appendChild(table);
+
+        const headerRow = document.createElement('tr');
+        headerRow.className = 'course_table_header';
+        headerRow.innerHTML = `
+            <th>Course Code</th>
+            <th>Title</th>
+            <th>Section</th>
+            <th>Instructor Name</th>
+            <th>Enrollment</th>
+        `;
+        table.appendChild(headerRow);
+
+        courses.forEach(course => {
             const row = document.createElement('tr');
             row.className = 'course_table_row';
             row.innerHTML = `
@@ -507,8 +512,9 @@ function renderSemesterCourses(semester, listBody) {
             `;
             table.appendChild(row);
         });
-    }
-} 
+    });
+}
+
 
 function findCourseNameByNumber(courseNumber) {
     const course = window.all_course_data.find(course => course.Course_Number === courseNumber.toString());
@@ -583,24 +589,28 @@ function attachEventListeners() {
 async function load_page() {
     populateSemesterSelector(); 
     populateSubjectSelector();  
-    populateInstructorFilter(); 
+    populateInstructorFilter();  
     attachEventListeners();     
+
     const semesterSelector = document.getElementById('semester_selector');
     const subjectSelector = document.getElementById('subject_selector');
 
-    if (semesterSelector) {
-        semesterSelector.value = "Fall 2022";
-        filter_results(); 
-    }
+    if (semesterSelector && subjectSelector) {
+        semesterSelector.value = "Fall 2022"; 
+        subjectSelector.value = "IT"; 
 
-    if (subjectSelector) {
-        subjectSelector.value = "IT";
         filter_results(); 
     } else {
-        console.error("Subject selector not found or 'IT' not available as an option.");
+        if (!semesterSelector) {
+            console.error("Semester selector not found.");
+        }
+        if (!subjectSelector) {
+            console.error("Subject selector not found or 'IT' not available as an option.");
+        }
     }
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
     await load_page();
 });
+
