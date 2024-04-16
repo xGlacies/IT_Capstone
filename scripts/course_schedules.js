@@ -172,20 +172,9 @@ function populateSemesterSelector() {
 
 function populateSubjectSelector() {
     const subjectSelector = document.getElementById('subject_selector');
-    subjectSelector.innerHTML = '<option value="">All Subjects</option>';
-    const uniqueSubjects = new Set();
-
-    window.all_course_data_history.forEach(course => {
-        uniqueSubjects.add(course.PREFIX);
-    });
-
-    uniqueSubjects.forEach(subject => {
-        const option = document.createElement('option');
-        option.value = subject;
-        option.textContent = subject;
-        subjectSelector.appendChild(option);
-    });
+    subjectSelector.innerHTML = '<option value="IT">IT</option>'; // Directly set to IT only
 }
+
 
 function populateInstructorFilter() {
     const instructorSelector = document.getElementById('faculty_selector');
@@ -193,8 +182,10 @@ function populateInstructorFilter() {
     const uniqueInstructors = new Set();
 
     window.all_course_data_history.forEach(course => {
-        const fullName = `${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`;
-        uniqueInstructors.add(fullName.trim());
+        if (course.PREFIX === 'IT') {
+            const fullName = `${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`;
+            uniqueInstructors.add(fullName.trim());
+        }
     });
 
     uniqueInstructors.forEach(instructor => {
@@ -204,6 +195,7 @@ function populateInstructorFilter() {
         instructorSelector.appendChild(option);
     });
 }
+
 
 function setSemesterValue(selectedSemester) {
     const semesterSelector = document.getElementById('semester_selector');
@@ -233,7 +225,7 @@ function attachSemesterButtonListeners() {
 
 function resetFilters() {
     document.getElementById('semester_selector').value = '';
-    document.getElementById('subject_selector').value = '';
+    document.getElementById('subject_selector').value = 'IT';
     document.getElementById('faculty_selector').value = '';
     document.getElementById('search_bar').value = ''; 
     filter_results();
@@ -384,29 +376,38 @@ function renderHistoryByCourse(searchQuery) {
 
 function showSuggestions(input) {
     let divContainer = document.getElementById('autocomplete_list');
-    divContainer.innerHTML = ''; 
+    divContainer.innerHTML = '';
     if (!input.trim()) {
         divContainer.style.display = 'none';
         return;
     }
-    
-    divContainer.style.display = 'block'; 
+
+    divContainer.style.display = 'block';
     const inputLower = input.toLowerCase();
+
     const filteredCourses = window.all_course_data.filter(course =>
-        (`${course.Prefix} ${course.Course_Number} ${course.Course_Name}`).toLowerCase().includes(inputLower)
+        course.Prefix === 'IT' &&
+        (`${course.Prefix} ${course.Course_Number} ${course.Course_Name || ''}`.trim()).toLowerCase().includes(inputLower)
     );
 
-    filteredCourses.forEach(course => {
-        let div = document.createElement('div');
-        div.textContent = `${course.Prefix} ${course.Course_Number} - ${course.Course_Name}`;
-        div.onclick = function () {
-            document.getElementById('search_bar').value = `${course.Prefix} ${course.Course_Number}`; 
-            divContainer.style.display = 'none'; 
-            renderHistoryByCourse(`${course.Prefix} ${course.Course_Number}`);
-        };
-        divContainer.appendChild(div);
-    });
+    if (filteredCourses.length === 0) {
+        divContainer.innerHTML = '<div>No matches found</div>';
+    } else {
+        filteredCourses.forEach(course => {
+            let div = document.createElement('div');
+            let courseName = course.Course_Name || 'N/A';
+            div.textContent = `${course.Prefix} ${course.Course_Number} - ${courseName}`;
+            div.onclick = function () {
+                document.getElementById('search_bar').value = `${course.Prefix} ${course.Course_Number}`;
+                divContainer.style.display = 'none';
+                renderHistoryByCourse(`${course.Prefix} ${course.Course_Number}`);
+            };
+            divContainer.appendChild(div);
+        });
+    }
 }
+
+
 
 function renderHistoryBySemester(selectedSemester) {
     const selectedSubject = document.getElementById('subject_selector').value.toLowerCase(); 
@@ -483,50 +484,34 @@ function renderHistoryForAllSemesters() {
         return;
     }
 
-    const semesterGroups = filteredData.reduce((acc, course) => {
-        const semesterKey = `${course.SEMESTER} ${course.YEAR}`;
-        acc[semesterKey] = acc[semesterKey] || [];
-        acc[semesterKey].push(course);
-        return acc;
-    }, {});
+    const table = document.createElement('table');
+    table.className = 'course_table';
+    listBody.appendChild(table);
 
-    const semesters = Object.keys(semesterGroups).sort(semesterSorter);
-    semesters.forEach(semester => {
-        const courses = semesterGroups[semester];
-        const semesterHeader = document.createElement('h3');
-        semesterHeader.textContent = `Semester: ${semester}`;
-        listBody.appendChild(semesterHeader);
+    const headerRow = document.createElement('tr');
+    headerRow.className = 'course_table_header';
+    headerRow.innerHTML = `
+        <th>Course Code</th>
+        <th>Title</th>
+        <th>Section</th>
+        <th>Instructor Name</th>
+        <th>Enrollment</th>
+    `;
+    table.appendChild(headerRow);
 
-        const table = document.createElement('table');
-        table.className = 'course_table';
-        listBody.appendChild(table);
-
-        const headerRow = document.createElement('tr');
-        headerRow.className = 'course_table_header';
-        headerRow.innerHTML = `
-            <th>Course Code</th>
-            <th>Title</th>
-            <th>Section</th>
-            <th>Instructor Name</th>
-            <th>Enrollment</th>
+    filteredData.forEach(course => {
+        const row = document.createElement('tr');
+        row.className = 'course_table_row';
+        row.innerHTML = `
+            <td>${course.PREFIX} ${course.NUMBER}</td>
+            <td>${findCourseNameByNumber(course.NUMBER)}</td>
+            <td>${course.SECTION}</td>
+            <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
+            <td>${course.Enrollment}</td>
         `;
-        table.appendChild(headerRow);
-
-        courses.forEach(course => {
-            const row = document.createElement('tr');
-            row.className = 'course_table_row';
-            row.innerHTML = `
-                <td>${course.PREFIX} ${course.NUMBER}</td>
-                <td>${findCourseNameByNumber(course.NUMBER)}</td>
-                <td>${course.SECTION}</td>
-                <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-                <td>${course.Enrollment}</td>
-            `;
-            table.appendChild(row);
-        });
+        table.appendChild(row);
     });
 }
-
 
 function findCourseNameByNumber(courseNumber) {
     const course = window.all_course_data.find(course => course.Course_Number === courseNumber.toString());
@@ -558,18 +543,18 @@ function attachEventListeners() {
 
 async function load_page() {
     populateSemesterSelector(); 
-    populateSubjectSelector();  
-    populateInstructorFilter();  
+    populateSubjectSelector();  // This now only adds IT
+    populateInstructorFilter(); // This now only adds instructors with IT courses
     attachEventListeners();     
 
     const semesterSelector = document.getElementById('semester_selector');
     const subjectSelector = document.getElementById('subject_selector');
 
     if (semesterSelector && subjectSelector) {
-        semesterSelector.value = "Fall 2022"; 
-        subjectSelector.value = "IT"; 
+        semesterSelector.value = ""; // Set the default or a specific semester if needed
+        subjectSelector.value = "IT";        // Default to IT
 
-        filter_results(); 
+        filter_results();  // Filter results on initial load
     } else {
         if (!semesterSelector) {
             console.error("Semester selector not found.");
@@ -579,8 +564,4 @@ async function load_page() {
         }
     }
 }
-
-document.addEventListener('DOMContentLoaded', async function() {
-    await load_page();
-});
 
