@@ -6,9 +6,6 @@ var course = ""
 var course_page = document.getElementById("course_page");
 var tabs = document.getElementById("tabs_row").children;
 var course_selector = document.getElementById("course_selector");
-const year = new Date().getFullYear(); //get current year
-const month = new Date().getMonth()+1; //get current month
-const current_semester = sessionStorage.getItem("current_semester");
 
 // These arrays are used to determine which elements should show under which tabs
 var essential_info_enum = 
@@ -186,30 +183,6 @@ function build_offering_history(year) {
         ` + offering_history_summer + `
         ` + offering_history_fall + `
     </div>`;
-}
-
-// This is a new function to replace the above method that creates the offering historys for the current year and 2 previous years based on today's current date
-function generate_offering_history(year) {
-	currentSemester = year + "01";
-	nextSemester = year + "05";
-	if(month <= 4) {
-		currentSemester = year + "01";
-		nextSemester = year + "05";
-	}
-	if(month >= 5 && month <= 7) {
-		currentSemester = year + "05";
-		nextSemester = year + "08";
-	}
-	if(month >= 8) {
-		currentSemester = year + "08";
-		nextSemester = year + "01";
-	}
-	for (i = 0; i < 3; i++)
-    {
-		
-	}
-	//An example of the string and variables to add into the function above to create a link.
-	//offer = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + semester_code (ex. 202308 for Fall 2023) + "&subj_in=" + prefix (ex. CSE) + "&crse_in=" + course number (ex. 1321L) + "&schd_in=A"
 }
 
 // This function generates the latest round information for the latest ALG round
