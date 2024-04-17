@@ -59,8 +59,10 @@ function getActiveCourseDataSet() {
 function setActiveAndGroup(buttonId) {
     const buttons = document.querySelectorAll('.order_button');
     buttons.forEach(button => button.classList.remove('active'));
+	buttons.forEach(button => button.setAttribute("style", "font-weight: none;text-decoration: none;"));
     const activeButton = document.getElementById(buttonId);
     activeButton.classList.add('active');
+	activeButton.setAttribute("style", "font-weight: bold;text-decoration: underline;");
 
     const selectedSemester = document.getElementById('semester_selector').value;
     let courseData;
