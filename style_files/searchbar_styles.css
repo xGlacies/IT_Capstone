@@ -142,6 +142,17 @@
     width: 16vw;
 }
 
+.sidebar_left_large
+{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    top: 122px;
+    left: 0px;
+    transition: left 0.5s;
+    
+    width: 18vw;
+}
 #filter_by_degree {
 	display: flex;
 }
