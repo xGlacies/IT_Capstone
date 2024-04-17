@@ -15,9 +15,9 @@
     <!-- Scripts -->
     <script src="scripts/common_functions.js" defer></script>
     <script src="scripts/banner.js" defer></script>
+    <script src="scripts/owl_express_flex.js" defer></script>
     <script src="scripts/data_getter.js" defer></script>
-	<script src="scripts/owl_express_flex.js" defer></script>
-	<script>
+<!-- 	<script>
 		const current_semester = sessionStorage.getItem("current_semester");
 		const next_semester = sessionStorage.getItem("next_semester");
 		let current_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + current_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
@@ -26,7 +26,7 @@
 		frame.setAttribute("src", current_link);
 		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
 		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date
-	</script>
+	</script> -->
     <!-- Fav Icon -->
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 </head>
@@ -54,9 +54,9 @@
 			<p id="selected_semester"></p>
 			
 			<span id="filter_by_degree">
-			<button id="ALL" class="order_button">All</button>
-			<button id="BSIT" class="order_button">BSIT</button>
-			<button id="MSIT" class="order_button">MSIT</button>
+                <button id="ALL" onclick="group_by_type(all_course_data);" class="order_button">All</button>
+                <button id="BSIT" onclick="group_by_type(BSIT_course_data);" class="order_button">BSIT</button>
+                <button id="MSIT" onclick="group_by_type(MSIT_course_data);" class="order_button">MSIT</button>                
 			</span>
 			<hr>
 			<div id="search_links" class="search_links">
