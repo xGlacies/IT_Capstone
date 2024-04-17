@@ -1,37 +1,93 @@
-function group_by_type(course_level) {
-    let front_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=";
-    let subj_link = "&subj_in=";
-    let crse_link = "&crse_in=";
-    let end_link = "&schd_in=A";
-    const current_sem = sessionStorage.getItem("current_semester").toString();
-    let link_current = front_link + current_sem + subj_link;
+let lastSearchKeyword = '';
 
-    var selected_sem = document.getElementById('selected_semester');
-    updateSemesterDisplay(selected_sem, current_sem);
+// Function to update the course links based on the selected semester and course level
+function group_by_type(course_level, selectedSemester, filterKeyword = '') {
+    const div = document.getElementById('search_links');
+    div.innerHTML = '';  // Clear existing links before adding new ones
 
-    var div = document.getElementById('search_links');
-    // Clear existing links before adding new ones
-    div.innerHTML = '';
+    // Enhance filter to include course prefix and number
+    const filteredCourses = course_level.filter(course =>
+        course.Course_Name.toLowerCase().includes(filterKeyword.toLowerCase()) ||
+        course.Prefix.toLowerCase().includes(filterKeyword.toLowerCase()) ||
+        course.Course_Number.toString().includes(filterKeyword) // Assuming Course_Number is numeric
+    );
 
-    for (var i = 0; i < course_level.length; i++) {
-        var a = document.createElement('a');
-        a.href = link_current + encodeURIComponent(course_level[i].Prefix) + crse_link + encodeURIComponent(course_level[i].Course_Number) + end_link;
+    filteredCourses.forEach(course => {
+        let a = document.createElement('a');
+        a.href = `https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=${encodeURIComponent(selectedSemester)}&subj_in=${encodeURIComponent(course.Prefix)}&crse_in=${encodeURIComponent(course.Course_Number)}&schd_in=A`;
         a.target = "iframe_results";
-        a.id = course_level[i].Prefix + course_level[i].Course_Number;
-        a.textContent = course_level[i].Prefix + " " + course_level[i].Course_Number + ": " + course_level[i].Course_Name;
+        a.id = course.Prefix + course.Course_Number;
+        a.textContent = `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}`;
         div.appendChild(a);
+    });
+}
+
+
+function filter_results_owl_express() {
+    lastSearchKeyword = document.getElementById('search_bar').value.trim();
+    const selectedSemester = document.getElementById('semester_selector').value;
+    const activeCourseDataSet = getActiveCourseDataSet();
+    group_by_type(activeCourseDataSet, selectedSemester, lastSearchKeyword);
+}
+
+
+// Update the semester display based on selection and update course data display
+function update_semester() {
+    const selectedSemester = document.getElementById('semester_selector').value;
+    const activeCourseDataSet = getActiveCourseDataSet();
+    // Use the lastSearchKeyword when updating the semester
+    group_by_type(activeCourseDataSet, selectedSemester, lastSearchKeyword);
+}
+
+
+// Function to determine which dataset is currently active
+function getActiveCourseDataSet() {
+    const activeButton = document.querySelector('.order_button.active');
+    switch (activeButton.id) {
+        case "ALL":
+            return all_course_data;
+        case "BSIT":
+            return BSIT_course_data;
+        case "MSIT":
+            return MSIT_course_data;
+        default:
+            return all_course_data; // Default to all courses if none is selected
     }
 }
 
-function updateSemesterDisplay(selected_sem, current_sem) {
-    if (current_sem.slice(4) == "01") {
-        selected_sem.textContent = "Spring " + current_sem.slice(0,4);
-    } else if (current_sem.slice(4) == "05") {
-        selected_sem.textContent = "Summer " + current_sem.slice(0,4);
-    } else if (current_sem.slice(4) == "08") {
-        selected_sem.textContent = "Fall " + current_sem.slice(0,4);
+// Function to set active button and group data by type
+function setActiveAndGroup(buttonId) {
+    const buttons = document.querySelectorAll('.order_button');
+    buttons.forEach(button => button.classList.remove('active'));
+    const activeButton = document.getElementById(buttonId);
+    activeButton.classList.add('active');
+
+    const selectedSemester = document.getElementById('semester_selector').value;
+    let courseData;
+    switch (buttonId) {
+        case "ALL":
+            courseData = all_course_data;
+            break;
+        case "BSIT":
+            courseData = BSIT_course_data;
+            break;
+        case "MSIT":
+            courseData = MSIT_course_data;
+            break;
+    }
+    // Apply the last used search keyword when switching course groups
+    group_by_type(courseData, selectedSemester, lastSearchKeyword);
+}
+
+
+function check_key_keywords(event)
+{
+    if (event.key == "Enter")
+    {
+        filter_results_owl_express();
     }
 }
+
 
 
 // This only works if this file is loaded before the data_getter file.
@@ -43,6 +99,7 @@ function load_page()
 	sort_array_by_id(BSIT_course_data);
 	sort_array_by_id(MSIT_course_data);
 
-
-	group_by_type(all_course_data);
+    lastSearchKeyword = '';  // Check the keyword is reset on page load
+    const selectedSemester = document.getElementById('semester_selector').value || "202408"; // Default to Fall 2024 if not set
+    group_by_type(all_course_data, selectedSemester);
 }

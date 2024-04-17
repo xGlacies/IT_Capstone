@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="style_files/banner_styles.css">
     <link rel="stylesheet" href="style_files/body_styles.css">
     <link rel="stylesheet" href="style_files/searchbar_styles.css">
-    <link rel="stylesheet" href="style_files/table_styles.css">
-    <link rel="stylesheet" href="style_files/course_table_styles.css">
+
     <!-- Scripts -->
     <script src="scripts/common_functions.js" defer></script>
     <script src="scripts/banner.js" defer></script>
@@ -33,12 +32,12 @@
 <body>
     <!-- KSU Banner -->
     <div id="banner_container" class="floating_header"></div>
-    <div class="floating_title bold">Course Schedule Viewer</div>
+    <div class="floating_title bold">Search Owl Express</div>
 	<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results" style="float:left;">Manual Search</a>
 
     <!-- Left Floating Sidebar -->
-    <div id="left_sidebar" class="sidebar_left">
-        <div class="background_color background_padding">
+    <div id="left_sidebar" class="sidebar_left_large">
+        <div class="background_color background_padding_large">
 			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
             <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Current & Next Semester's Courses</button></a>
 			<!--<br><br>
@@ -52,12 +51,37 @@
 			</div>-->
 			<hr>
 			<p id="selected_semester"></p>
-			
-			<span id="filter_by_degree">
-                <button id="ALL" onclick="group_by_type(all_course_data);" class="order_button">All</button>
-                <button id="BSIT" onclick="group_by_type(BSIT_course_data);" class="order_button">BSIT</button>
-                <button id="MSIT" onclick="group_by_type(MSIT_course_data);" class="order_button">MSIT</button>                
-			</span>
+
+            <div class="center-container">
+            <!-- Semester Selection Dropdown -->
+                
+            </div>
+
+
+            <div class="filter_table table_base">
+                <label class="center_text_verticle">Keywords:</label>
+                <div class="side_by_side">
+                    <input id="search_bar" onkeypress="check_key_keywords(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords">
+                    <div onclick="filter_results_owl_express()" class="picture_button search_button_size" title="Search">
+                        <div class="picture_button_bg"></div>
+                        <img class="picture_button_img" src="resources\search.webp" alt="Search">
+                    </div>
+                </div>
+                <label class="center_text_verticle">Semester:</label>
+                <select id="semester_selector" onchange="update_semester()" class="searchbar_height">
+                    <option value="202408" selected>Fall 2024</option>
+                    <option value="202405">Summer 2024</option>
+                    <option value="202401">Spring 2024</option>
+                </select>
+            </div>
+            <br>
+            <!-- Buttons to Filter Courses by Degree -->
+            <span id="filter_by_degree">
+                <button id="ALL" onclick="setActiveAndGroup('ALL');" class="order_button active">All</button>
+                <button id="BSIT" onclick="setActiveAndGroup('BSIT');" class="order_button">BSIT</button>
+                <button id="MSIT" onclick="setActiveAndGroup('MSIT');" class="order_button">MSIT</button>                
+            </span>
+
 			<hr>
 			<div id="search_links" class="search_links">
 			</div>
