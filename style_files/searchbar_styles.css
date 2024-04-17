@@ -102,15 +102,21 @@
     background-color: white;
 }
 
+#selected_semester {
+	text-align: center;
+}
+
 .search_links {
 	overflow: auto;
 	height: 450px; 
 	width: inherit;
+	border: 1px solid gray;
 }
 .search_links a {
 	padding: 2px;
 	display: block;
 	text-decoration: none;
+	font-size: .8rem;
 }
 .search_links a:link {
 	color: blue;
@@ -134,4 +140,8 @@
     left: 0px;
     transition: left 0.5s;
     width: 16vw;
+}
+
+#filter_by_degree {
+	display: flex;
 }

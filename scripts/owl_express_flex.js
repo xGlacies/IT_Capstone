@@ -1,5 +1,4 @@
 // Essential variables such as the URL query and elements on the page that will be referred to in the code
-var sidebar_list = document.getElementById("search_links");
 let front_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=";
 let subj_link = "&subj_in=";
 let crse_link = "&crse_in=";
@@ -8,6 +7,16 @@ const current_sem = (sessionStorage.getItem("current_semester")).toString();
 const next_sem = (sessionStorage.getItem("next_semester")).toString();
 let link_current = front_link + current_sem + subj_link;
 let link_next = front_link + next_sem + subj_link;
+
+var selected_sem = document.getElementById('selected_semester');
+
+if (current_sem.slice(4) == "01") {
+	selected_sem.textContent = "Spring " + current_sem.slice(0,4);
+} else if (current_sem.slice(4) == "05") {
+	selected_sem.textContent = "Summer " + current_sem.slice(0,4);
+} else if (current_sem.slice(4) == "08") {
+	selected_sem.textContent = "Fall " + current_sem.slice(0,4);
+}
 
 
 for (var i = 0; i < all_course_data.length; i++) {
