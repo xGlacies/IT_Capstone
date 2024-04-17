@@ -19,6 +19,7 @@ for (var i = 0; i < all_course_data.length; i++) {
 	a.href = link_current + encodeURIComponent(all_course_data[i].Prefix) + crse_link + encodeURIComponent(all_course_data[i].Course_Number) + end_link;
 
     a.target = "iframe_results";
+	a.id = all_course_data[i].Prefix + all_course_data[i].Course_Number;
 
 	a.textContent = all_course_data[i].Prefix + " " + all_course_data[i].Course_Number + ": " + all_course_data[i].Course_Name;
 

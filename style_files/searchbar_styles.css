@@ -110,6 +110,19 @@
 .search_links a {
 	padding: 2px;
 	display: block;
+	text-decoration: none;
+}
+.search_links a:link {
+	color: blue;
+}
+.search_links a:visited {
+	color: blue;
+}
+.search_links a:hover {
+	color: red;
+}
+.search_links a:active {
+	color: green;
 }
 
 .sidebar_left
