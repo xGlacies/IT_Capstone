@@ -46,7 +46,7 @@ function load_list_element()
                     <div class=\"data_row table_data\">
                         <a onclick=\"filter_by_faculty('` + all_course_data[i].Coordinator_Name + `');\" class=\"special_link\">` + all_course_data[i].Coordinator_Name +`</a><p class=\"zero_margin_with_space inline_block\">,</p><a onclick=\"filter_by_faculty('` + all_course_data[i].Co_Coordinator_Name + `');\" class=\"special_link\">` + all_course_data[i].Co_Coordinator_Name + `</a>
                     </div>
-                    <a class=\"data_row table_data list_link\" href=\"` + all_course_data[i].D2L_Master_Link + `\" target=\"_blank\">D2L Master Shell Link - ` + all_course_data[i].D2L_Master_Link.split("/").at(-1) + `</a>
+                    <a class=\"data_row table_data list_link\" href=\"` + all_course_data[i].D2L_Master_Link + `\" target=\"_blank\">D2L - ` + all_course_data[i].D2L_Master_Link.split("/").at(-1) + `</a>
                     <a class=\"data_row table_data list_link\" href=\"` + all_course_data[i].D2L_Master_Link + `\" target=\"_blank\"></a>
                 </div>
             </div>
