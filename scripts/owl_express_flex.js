@@ -1,28 +1,40 @@
-// Essential variables such as the URL query and elements on the page that will be referred to in the code
+//Code below populates the semesters in the dropdown selection based on the current date/time
+const last_sem = (sessionStorage.getItem("last_semester")).toString();
 const current_sem = (sessionStorage.getItem("current_semester")).toString();
 const next_sem = (sessionStorage.getItem("next_semester")).toString();
+const future_sem = (sessionStorage.getItem("future_semester")).toString();
 
+let last_format = "";
 let current_format = "";
 let next_format = "";
+let future_format = "";
 var selected_sem = document.getElementById('selected_semester');
 
-if (current_sem.slice(4) == "01") {
-	current_format = "Spring " + current_sem.slice(0,4);
-} else if (current_sem.slice(4) == "05") {
-	current_format = "Summer " + current_sem.slice(0,4);
-} else if (current_sem.slice(4) == "08") {
-	current_format = "Fall " + current_sem.slice(0,4);
+function formatSemester(semester_code) {
+	var formatted_semester = "";
+	if (semester_code.slice(4) == "01") {
+		formatted_semester = "Spring " + semester_code.slice(0,4);
+	} else if (semester_code.slice(4) == "05") {
+		formatted_semester = "Summer " + semester_code.slice(0,4);
+	} else if (semester_code.slice(4) == "08") {
+		formatted_semester = "Fall " + semester_code.slice(0,4);
+	}
+	return formatted_semester;
 }
+
+last_format = formatSemester(last_sem);
+current_format = formatSemester(current_sem);
+next_format = formatSemester(next_sem);
+future_format = formatSemester(future_sem);
 
 selected_sem.textContent = current_format;
 
-if (next_sem.slice(4) == "01") {
-	next_format = "Spring " + next_sem.slice(0,4);
-} else if (next_sem.slice(4) == "05") {
-	next_format = "Summer " + next_sem.slice(0,4);
-} else if (next_sem.slice(4) == "08") {
-	next_format = "Fall " + next_sem.slice(0,4);
-}
+var past_group = document.getElementById('past_group');
+past_group.innerHTML = '';
+let past_option = document.createElement('option');
+past_option.value = last_sem;
+past_option.textContent = last_format;
+past_group.appendChild(past_option);
 
 var current_group = document.getElementById('current_group');
 current_group.innerHTML = '';
@@ -38,6 +50,12 @@ let next_option = document.createElement('option');
 next_option.value = next_sem;
 next_option.textContent = next_format;
 next_group.appendChild(next_option);
+let future_option = document.createElement('option');
+future_option.value = future_sem;
+future_option.textContent = future_format;
+next_group.appendChild(future_option);
+//Code above populates the semesters in the dropdown selection based on the current date/time
+
 
 let lastSearchKeyword = '';
 
