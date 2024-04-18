@@ -23,7 +23,7 @@
 <body>
     <!-- KSU Banner -->
     <div id="banner_container" class="floating_header"></div>
-    <div class="floating_title bold">Search Owl Express</div>
+    <div id="owl_express_flex_title" class="floating_title bold">Search Owl Express</div>
 
     <!-- Left Floating Sidebar -->
     <div id="left_sidebar" class="sidebar_left_large">
@@ -32,7 +32,6 @@
             <a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results"><button title="Click To Display A Manual Search In The Window" class="tab_button" style="font-weight: bold;">Search Owl Express</button></a>
 			<br>
 			<hr>
-			<strong hidden><p id="selected_semester"></p></strong>
             <div class="filter_table table_base">
                 <label class="center_text_verticle">Keywords:</label>
                 <div class="side_by_side">
@@ -62,8 +61,8 @@
                 <button id="BSIT" onclick="setActiveAndGroup('BSIT');" class="order_button oef_filter_buttons">BSIT</button>
                 <button id="MSIT" onclick="setActiveAndGroup('MSIT');" class="order_button oef_filter_buttons">MSIT</button>                
             </span>
-
 			<hr>
+			<strong hidden><p id="selected_semester"></p></strong>
 			<div id="search_links" class="search_links">
 			</div>
         </div>

@@ -10,7 +10,9 @@ let last_format = "";
 let current_format = "";
 let next_format = "";
 let future_format = "";
-var selected_sem = document.getElementById('selected_semester');
+
+const selected_sem = document.getElementById('selected_semester');
+const owl_express_flex_title = document.getElementById('owl_express_flex_title');
 
 function formatSemester(semester_code) {
 	var formatted_semester = "";
@@ -29,13 +31,15 @@ current_format = formatSemester(current_sem);
 next_format = formatSemester(next_sem);
 future_format = formatSemester(future_sem);
 
-selected_sem.textContent = current_format;
+selected_sem.textContent = "Showing " + current_format + " Courses";
+owl_express_flex_title.textContent = "Search Owl Express";
 
 var past_group = document.getElementById('past_group');
 past_group.innerHTML = '';
 let past_option = document.createElement('option');
 past_option.value = last_sem;
 past_option.textContent = last_format;
+past_option.id = last_sem;
 past_group.appendChild(past_option);
 
 var current_group = document.getElementById('current_group');
@@ -43,6 +47,7 @@ current_group.innerHTML = '';
 let current_option = document.createElement('option');
 current_option.value = current_sem;
 current_option.textContent = current_format;
+current_option.id = current_sem;
 current_option.selected = true;
 current_group.appendChild(current_option);
 
@@ -51,10 +56,12 @@ next_group.innerHTML = '';
 let next_option = document.createElement('option');
 next_option.value = next_sem;
 next_option.textContent = next_format;
+next_option.id = next_sem;
 next_group.appendChild(next_option);
 let future_option = document.createElement('option');
 future_option.value = future_sem;
 future_option.textContent = future_format;
+future_option.id = future_sem;
 next_group.appendChild(future_option);
 //Code above populates the semesters in the dropdown selection based on the current date/time
 
@@ -78,6 +85,7 @@ function group_by_type(course_level, selectedSemester, filterKeyword = '') {
 		a.target = "iframe_results";
         a.id = course.Prefix + course.Course_Number;
         a.textContent = `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}`;
+		a.setAttribute("onclick", "set_title(\'" + formatSemester(selectedSemester) + "\',\'" + `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}` + "\');");
         div.appendChild(a);
     });
 }
@@ -94,6 +102,8 @@ function filter_results_owl_express() {
 // Update the semester display based on selection and update course data display
 function update_semester() {
     const selectedSemester = document.getElementById('semester_selector').value;
+	const selectedOption = document.getElementById(selectedSemester).textContent;
+	selected_sem.textContent = "Showing " + selectedOption + " Courses";
     const activeCourseDataSet = getActiveCourseDataSet();
     // Use the lastSearchKeyword when updating the semester
     group_by_type(activeCourseDataSet, selectedSemester, lastSearchKeyword);
@@ -150,7 +160,9 @@ function check_key_keywords(event)
     }
 }
 
-
+function set_title(semester, course) {
+	owl_express_flex_title.textContent = semester.toString() + " ~ " + course.toString();
+}
 
 // This only works if this file is loaded before the data_getter file.
 // MAKE SURE that this file is listed ABOVE the data_getter file in the script block.
