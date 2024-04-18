@@ -108,7 +108,7 @@
 
 .search_links {
 	overflow: auto;
-	height: 450px; 
+	height: 400px; 
 	width: inherit;
 	border: 1px solid gray;
 }
@@ -155,4 +155,11 @@
 }
 #filter_by_degree {
 	display: flex;
+}
+#semester_selector optgroup{
+	background-color: yellow;
+}
+#semester_selector option {
+	background-color: lightgray;
+	color: gray;
 }

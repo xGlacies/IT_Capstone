@@ -1,3 +1,62 @@
+//Code below populates the semesters in the dropdown selection based on the current date/time
+const last_sem = (sessionStorage.getItem("last_semester")).toString();
+const current_sem = (sessionStorage.getItem("current_semester")).toString();
+const next_sem = (sessionStorage.getItem("next_semester")).toString();
+const future_sem = (sessionStorage.getItem("future_semester")).toString();
+
+let last_format = "";
+let current_format = "";
+let next_format = "";
+let future_format = "";
+var selected_sem = document.getElementById('selected_semester');
+
+function formatSemester(semester_code) {
+	var formatted_semester = "";
+	if (semester_code.slice(4) == "01") {
+		formatted_semester = "Spring " + semester_code.slice(0,4);
+	} else if (semester_code.slice(4) == "05") {
+		formatted_semester = "Summer " + semester_code.slice(0,4);
+	} else if (semester_code.slice(4) == "08") {
+		formatted_semester = "Fall " + semester_code.slice(0,4);
+	}
+	return formatted_semester;
+}
+
+last_format = formatSemester(last_sem);
+current_format = formatSemester(current_sem);
+next_format = formatSemester(next_sem);
+future_format = formatSemester(future_sem);
+
+selected_sem.textContent = current_format;
+
+var past_group = document.getElementById('past_group');
+past_group.innerHTML = '';
+let past_option = document.createElement('option');
+past_option.value = last_sem;
+past_option.textContent = last_format;
+past_group.appendChild(past_option);
+
+var current_group = document.getElementById('current_group');
+current_group.innerHTML = '';
+let current_option = document.createElement('option');
+current_option.value = current_sem;
+current_option.textContent = current_format;
+current_option.selected = true;
+current_group.appendChild(current_option);
+
+var next_group = document.getElementById('next_group');
+next_group.innerHTML = '';
+let next_option = document.createElement('option');
+next_option.value = next_sem;
+next_option.textContent = next_format;
+next_group.appendChild(next_option);
+let future_option = document.createElement('option');
+future_option.value = future_sem;
+future_option.textContent = future_format;
+next_group.appendChild(future_option);
+//Code above populates the semesters in the dropdown selection based on the current date/time
+
+
 let lastSearchKeyword = '';
 
 // Function to update the course links based on the selected semester and course level
@@ -15,7 +74,7 @@ function group_by_type(course_level, selectedSemester, filterKeyword = '') {
     filteredCourses.forEach(course => {
         let a = document.createElement('a');
         a.href = `https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=${encodeURIComponent(selectedSemester)}&subj_in=${encodeURIComponent(course.Prefix)}&crse_in=${encodeURIComponent(course.Course_Number)}&schd_in=A`;
-        a.target = "iframe_results";
+		a.target = "iframe_results";
         a.id = course.Prefix + course.Course_Number;
         a.textContent = `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}`;
         div.appendChild(a);
@@ -105,3 +164,8 @@ function load_page()
     const selectedSemester = document.getElementById('semester_selector').value || "202408"; // Default to Fall 2024 if not set
     group_by_type(all_course_data, selectedSemester);
 }
+
+
+//Other links that may be used later
+//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
+//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date

@@ -28,23 +28,11 @@
     <!-- Left Floating Sidebar -->
     <div id="left_sidebar" class="sidebar_left_large">
         <div class="background_color background_padding_large">
-			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
-            <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Current & Next Semester's Courses</button></a>
-			<br><!--
-			<div class="white_background_box">
-				<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results">Manual Search</a>
-				<p></p>
-				<a href="owlExpressFlex.html" target="_blank" class="inner_list_margin">OwlExpress Flex Example</a>
-			</div>-->
+			<a href="ClassScheduler.html"><button class="tab_button">Search Database</button></a>
+            <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Search Owl Express</button></a>
+			<br>
 			<hr>
-			<p id="selected_semester"></p>
-
-            <div class="center-container">
-            <!-- Semester Selection Dropdown -->
-                
-            </div>
-
-
+			<strong hidden><p id="selected_semester"></p></strong>
             <div class="filter_table table_base">
                 <label class="center_text_verticle">Keywords:</label>
                 <div class="side_by_side">
@@ -56,9 +44,15 @@
                 </div>
                 <label class="center_text_verticle">Semester:</label>
                 <select id="semester_selector" onchange="update_semester()" class="searchbar_height">
-                    <option value="202408" selected>Fall 2024</option>
-                    <option value="202405">Summer 2024</option>
-                    <option value="202401">Spring 2024</option>
+					<optgroup label="| Previous Semester |" id="past_group">
+						
+					</optgroup>
+					<optgroup label="| Current Semester |" id="current_group">
+						
+					</optgroup>
+					<optgroup label="| Next Semester(s) |" id="next_group">
+						
+					</optgroup>                    
                 </select>
             </div>
             <br>
