@@ -21,50 +21,62 @@
     <!-- Fav Icon -->
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 
-</head>
+</head> 
 <body>
     <!-- KSU Banner -->
     <div id="banner_container" class="floating_header"></div>
     <div id="title_changer" class="floating_title bold">Course Schedules</div>
 
-    <!-- Left Floating Sidebar -->
-    <div id="left_sidebar" class="floating_sidebar_left">
-        <div class="background_color background_padding">  
-			<a href="ClassScheduler.html"><button class="tab_button" style="font-weight: bold;">Previous Semesters' Courses</button></a>
-            <a href="CurrentScheduleView.html"><button class="tab_button">Current & Next Semester's Courses</button></a>
-			<br>
-			<h3>Quick Access - IT Class Schedule by Semester</h3> 
-            <div id="semester_options">
-            </div>
-			<br><hr>
-			<p class="title_size bold">Search By:</p>
-			<div class="filter_table table_base">
-				<label class="center_text_verticle">Course:</label>
-                <div class="side_by_side">
-                    <input id="search_bar" oninput="showSuggestions(this.value)" onkeypress="check_key(event);" class="searchbar_height searchbar_width" type="text" name="" placeholder="Keywords" autocomplete="off">
-                    <div id="autocomplete_list" class="autocomplete-items"></div>
-                    <div onclick="filter_results()" class="picture_button search_button_size" title="Search">
-                        <div class="picture_button_bg"></div>
-                        <img class="picture_button_img" src="resources/search.webp" alt="Search">
-                    </div>
-                </div>                
-				<label class="center_text_verticle"></label>
-				<select id="semester_selector" onchange="filter_results()" class="searchbar_height">                        
-				</select>
-				<label class="center_text_verticle"></label>
-				<select id="subject_selector" onchange="filter_results()" class="searchbar_height">
-				</select>
-				<label class="center_text_verticle">Faculty:</label>
-				<select id="faculty_selector" onchange="filter_results()" class="searchbar_height">
-				</select>
-			</div>
-			<p></p>
-			<button onclick="resetFilters();" class="tab_button">Reset Filters</button>
-			<p></p>
-		</div>
-        </div>
+     <!-- Custom Styles -->
+     <style>
 
-            <!-- Main List -->
+    </style>
+
+<!-- Left Floating Sidebar -->
+<div id="left_sidebar" class="floating_sidebar_left">
+    <div class="background_color background_padding">  
+        <div class="box_container">
+            <a href="CurrentScheduleView.html"><button class="tab_button">Search Owl</button></a>
+            <a href="ClassScheduler.html"><button class="tab_button" style="font-weight: bold;">Search DB</button></a>
+            <br><hr>
+            <h3>Quick Access - IT Class Schedule by Semester</h3> 
+            <div id="semester_options"></div>
+            <br><hr>
+            <!-- Search bar and button -->
+            <div class="search_wrapper" style="display: flex; justify-content: flex-end; margin-right: 55px">
+                <input id="search_bar" oninput="showSuggestions(this.value)" onkeypress="check_key(event);" class="searchbar_height" type="text" name="" placeholder="Keywords" autocomplete="off">
+                <div onclick="filter_results()" class="picture_button search_button_size" title="Search" style="margin-left: 1px;">
+                    <div class="picture_button_bg"></div>
+                    <img class="picture_button_img" src="resources/search.webp" alt="Search">
+                </div>
+            </div>                    
+            <div id="autocomplete_list" class="autocomplete-items" ></div>
+        </div>
+        <br><hr>
+        <!-- Instructor dropdown -->
+        <div class="filter_table table_base">
+            <div class="side_by_side">
+                <div class="instructor_search_container" style="display: flex; align-items: center;">
+                    <label class="center_text_verticle" for="faculty_selector" style="margin-right: 10px; white-space: nowrap;">Instructor:</label>
+                    <select id="faculty_selector" onchange="filter_results()" class="searchbar_height"></select>
+                </div>
+            </div>
+        </div>                                   
+        <!-- Semester and subject dropdowns -->
+        <div class="semester_subject_wrapper"> 
+            <div>
+                <label class="center_text_verticle"></label>
+                <select id="semester_selector" onchange="filter_results()" class="searchbar_height"></select>
+            </div>
+            <div>
+                <label class="center_text_verticle"></label>
+                <select id="subject_selector" onchange="filter_results()" class="searchbar_height"></select>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main List -->
     <div class="center_list">
         <div id="list_body" class="main_list">
             <!-- Table Header -->
@@ -84,8 +96,8 @@
     </div>
 
     <!-- Footer -->
-        <div class="footer_spacer"></div>
-        <div id="footer_container" class="floating_footer">
-        </div>
-    </body>
+    <div class="footer_spacer"></div>
+    <div id="footer_container" class="floating_footer">
+    </div>
+</body>
 </html>
