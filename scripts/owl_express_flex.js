@@ -1,28 +1,6 @@
-let lastSearchKeyword = '';
-
 // Essential variables such as the URL query and elements on the page that will be referred to in the code
-
-
-const yeartemp = new Date().getFullYear().toString(); //get current yeartemp
-const monthtemp = new Date().getMonth()+1; //get current monthtemp
-let currentSemester = ""; //declared current semester as none to prepare for if statements
-let nextSemester = ""; //declared next semester as none to prepare for if statements
-
-if(monthtemp <= 4) {
-	currentSemester = yeartemp + "01";
-	nextSemester = yeartemp + "05";
-}
-if(monthtemp >= 5 && monthtemp <= 7) {
-	currentSemester = yeartemp + "05";
-	nextSemester = yeartemp + "08";
-}
-if(monthtemp >= 8) {
-	currentSemester = yeartemp + "08";
-	nextSemester = yeartemp + "01";
-}
-
-const current_sem = currentSemester;
-const next_sem = nextSemester;
+const current_sem = (sessionStorage.getItem("current_semester")).toString();
+const next_sem = (sessionStorage.getItem("next_semester")).toString();
 
 let current_format = "";
 let next_format = "";
@@ -61,7 +39,7 @@ next_option.value = next_sem;
 next_option.textContent = next_format;
 next_group.appendChild(next_option);
 
-
+let lastSearchKeyword = '';
 
 // Function to update the course links based on the selected semester and course level
 function group_by_type(course_level, selectedSemester, filterKeyword = '') {
