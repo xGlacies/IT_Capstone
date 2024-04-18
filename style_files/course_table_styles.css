@@ -178,63 +178,57 @@
     display: none;
 }
 
-/* Styles for the autocomplete container */
 .autocomplete-items {
-    background-color: #fff; /* White background */
-    width: 100%; /* Match the width of your search bar or adjust as necessary */
-    max-height: 200px; /* Maximum height before scrolling */
-    overflow-y: auto; /* Scroll vertically if the content overflows */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
+    background-color: #fff;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* Styles for items within the autocomplete container */
 .autocomplete-items div {
-    padding: 10px; /* Add some padding for the content */
-    border-bottom: 1px solid #d4d4d4; /* Separator between items */
-    cursor: pointer; /* Indicates that the items are clickable */
-    text-align: left; /* Align text to the left */
+    padding: 10px;
+    border-bottom: 1px solid #d4d4d4;
+    cursor: pointer;
+    text-align: left;
 }
 
-/* Hover effects for items within the autocomplete container */
 .autocomplete-items div:hover {
-    background-color: #e9e9e9; /* Light grey background on hover */
+    background-color: #e9e9e9;
 }
 
-/* General style for the search wrapper to ensure alignment and spacing */
 .search_wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-right: 45px; /* Adjust this as necessary to fit your layout */
-    width: 100%; /* Ensures the search bar spans the full width as needed */
-    position: relative; /* Necessary for positioning the autocomplete container absolutely */
+    margin-right: 45px;
+    width: 100%;
+    position: relative;
 }
 
-/* Styles for the search bar input */
 #search_bar {
-    width: 100%; /* Full width to match the container */
-    padding: 10px; /* Consistent padding with the dropdown */
-    border: 1px solid #d4d4d4; /* Light gray border, like the dropdown */
-    background-color: #fff; /* White background for visibility */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds subtle shadow for depth */
-    cursor: text; /* Indicates that this is a text input field */
-    font-size: 16px; /* Ensures text is easily readable */
-    outline: none; /* Removes the default focus outline, consider replacing for accessibility */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: text;
+    font-size: 16px;
+    outline: none;
 }
 
 #search_bar:focus {
-    border-color: #aaa; /* Darker border when the input is focused */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* More pronounced shadow on focus for emphasis */
+    border-color: #aaa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* Optional: Styles for the search icon button if it's used */
 .picture_button {
-    background-color: transparent; /* Transparent background */
-    border: none; /* No border */
-    cursor: pointer; /* Indicates this is clickable */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .picture_button img {
-    width: 30px; /* Set a fixed size for the icon */
+    width: 30px;
     height: 30px;
 }
 
@@ -244,17 +238,13 @@
 }
 
 #faculty_selector {
-    width: auto; /* Adjust the width to less than 100% to not fill the container completely */
-    padding: 10px; /* Matches the padding of autocomplete items for consistency */
-    border: 1px solid #d4d4d4; /* Light gray border like autocomplete */
-    background-color: #fff; /* White background */
+    width: auto;
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
-    margin: 0 auto; /* Center the dropdown within its parent container */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0 auto;
     margin-right: 100px;
-    display: block; /* Ensures the element behaves correctly with margin auto */
+    display: block;
 }
-
-
-
-
