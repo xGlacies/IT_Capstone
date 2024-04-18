@@ -122,7 +122,7 @@ function setActiveAndGroup(buttonId) {
 	buttons.forEach(button => button.setAttribute("style", "font-weight: none;text-decoration: none;"));
     const activeButton = document.getElementById(buttonId);
     activeButton.classList.add('active');
-	activeButton.setAttribute("style", "font-weight: bold;text-decoration: underline;");
+	activeButton.setAttribute("style", "font-weight: bold;font-size: 1.2rem;");
 
     const selectedSemester = document.getElementById('semester_selector').value;
     let courseData;
@@ -165,8 +165,3 @@ function load_page()
     const selectedSemester = document.getElementById('semester_selector').value || "202408"; // Default to Fall 2024 if not set
     group_by_type(all_course_data, selectedSemester);
 }
-
-
-//Other links that may be used later
-//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
-//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date

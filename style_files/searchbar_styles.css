@@ -153,6 +153,14 @@
     
     width: 18vw;
 }
+
+.oef_filter_buttons {
+	border: 1px solid white;
+}
+.oef_filter_buttons:hover {
+	opacity: 0.9;
+}
+
 #filter_by_degree {
 	display: flex;
 }
