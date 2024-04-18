@@ -150,7 +150,7 @@ function populateSemesterSelector() {
     let buttonsHTML = "";
 
     buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2022')">Fall <br>2022</a></div>`;
-    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2023')">Spring <br>2023</a></div>`;
+    buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2023')">Spring <br>2023</a></div>`; 
     buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Summer 2023')">Summer <br>2023</a></div>`;
     buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Fall 2021')">Fall <br>2021</a></div>`;
     buttonsHTML += `<div class="grid-item"><a href="#" onclick="setSemesterValue('Spring 2022')">Spring <br>2022</a></div>`;
@@ -366,27 +366,23 @@ function renderHistoryByCourse(searchQuery, selectedSemester) {
     });
 }
 
-
-
-
 function showSuggestions(input) {
     let divContainer = document.getElementById('autocomplete_list');
-    divContainer.innerHTML = '';
-    if (!input.trim()) {
-        divContainer.style.display = 'none';
-        return;
-    }
+    divContainer.style.display = 'block'; // Ensure the container is always visible
 
-    divContainer.style.display = 'block';
-    const inputLower = input.toLowerCase();
+    // Lowercase input for comparison, handle no input as empty string
+    const inputLower = (input || "").toLowerCase();
 
-    const filteredCourses = window.all_course_data.filter(course =>
+    // Filter courses or show all if no input
+    const filteredCourses = inputLower ? window.all_course_data.filter(course =>
         course.Prefix === 'IT' &&
-        (`${course.Prefix} ${course.Course_Number} ${course.Course_Name || ''}`.trim()).toLowerCase().includes(inputLower)
-    );
+        (`${course.Prefix} ${course.Course_Number} ${course.Course_Name || ''}`.toLowerCase().includes(inputLower))
+    ) : window.all_course_data.filter(course => course.Prefix === 'IT');  // Display all IT courses if no input
 
+    // Populate or show default content
+    divContainer.innerHTML = ''; // Clear previous content
     if (filteredCourses.length === 0) {
-        divContainer.innerHTML = '<div>No matches found</div>';
+        divContainer.innerHTML = '<div>No IT courses available.</div>';  // Adjust this message as needed
     } else {
         filteredCourses.forEach(course => {
             let div = document.createElement('div');
@@ -394,7 +390,6 @@ function showSuggestions(input) {
             div.textContent = `${course.Prefix} ${course.Course_Number} - ${courseName}`;
             div.onclick = function() {
                 document.getElementById('search_bar').value = `${course.Prefix} ${course.Course_Number}`;
-                divContainer.style.display = 'none';
                 renderHistoryByCourse(`${course.Prefix} ${course.Course_Number}`);
             };
             divContainer.appendChild(div);
@@ -402,7 +397,10 @@ function showSuggestions(input) {
     }
 }
 
-
+// Call this on page load
+document.addEventListener('DOMContentLoaded', function() {
+    showSuggestions('');  // Initialize with empty input to show all IT courses
+});
 
 function renderHistoryBySemester(selectedSemester) {
     document.getElementById('faculty_selector').value = '';
@@ -587,3 +585,7 @@ async function load_page() {
         }
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    showSuggestions('');  // Initialize with empty input to show all IT courses
+});

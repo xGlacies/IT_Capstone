@@ -38,18 +38,18 @@
         <div class="box_container">
 			<a href="ClassScheduler.html"><button class="tab_button" style="font-weight: bold;">Search Database</button></a>
             <a href="CurrentScheduleView.html"><button class="tab_button">Search Owl Express</button></a>
-            <br><hr>
             <h3>Quick Access - IT Class Schedule by Semester</h3> 
             <div id="semester_options"></div>
             <br><hr>
             <!-- Search bar and button -->
-            <div class="search_wrapper" style="display: flex; justify-content: flex-end; margin-right: 55px">
+            <div class="search_wrapper" style="display: flex; justify-content: flex-end; margin-right: 150px;">
                 <input id="search_bar" oninput="showSuggestions(this.value)" onkeypress="check_key(event);" class="searchbar_height" type="text" name="" placeholder="Keywords" autocomplete="off">
                 <div onclick="filter_results()" class="picture_button search_button_size" title="Search" style="margin-left: 1px;">
                     <div class="picture_button_bg"></div>
                     <img class="picture_button_img" src="resources/search.webp" alt="Search">
                 </div>
-            </div>                    
+            </div>      
+            <br>              
             <div id="autocomplete_list" class="autocomplete-items" ></div>
         </div>
         <br><hr>
@@ -57,7 +57,7 @@
         <div class="filter_table table_base">
             <div class="side_by_side">
                 <div class="instructor_search_container" style="display: flex; align-items: center;">
-                    <label class="center_text_verticle" for="faculty_selector" style="margin-right: 10px; white-space: nowrap;">Instructor:</label>
+                    <label class="center_text_verticle" for="faculty_selector" style="margin-right: 10px; white-space: nowrap;"></label>
                     <select id="faculty_selector" onchange="filter_results()" class="searchbar_height"></select>
                 </div>
             </div>
