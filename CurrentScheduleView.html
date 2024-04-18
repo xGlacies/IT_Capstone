@@ -16,16 +16,6 @@
     <script src="scripts/banner.js" defer></script>
     <script src="scripts/owl_express_flex.js" defer></script>
     <script src="scripts/data_getter.js" defer></script>
-<!-- 	<script>
-		const current_semester = sessionStorage.getItem("current_semester");
-		const next_semester = sessionStorage.getItem("next_semester");
-		let current_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + current_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
-		let next_link = "https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=" + next_semester + "&subj_in=IT&crse_in=4983&schd_in=A";
-		let frame = document.getElementById("iframe_results"); 
-		frame.setAttribute("src", current_link);
-		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
-		//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date
-	</script> -->
     <!-- Fav Icon -->
     <link rel="icon" href="resources/favicon.ico" type="image/x-icon">
 </head>
@@ -40,10 +30,7 @@
         <div class="background_color background_padding_large">
 			<a href="ClassScheduler.html"><button class="tab_button">Previous Semesters' Courses</button></a>
             <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Current & Next Semester's Courses</button></a>
-			<!--<br><br>
-			<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202401&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Current Semester</button></a>
-            <a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=202405&subj_in=IT&crse_in=4983&schd_in=A" target="iframe_results"><button class="order_button">Next Semester</button></a>
-			--><br><!--
+			<br><!--
 			<div class="white_background_box">
 				<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results">Manual Search</a>
 				<p></p>
@@ -77,7 +64,7 @@
             <br>
             <!-- Buttons to Filter Courses by Degree -->
             <span id="filter_by_degree">
-                <button id="ALL" onclick="setActiveAndGroup('ALL');" class="order_button active">All</button>
+                <button id="ALL" onclick="setActiveAndGroup('ALL');" class="order_button active" style="font-weight: bold;text-decoration: underline;">All</button>
                 <button id="BSIT" onclick="setActiveAndGroup('BSIT');" class="order_button">BSIT</button>
                 <button id="MSIT" onclick="setActiveAndGroup('MSIT');" class="order_button">MSIT</button>                
             </span>
