@@ -32,7 +32,7 @@
             <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Search Owl Express</button></a>
 			<br>
 			<hr>
-			<strong><p id="selected_semester"></p></strong>
+			<strong hidden><p id="selected_semester"></p></strong>
             <div class="filter_table table_base">
                 <label class="center_text_verticle">Keywords:</label>
                 <div class="side_by_side">
@@ -44,12 +44,11 @@
                 </div>
                 <label class="center_text_verticle">Semester:</label>
                 <select id="semester_selector" onchange="update_semester()" class="searchbar_height">
-					<optgroup label="Current Semester">
-						<option value="202401" selected>Spring 2024</option>
+					<optgroup label="Current Semester" id="current_group">
+						
 					</optgroup>
-					<optgroup label="Upcoming Semester(s)">
-						<option value="202405">Summer 2024</option>
-						<option value="202408">Fall 2024</option>
+					<optgroup label="Next Semester" id="next_group">
+						
 					</optgroup>                    
                 </select>
             </div>

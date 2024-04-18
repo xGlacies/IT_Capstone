@@ -1,3 +1,44 @@
+// Essential variables such as the URL query and elements on the page that will be referred to in the code
+const current_sem = (sessionStorage.getItem("current_semester")).toString();
+const next_sem = (sessionStorage.getItem("next_semester")).toString();
+
+let current_format = "";
+let next_format = "";
+var selected_sem = document.getElementById('selected_semester');
+
+if (current_sem.slice(4) == "01") {
+	current_format = "Spring " + current_sem.slice(0,4);
+} else if (current_sem.slice(4) == "05") {
+	current_format = "Summer " + current_sem.slice(0,4);
+} else if (current_sem.slice(4) == "08") {
+	current_format = "Fall " + current_sem.slice(0,4);
+}
+
+selected_sem.textContent = current_format;
+
+if (next_sem.slice(4) == "01") {
+	next_format = "Spring " + next_sem.slice(0,4);
+} else if (next_sem.slice(4) == "05") {
+	next_format = "Summer " + next_sem.slice(0,4);
+} else if (next_sem.slice(4) == "08") {
+	next_format = "Fall " + next_sem.slice(0,4);
+}
+
+var current_group = document.getElementById('current_group');
+current_group.innerHTML = '';
+let current_option = document.createElement('option');
+current_option.value = current_sem;
+current_option.textContent = current_format;
+current_option.selected = true;
+current_group.appendChild(current_option);
+
+var next_group = document.getElementById('next_group');
+next_group.innerHTML = '';
+let next_option = document.createElement('option');
+next_option.value = next_sem;
+next_option.textContent = next_format;
+next_group.appendChild(next_option);
+
 let lastSearchKeyword = '';
 
 // Function to update the course links based on the selected semester and course level
@@ -15,7 +56,7 @@ function group_by_type(course_level, selectedSemester, filterKeyword = '') {
     filteredCourses.forEach(course => {
         let a = document.createElement('a');
         a.href = `https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=${encodeURIComponent(selectedSemester)}&subj_in=${encodeURIComponent(course.Prefix)}&crse_in=${encodeURIComponent(course.Course_Number)}&schd_in=A`;
-        a.target = "iframe_results";
+		a.target = "iframe_results";
         a.id = course.Prefix + course.Course_Number;
         a.textContent = `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}`;
         div.appendChild(a);
@@ -105,3 +146,8 @@ function load_page()
     const selectedSemester = document.getElementById('semester_selector').value || "202408"; // Default to Fall 2024 if not set
     group_by_type(all_course_data, selectedSemester);
 }
+
+
+//Other links that may be used later
+//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
+//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date
