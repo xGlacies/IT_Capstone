@@ -368,21 +368,27 @@ function renderHistoryByCourse(searchQuery, selectedSemester) {
 
 function showSuggestions(input) {
     let divContainer = document.getElementById('autocomplete_list');
-    divContainer.style.display = 'block'; // Ensure the container is always visible
+    divContainer.style.display = 'block'; 
 
-    // Lowercase input for comparison, handle no input as empty string
     const inputLower = (input || "").toLowerCase();
 
-    // Filter courses or show all if no input
-    const filteredCourses = inputLower ? window.all_course_data.filter(course =>
+    divContainer.innerHTML = '';
+
+    if (!inputLower) {
+
+        divContainer.innerHTML = ' ';
+        return; 
+    }
+
+    const filteredCourses = window.all_course_data.filter(course =>
         course.Prefix === 'IT' &&
         (`${course.Prefix} ${course.Course_Number} ${course.Course_Name || ''}`.toLowerCase().includes(inputLower))
-    ) : window.all_course_data.filter(course => course.Prefix === 'IT');  // Display all IT courses if no input
+    );
 
-    // Populate or show default content
-    divContainer.innerHTML = ''; // Clear previous content
+    filteredCourses.sort((a, b) => a.Course_Number - b.Course_Number);
+
     if (filteredCourses.length === 0) {
-        divContainer.innerHTML = '<div>No IT courses available.</div>';  // Adjust this message as needed
+        divContainer.innerHTML = ' '; 
     } else {
         filteredCourses.forEach(course => {
             let div = document.createElement('div');
@@ -397,9 +403,10 @@ function showSuggestions(input) {
     }
 }
 
-// Call this on page load
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    showSuggestions('');  // Initialize with empty input to show all IT courses
+    showSuggestions('');  
 });
 
 function renderHistoryBySemester(selectedSemester) {
@@ -459,55 +466,15 @@ function renderHistoryBySemester(selectedSemester) {
 }
 
 function renderHistoryForAllSemesters() {
-    const selectedSubject = document.getElementById('subject_selector').value.toLowerCase();
-    const selectedSemester = document.getElementById('semester_selector').value;
-
     const listBody = document.getElementById('list_body');
     if (!listBody) {
         console.error("The element where the list should be rendered was not found.");
         return;
     }
-    listBody.innerHTML = '';
-
-    let filteredData = window.all_course_data_history.filter(course => {
-        const subjectMatch = selectedSubject ? course.PREFIX.toLowerCase() === selectedSubject : true;
-        const semesterMatch = selectedSemester ? `${course.SEMESTER} ${course.YEAR}` === selectedSemester : true;
-        return subjectMatch && semesterMatch;
-    });
-
-    if (filteredData.length === 0) {
-        listBody.innerHTML = '<p>No courses found with the selected filters.</p>';
-        return;
-    }
-
-    const table = document.createElement('table');
-    table.className = 'course_table';
-    listBody.appendChild(table);
-
-    const headerRow = document.createElement('tr');
-    headerRow.className = 'course_table_header';
-    headerRow.innerHTML = `
-        <th>Course Code</th>
-        <th>Title</th>
-        <th>Section</th>
-        <th>Instructor Name</th>
-        <th>Enrollment</th>
-    `;
-    table.appendChild(headerRow);
-
-    filteredData.forEach(course => {
-        const row = document.createElement('tr');
-        row.className = 'course_table_row';
-        row.innerHTML = `
-            <td>${course.PREFIX} ${course.NUMBER}</td>
-            <td>${findCourseNameByNumber(course.NUMBER)}</td>
-            <td>${course.SECTION}</td>
-            <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-            <td>${course.Enrollment}</td>
-        `;
-        table.appendChild(row);
-    });
+    // Display default text and show no course data.
+    listBody.innerHTML = '<p>Please use the search options on the left panel.</p>';
 }
+
 
 function findCourseNameByNumber(courseNumber) {
     // Check if the course is available in window.all_course_data
@@ -552,15 +519,21 @@ function attachEventListeners() {
     const semesterSelector = document.getElementById('semester_selector');
     const subjectSelector = document.getElementById('subject_selector');
     const facultySelector = document.getElementById('faculty_selector');
+    const searchInput = document.getElementById('search_bar'); 
     const pictureButton = document.querySelector('.picture_button');
-    const resetFiltersBtn = document.getElementById('reset_filters');
 
     if (semesterSelector) semesterSelector.addEventListener('change', filter_results);
     if (subjectSelector) subjectSelector.addEventListener('change', filter_results);
     if (facultySelector) facultySelector.addEventListener('change', filter_results);
-    if (pictureButton) pictureButton.addEventListener('click', filter_results);
-    if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetFilters);
+
+    if (pictureButton) pictureButton.addEventListener('click', function() {
+        searchInput.value = ''; 
+        showSuggestions(searchInput.value); 
+        filter_results(); 
+    });
 }
+
+
 
 async function load_page() {
     populateSemesterSelector();
