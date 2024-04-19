@@ -1,40 +1,5 @@
 let lastSearchKeyword = '';
 
-
-
-const lastyear = (new Date().getFullYear() - 1).toString(); //get next year
-const year = new Date().getFullYear().toString(); //get current year
-const nextyear = (new Date().getFullYear() + 1).toString(); //get next year
-const month = new Date().getMonth()+1; //get current month
-let lastSemester = ""; //declared last semester as none to prepare for if statements
-let currentSemester = ""; //declared current semester as none to prepare for if statements
-let nextSemester = ""; //declared next semester as none to prepare for if statements
-let futureSemester = ""; //declared future semester as none to prepare for if statements
-
-if(month <= 4) {
-	lastSemester = lastyear + "08";
-	currentSemester = year + "01";
-	nextSemester = year + "05";
-	futureSemester = year + "08";
-}
-if(month >= 5 && month <= 7) {
-	lastSemester = year + "01";
-	currentSemester = year + "05";
-	nextSemester = year + "08";
-	futureSemester = nextyear + "01";
-}
-if(month >= 8) {
-	lastSemester = year + "05";
-	currentSemester = year + "08";
-	nextSemester = nextyear + "01";
-	futureSemester = nextyear + "05";
-}
-
-sessionStorage.setItem("last_semester", lastSemester)
-sessionStorage.setItem("current_semester", currentSemester)
-sessionStorage.setItem("next_semester", nextSemester)
-sessionStorage.setItem("future_semester", futureSemester)
-
 //Code below populates the semesters in the dropdown selection based on the current date/time
 const last_sem = (sessionStorage.getItem("last_semester")).toString();
 const current_sem = (sessionStorage.getItem("current_semester")).toString();
@@ -45,7 +10,9 @@ let last_format = "";
 let current_format = "";
 let next_format = "";
 let future_format = "";
-var selected_sem = document.getElementById('selected_semester');
+
+const selected_sem = document.getElementById('selected_semester');
+const owl_express_flex_title = document.getElementById('owl_express_flex_title');
 
 function formatSemester(semester_code) {
 	var formatted_semester = "";
@@ -64,13 +31,15 @@ current_format = formatSemester(current_sem);
 next_format = formatSemester(next_sem);
 future_format = formatSemester(future_sem);
 
-selected_sem.textContent = current_format;
+selected_sem.textContent = "Showing " + current_format + " Courses";
+owl_express_flex_title.textContent = "Search Owl Express";
 
 var past_group = document.getElementById('past_group');
 past_group.innerHTML = '';
 let past_option = document.createElement('option');
 past_option.value = last_sem;
 past_option.textContent = last_format;
+past_option.id = last_sem;
 past_group.appendChild(past_option);
 
 var current_group = document.getElementById('current_group');
@@ -78,6 +47,7 @@ current_group.innerHTML = '';
 let current_option = document.createElement('option');
 current_option.value = current_sem;
 current_option.textContent = current_format;
+current_option.id = current_sem;
 current_option.selected = true;
 current_group.appendChild(current_option);
 
@@ -86,10 +56,12 @@ next_group.innerHTML = '';
 let next_option = document.createElement('option');
 next_option.value = next_sem;
 next_option.textContent = next_format;
+next_option.id = next_sem;
 next_group.appendChild(next_option);
 let future_option = document.createElement('option');
 future_option.value = future_sem;
 future_option.textContent = future_format;
+future_option.id = future_sem;
 next_group.appendChild(future_option);
 //Code above populates the semesters in the dropdown selection based on the current date/time
 
@@ -113,6 +85,7 @@ function group_by_type(course_level, selectedSemester, filterKeyword = '') {
 		a.target = "iframe_results";
         a.id = course.Prefix + course.Course_Number;
         a.textContent = `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}`;
+		a.setAttribute("onclick", "set_title(\'" + formatSemester(selectedSemester) + "\',\'" + `${course.Prefix} ${course.Course_Number}: ${course.Course_Name}` + "\');");
         div.appendChild(a);
     });
 }
@@ -129,6 +102,8 @@ function filter_results_owl_express() {
 // Update the semester display based on selection and update course data display
 function update_semester() {
     const selectedSemester = document.getElementById('semester_selector').value;
+	const selectedOption = document.getElementById(selectedSemester).textContent;
+	selected_sem.textContent = "Showing " + selectedOption + " Courses";
     const activeCourseDataSet = getActiveCourseDataSet();
     // Use the lastSearchKeyword when updating the semester
     group_by_type(activeCourseDataSet, selectedSemester, lastSearchKeyword);
@@ -157,7 +132,7 @@ function setActiveAndGroup(buttonId) {
 	buttons.forEach(button => button.setAttribute("style", "font-weight: none;text-decoration: none;"));
     const activeButton = document.getElementById(buttonId);
     activeButton.classList.add('active');
-	activeButton.setAttribute("style", "font-weight: bold;text-decoration: underline;");
+	activeButton.setAttribute("style", "font-weight: bold;font-size: 1.2rem;");
 
     const selectedSemester = document.getElementById('semester_selector').value;
     let courseData;
@@ -185,7 +160,13 @@ function check_key_keywords(event)
     }
 }
 
+function set_title(semester, course) {
+	owl_express_flex_title.textContent = semester.toString() + " ~ " + course.toString();
+}
 
+function default_title() {
+	owl_express_flex_title.textContent = "Search Owl Express";;
+}
 
 // This only works if this file is loaded before the data_getter file.
 // MAKE SURE that this file is listed ABOVE the data_getter file in the script block.
@@ -200,8 +181,3 @@ function load_page()
     const selectedSemester = document.getElementById('semester_selector').value || "202408"; // Default to Fall 2024 if not set
     group_by_type(all_course_data, selectedSemester);
 }
-
-
-//Other links that may be used later
-//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_display_courses
-//https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date

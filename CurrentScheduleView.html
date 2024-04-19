@@ -14,6 +14,7 @@
     <!-- Scripts -->
     <script src="scripts/common_functions.js" defer></script>
     <script src="scripts/banner.js" defer></script>
+	<script src="scripts/get_date.js" async></script>
     <script src="scripts/owl_express_flex.js" defer></script>
     <script src="scripts/data_getter.js" defer></script>
     <!-- Fav Icon -->
@@ -22,17 +23,15 @@
 <body>
     <!-- KSU Banner -->
     <div id="banner_container" class="floating_header"></div>
-    <div class="floating_title bold">Search Owl Express</div>
-	<a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results" style="float:left;">Manual Search</a>
+    <div id="owl_express_flex_title" class="floating_title bold">Search Owl Express</div>
 
     <!-- Left Floating Sidebar -->
     <div id="left_sidebar" class="sidebar_left_large">
         <div class="background_color background_padding_large">
-			<a href="ClassScheduler.html"><button class="tab_button">Search Database</button></a>
-            <a href="CurrentScheduleView.html"><button class="tab_button" style="font-weight: bold;">Search Owl Express</button></a>
+			<a href="ClassScheduler.html"><button title="Click To Return to Archived Semesters" class="tab_button">Search Database</button></a>
+            <a href="https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_cat_term_date" target="iframe_results"><button title="Click To Display A Manual Search In The Window" class="tab_button" style="font-weight: bold;" onclick="default_title()">Search Owl Express</button></a>
 			<br>
 			<hr>
-			<strong hidden><p id="selected_semester"></p></strong>
             <div class="filter_table table_base">
                 <label class="center_text_verticle">Keywords:</label>
                 <div class="side_by_side">
@@ -58,12 +57,12 @@
             <br>
             <!-- Buttons to Filter Courses by Degree -->
             <span id="filter_by_degree">
-                <button id="ALL" onclick="setActiveAndGroup('ALL');" class="order_button active" style="font-weight: bold;text-decoration: underline;">All</button>
-                <button id="BSIT" onclick="setActiveAndGroup('BSIT');" class="order_button">BSIT</button>
-                <button id="MSIT" onclick="setActiveAndGroup('MSIT');" class="order_button">MSIT</button>                
+                <button id="ALL" onclick="setActiveAndGroup('ALL');" class="order_button oef_filter_buttons active" style="font-weight: bold;font-size: 1.2rem;">ALL</button>
+                <button id="BSIT" onclick="setActiveAndGroup('BSIT');" class="order_button oef_filter_buttons">BSIT</button>
+                <button id="MSIT" onclick="setActiveAndGroup('MSIT');" class="order_button oef_filter_buttons">MSIT</button>                
             </span>
-
 			<hr>
+			<strong><p id="selected_semester"></p></strong>
 			<div id="search_links" class="search_links">
 			</div>
         </div>
