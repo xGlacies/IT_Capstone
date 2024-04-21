@@ -53,7 +53,6 @@ function renderHistoryByInstructor(instructorFullName, selectedSemester = '') {
         const isCorrectInstructor = fullName === instructorFullName.toLowerCase();
         const isCorrectSemester = !selectedSemester || `${course.SEMESTER} ${course.YEAR}` === selectedSemester;
 
-        // Check if the course is from the IT subject
         const isITSemester = course.PREFIX === 'IT';
 
         return isCorrectInstructor && isCorrectSemester && isITSemester;
@@ -296,7 +295,7 @@ async function load_list_element(searchQuery = '', selectedSemester = '', select
     renderHistory(filteredData);
 }
 
-function renderHistoryByCourse(searchQuery, selectedSemester) {
+function renderHistoryByCourse(searchQuery, selectedSemester = '') {
     document.getElementById('faculty_selector').value = '';
 
     let filteredData = window.all_course_data_history.filter(course => {
@@ -313,58 +312,108 @@ function renderHistoryByCourse(searchQuery, selectedSemester) {
         console.error("The element where the list should be rendered was not found.");
         return;
     }
-    listBody.innerHTML = '';
+    listBody.innerHTML = ''; 
 
     if (filteredData.length === 0) {
         listBody.innerHTML = '<p>No courses found with the selected filters.</p>';
         return;
     }
 
-    const semesterGroups = filteredData.reduce((acc, course) => {
-        const semesterKey = `${course.SEMESTER} ${course.YEAR}`;
-        if (!acc[semesterKey]) {
-            acc[semesterKey] = [];
+    const courseGroups = filteredData.reduce((acc, course) => {
+        const courseKey = `${course.PREFIX} ${course.NUMBER}`;
+        if (!acc[courseKey]) {
+            acc[courseKey] = { title: findCourseNameByNumber(course.NUMBER), courses: [] };
         }
-        acc[semesterKey].push(course);
+        acc[courseKey].courses.push(course);
         return acc;
     }, {});
 
-    const semesters = Object.keys(semesterGroups).sort(semesterSorter);
+    const courseKeys = Object.keys(courseGroups).sort(); 
 
-    semesters.forEach(semester => {
-        if (!selectedSemester || semester === selectedSemester) {
-            const courses = semesterGroups[semester];
+    if (courseKeys.length > 0) {
+        const upcomingHeader = document.createElement('h3');
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentSemester = getCurrentSemester(currentMonth);
+        const currentSemesterYear = currentSemester === "Spring" ? currentYear : currentSemester === "Summer" ? currentYear : currentYear - 1;
+        const nextSemesterYear = currentSemester === "Fall" ? currentYear + 1 : currentYear;
 
-            const semesterHeader = document.createElement('h3');
-            semesterHeader.textContent = (semester);
-            listBody.appendChild(semesterHeader);
-
-            const table = document.createElement('table');
-            table.className = 'course_history_table';
-            listBody.appendChild(table);
-
-            const headerRow = document.createElement('tr');
-            headerRow.className = 'course_history_header';
-            headerRow.innerHTML = `
-                <th>Section</th>
-                <th>Instructor Name</th>
-                <th>Enrollment</th>
-            `;
-            table.appendChild(headerRow);
-
-            courses.forEach(course => {
-                const row = document.createElement('tr');
-                row.className = 'course_history_row';
-                row.innerHTML = `
-                    <td>${course.SECTION}</td>
-                    <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
-                    <td>${course.Enrollment}</td>
-                `;
-                table.appendChild(row);
-            });
+        let owlExpressLink = '';
+        if (currentSemester === "Spring") {
+            const firstCourse = courseGroups[courseKeys[0]].courses[0]; 
+            owlExpressLink = `<a href='https://owlexpress.kennesaw.edu/prodban/bwckctlg.p_disp_listcrse?term_in=${encodeURIComponent(currentSemesterYear)}&subj_in=${encodeURIComponent(firstCourse.PREFIX)}&crse_in=${encodeURIComponent(firstCourse.NUMBER)}'>Owl Express</a>`;
         }
+
+        upcomingHeader.innerHTML = `Current/Upcoming: ${currentSemester} ${currentSemesterYear} ${owlExpressLink ? `(${owlExpressLink})` : ""}, Summer ${currentYear}, Fall ${nextSemesterYear}`;
+
+        listBody.appendChild(upcomingHeader);
+    }
+
+    courseKeys.forEach(courseKey => {
+        const group = courseGroups[courseKey];
+
+        const courseHeader = document.createElement('h3');
+        courseHeader.textContent = `${courseKey} - ${group.title}`;
+        listBody.appendChild(courseHeader);
+
+        const semesterGroups = group.courses.reduce((acc, course) => {
+            const semesterKey = `${course.SEMESTER} ${course.YEAR}`;
+            if (!acc[semesterKey]) {
+                acc[semesterKey] = [];
+            }
+            acc[semesterKey].push(course);
+            return acc;
+        }, {});
+
+        const semesters = Object.keys(semesterGroups).sort(semesterSorter);
+
+        semesters.forEach(semester => {
+            if (!selectedSemester || semester === selectedSemester) {
+                const courses = semesterGroups[semester];
+
+                const semesterHeader = document.createElement('h3');
+                semesterHeader.textContent = semester;
+                listBody.appendChild(semesterHeader);
+
+                const table = document.createElement('table');
+                table.className = 'course_history_table';
+                listBody.appendChild(table);
+
+                const headerRow = document.createElement('tr');
+                headerRow.className = 'course_history_header';
+                headerRow.innerHTML = `
+                    <th>Section</th>
+                    <th>Instructor Name</th>
+                    <th>Enrollment</th>
+                `;
+                table.appendChild(headerRow);
+
+                courses.forEach(course => {
+                    const row = document.createElement('tr');
+                    row.className = 'course_history_row';
+                    row.innerHTML = `
+                        <td>${course.SECTION}</td>
+                        <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
+                        <td>${course.Enrollment}</td>
+                    `;
+                    table.appendChild(row);
+                });
+            }
+        });
     });
 }
+
+function getCurrentSemester(month) {
+    if (month >= 1 && month <= 4) {
+        return "Spring";
+    } else if (month >= 5 && month <= 8) {
+        return "Summer";
+    } else {
+        return "Fall";
+    }
+}
+
 
 function showSuggestions(input) {
     let divContainer = document.getElementById('autocomplete_list');
@@ -471,21 +520,17 @@ function renderHistoryForAllSemesters() {
         console.error("The element where the list should be rendered was not found.");
         return;
     }
-    // Display default text and show no course data.
     listBody.innerHTML = '<p>Please use the search options on the left panel.</p>';
 }
 
 
 function findCourseNameByNumber(courseNumber) {
-    // Check if the course is available in window.all_course_data
     const courseInData = window.all_course_data.find(course => course.Course_Number === courseNumber.toString());
     
-    // If the course is found in window.all_course_data, return its name
     if (courseInData) {
         return courseInData.Course_Name;
     }
 
-    // If the course is not found in window.all_course_data, use predefined mappings
     const courseNames = {
         "1113": "Programming Principles",
         "1323": "Advanced Programming Principles",
@@ -533,8 +578,6 @@ function attachEventListeners() {
     });
 }
 
-
-
 async function load_page() {
     populateSemesterSelector();
     populateSubjectSelector();
@@ -545,10 +588,10 @@ async function load_page() {
     const subjectSelector = document.getElementById('subject_selector');
 
     if (semesterSelector && subjectSelector) {
-        semesterSelector.value = ""; // Set the default or a specific semester if needed
-        subjectSelector.value = "IT"; // Default to IT
+        semesterSelector.value = ""; 
+        subjectSelector.value = "IT";
 
-        filter_results(); // Filter results on initial load
+        filter_results(); 
     } else {
         if (!semesterSelector) {
             console.error("Semester selector not found.");
@@ -560,5 +603,5 @@ async function load_page() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    showSuggestions('');  // Initialize with empty input to show all IT courses
+    showSuggestions('');  
 });
