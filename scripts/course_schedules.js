@@ -383,6 +383,8 @@ function renderHistoryByCourse(searchQuery, selectedSemester = '') {
                 const headerRow = document.createElement('tr');
                 headerRow.className = 'course_history_header';
                 headerRow.innerHTML = `
+                    <th>Course Number</th>
+                    <th>Title</th>
                     <th>Section</th>
                     <th>Instructor Name</th>
                     <th>Enrollment</th>
@@ -393,6 +395,8 @@ function renderHistoryByCourse(searchQuery, selectedSemester = '') {
                     const row = document.createElement('tr');
                     row.className = 'course_history_row';
                     row.innerHTML = `
+                        <td>${course.PREFIX} ${course.NUMBER}</td>
+                        <td>${findCourseNameByNumber(course.NUMBER)}</td>
                         <td>${course.SECTION}</td>
                         <td>${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}</td>
                         <td>${course.Enrollment}</td>
