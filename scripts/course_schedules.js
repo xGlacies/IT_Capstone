@@ -177,14 +177,16 @@ function populateInstructorFilter() {
     const uniqueInstructors = new Set();
 
     window.all_course_data_history.forEach(course => {
-        console.log(course.Prefix); 
         if (course.PREFIX === 'IT') {
             const fullName = `${course.INSTRUCTOR_FIRST_NAME} ${course.INSTRUCTOR_LAST_NAME}`;
             uniqueInstructors.add(fullName.trim());
         }
     });
 
-    uniqueInstructors.forEach(instructor => {
+    // Convert the set to an array and sort it alphabetically
+    const sortedInstructors = Array.from(uniqueInstructors).sort();
+
+    sortedInstructors.forEach(instructor => {
         const option = document.createElement('option');
         option.value = instructor;
         option.textContent = instructor;
